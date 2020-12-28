@@ -93,7 +93,7 @@ class ProtectedObjectRolesEditForm(AdminEditForm):
                 for manager in role.managers:
                     if manager in principals:
                         widget.mode = INPUT_MODE
-                        continue
+                        break
 
 
 @viewlet_config(name='object-roles.alert', context=IDefaultProtectionPolicy,
