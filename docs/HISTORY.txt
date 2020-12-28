@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.0.1
+-----
+ - small update in protected object roles edit form
+
 1.0.0
 -----
  - initial release
