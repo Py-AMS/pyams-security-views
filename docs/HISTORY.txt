@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.0.2
+-----
+ - updated translation strings
+
 1.0.1
 -----
  - small update in protected object roles edit form
