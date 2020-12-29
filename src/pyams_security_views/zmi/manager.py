@@ -82,7 +82,8 @@ class SecurityRegistrationHeader(AlertMessage):
 
     status = 'info'
 
-    _message = """Open registration can be used when you want external users to be able to \
-    freely register their user account.
-    You then have to select the users folder into which their profile will be stored.
-    THIS CAN BE DANGEROUS! You should enable this feature carefully..."""
+    _message = _("Open registration can be used when you want external users to be able to "
+                 "freely register their user account.\n"
+                 "You then have to select the users folder into which their profile will be "
+                 "stored.\n"
+                 "THIS CAN BE DANGEROUS! You should enable this feature carefully...")

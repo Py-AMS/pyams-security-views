@@ -82,7 +82,6 @@ class SecurityNotificationsHeader(AlertMessage):
 
     status = 'info'
 
-    _message = """Notifications are used to send messages to users during their registration \
-    process.
-    Applications can also send messages during their normal process.
-    """
+    _message = _("Notifications are used to send messages to users during their registration "
+                 "process.\n"
+                 "Applications can also send messages during their normal process.")
