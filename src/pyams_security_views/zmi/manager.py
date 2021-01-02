@@ -15,7 +15,7 @@
 This module provides views and content providers used to manage security manager properties.
 """
 
-from zope.interface import Interface
+from zope.interface import implementer
 
 from pyams_form.ajax import ajax_form_config
 from pyams_form.field import Fields
@@ -24,6 +24,8 @@ from pyams_layer.interfaces import IPyAMSLayer
 from pyams_security.interfaces import ISecurityManager
 from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
 from pyams_security_views.zmi import ISecurityMenu
+from pyams_security_views.zmi.interfaces import ISecurityPropertiesEditForm
+from pyams_security_views.zmi.widget import SecurityManagerPluginsFieldWidget
 from pyams_site.interfaces import ISiteRoot
 from pyams_skin.interfaces.viewlet import IHeaderViewletManager
 from pyams_skin.viewlet.help import AlertMessage
@@ -53,13 +55,19 @@ class SecurityPropertiesMenu(NavigationMenuItem):
 
 @ajax_form_config(name='security-properties.html', context=ISiteRoot,
                   layer=IPyAMSLayer, permission=MANAGE_SECURITY_PERMISSION)
+@implementer(ISecurityPropertiesEditForm)
 class SecurityPropertiesEditForm(AdminEditForm):
     """Security manager properties edit form"""
 
     title = _("Security manager")
     legend = _("Properties")
 
-    fields = Fields(Interface)
+    fields = Fields(ISecurityManager).select('credentials_plugins_names',
+                                             'authentication_plugins_names',
+                                             'directory_plugins_names')
+    fields['credentials_plugins_names'].widget_factory = SecurityManagerPluginsFieldWidget
+    fields['authentication_plugins_names'].widget_factory = SecurityManagerPluginsFieldWidget
+    fields['directory_plugins_names'].widget_factory = SecurityManagerPluginsFieldWidget
 
     def get_content(self):
         return get_utility(ISecurityManager)

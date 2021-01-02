@@ -17,6 +17,8 @@ This module defines public views and viewlet managers interfaces.
 
 from zope.interface import Interface
 
+from pyams_form.interfaces.form import IEditForm
+from pyams_skin.interfaces.widget import IOrderedListWidget
 from pyams_zmi.interfaces.viewlet import INavigationMenuItem
 
 
@@ -33,3 +35,11 @@ class IObjectSecurityMenu(INavigationMenuItem):
 
 class ISecurityManagerView(Interface):
     """Security manager view"""
+
+
+class ISecurityPropertiesEditForm(IEditForm):
+    """Security properties edit form marker interface"""
+
+
+class ISecurityManagerPluginsWidget(IOrderedListWidget):
+    """Security plugins ordering widget"""
