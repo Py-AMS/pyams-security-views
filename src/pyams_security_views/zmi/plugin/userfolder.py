@@ -295,13 +295,13 @@ class LocalUserAddFormRenderer(ContextRequestViewAdapter):
 
     def render(self, changes):
         """AJAX form renderer"""
-        if changes:
-            return {
-                'status': 'success',
-                'message': self.request.localizer.translate(_("New user was created "
-                                                              "successfully!"))
-            }
-        return None
+        if not changes:
+            return None
+        return {
+            'status': 'success',
+            'message': self.request.localizer.translate(_("New user was created "
+                                                          "successfully!"))
+        }
 
 
 class ILocalUserEditFormButtons(IModalEditFormButtons):
