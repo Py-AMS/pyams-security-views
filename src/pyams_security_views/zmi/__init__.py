@@ -132,6 +132,11 @@ class SecurityManagerTableElementEditor(TableElementEditor):
     view_name = 'admin#security-plugins.html'
     modal_target = False
 
+    def __new__(cls, context, request, view):
+        if not request.has_permission(MANAGE_SECURITY_PERMISSION, context):
+            return None
+        return TableElementEditor.__new__(cls)
+
     @property
     def href(self):
         return absolute_url(self.request.root, self.request, self.view_name)
