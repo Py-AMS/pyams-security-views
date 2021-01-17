@@ -78,8 +78,8 @@ class ILoginFormButtons(Interface):
                         title=_("Reset"))
 
 
-class ILoginModalFormButtons(Interface):
-    """Login modal form buttons"""
+class IModalLoginFormButtons(Interface):
+    """Modal login form buttons"""
 
     login = SubmitButton(name='login',
                          title=_("Connect"))
