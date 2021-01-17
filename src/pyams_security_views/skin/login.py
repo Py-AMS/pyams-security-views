@@ -16,6 +16,7 @@ This modules defines login and modal login views.
 These views are automatically associated with Pyramid forbidden views.
 """
 
+from pyramid.csrf import new_csrf_token
 from pyramid.decorator import reify
 from pyramid.events import subscriber
 from pyramid.httpexceptions import HTTPForbidden, HTTPFound
@@ -35,7 +36,7 @@ from pyams_layer.interfaces import IPyAMSLayer, IResources
 from pyams_security.credential import Credentials
 from pyams_security.interfaces import ISecurityManager, LOGIN_REFERER_KEY
 from pyams_security_views.interfaces.login import ILoginConfiguration, ILoginFormButtons, \
-    ILoginFormFields, ILoginView
+    ILoginFormFields, ILoginView, IModalLoginFormButtons
 from pyams_skin.interfaces.view import IModalFullPage, IModalPage
 from pyams_skin.interfaces.viewlet import IFooterViewletManager, IHeaderViewletManager
 from pyams_template.template import template_config
@@ -80,6 +81,10 @@ class LoginForm(AddForm):
     fields = Fields(ILoginFormFields)
     buttons = Buttons(ILoginFormButtons)
 
+    def update(self):
+        super().update()
+        new_csrf_token(self.request)
+
     @handler(buttons['login'])
     def login_handler(self, action):  # pylint: disable=unused-argument
         """Login button handler"""
@@ -110,7 +115,8 @@ class LoginForm(AddForm):
 class ModalLoginForm(LoginForm):
     """Modal login form"""
 
-    modal_class = 'modal-md'
+    modal_class = 'modal-lg'
+    buttons = Buttons(IModalLoginFormButtons)
 
 
 @subscriber(IDataExtractedEvent, form_selector=ILoginView)
