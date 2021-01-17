@@ -133,16 +133,14 @@ Protected object roles edit form
     >>> form = ProtectedObjectRolesEditForm(app, request)
     >>> form.update()
     >>> form.widgets.keys()
-    odict_keys(['managers'])
+    odict_keys(['managers', 'viewers'])
     >>> print(form.widgets['managers'].render())
     <select id="form-widgets-managers"
-                class="form-control select2 select-widget principalssetfield-field"
-                multiple="multiple"
-                size="1"
-                data-ajax--url="/api/security/principals"
-                readonly="readonly">
-    <BLANKLINE>
-    <BLANKLINE>
+            class="form-control select2 select-widget principalssetfield-field"
+            multiple="multiple"
+            size="1"
+            data-ajax--url="/api/security/principals"
+            readonly="readonly">
     </select>
     <input name="form.widgets.managers-empty-marker" type="hidden" value="1"/>
 
