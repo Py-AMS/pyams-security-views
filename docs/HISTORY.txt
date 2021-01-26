@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.2.1
+-----
+ - updated Gitlab-CI configuration
+ - removed Travis-CI configuration
+
 1.2.0
 -----
  - added CSRF token in login view
