@@ -19,6 +19,8 @@ from zope.interface import implementer_only
 from zope.schema.vocabulary import SimpleTerm
 
 from pyams_form.browser.select import SelectWidget
+from pyams_form.converter import SequenceDataConverter
+from pyams_form.interfaces import IDataConverter
 from pyams_form.interfaces.widget import IFieldWidget
 from pyams_form.widget import FieldWidget
 from pyams_layer.interfaces import IFormLayer
@@ -44,6 +46,18 @@ def principal_term_factory(value):
 #
 # Principal widget
 #
+
+@adapter_config(required=(IPrincipalField, IPrincipalWidget),
+                provides=IDataConverter)
+class PrincipalDataConverter(SequenceDataConverter):
+    """Principal data converter"""
+
+    def to_widget_value(self, value):
+        """Value to widget converter"""
+        if isinstance(value, set):
+            value = next(iter(value))
+        return super().to_widget_value(value)
+
 
 @implementer_only(IPrincipalWidget)
 class PrincipalWidget(SelectWidget):
