@@ -65,11 +65,7 @@ class ObjectSecurityMenu(NavigationMenuItem):
 class ProtectedObjectRolesEditForm(AdminEditForm):
     """Protected object roles edit form"""
 
-    @property
-    def title(self):
-        """Form title getter"""
-        return IPageTitle(self.context, None) or _("<unnamed content>")
-
+    title = _("User roles")
     legend = _("Granted object roles")
 
     @property
