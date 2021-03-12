@@ -23,7 +23,7 @@ from pyramid.httpexceptions import HTTPForbidden, HTTPFound
 from pyramid.response import Response
 from pyramid.security import forget, remember
 from pyramid.view import forbidden_view_config, view_config
-from zope.interface import Interface, Invalid, implementer
+from zope.interface import Interface, Invalid, alsoProvides, implementer
 from zope.schema.fieldproperty import FieldProperty
 
 from pyams_form.ajax import ajax_form_config
@@ -41,6 +41,7 @@ from pyams_skin.interfaces.view import IModalFullPage, IModalPage
 from pyams_skin.interfaces.viewlet import IFooterViewletManager, IHeaderViewletManager
 from pyams_template.template import template_config
 from pyams_utils.adapter import ContextRequestViewAdapter, adapter_config
+from pyams_utils.interfaces.data import IObjectData
 from pyams_utils.registry import query_utility
 from pyams_utils.text import text_to_html
 from pyams_viewlet.viewlet import Viewlet, viewlet_config
@@ -69,7 +70,7 @@ def ForbiddenAJAXView(request):  # pylint: disable=invalid-name
 
 
 @ajax_form_config(name='login.html', layer=IPyAMSLayer)  # pylint: disable=abstract-method
-@implementer(IModalFullPage, ILoginView)
+@implementer(IModalFullPage, ILoginView, IObjectData)
 class LoginForm(AddForm):
     """Login form"""
 
@@ -80,6 +81,10 @@ class LoginForm(AddForm):
 
     fields = Fields(ILoginFormFields)
     buttons = Buttons(ILoginFormButtons)
+
+    object_data = {
+        'ams-warn-on-change': False
+    }
 
     def update(self):
         super().update()
