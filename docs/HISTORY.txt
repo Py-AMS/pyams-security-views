@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.3.0
+-----
+ - removed support for Python < 3.7
+ - updated principals search REST API using Colander schemas
+ - added data converter for principal field
+ - removed redirect warning from login view
+ - changed fields order in local users forms
+
 1.2.1
 -----
  - updated Gitlab-CI configuration
