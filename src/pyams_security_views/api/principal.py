@@ -15,6 +15,8 @@
 This module only provides a small Cornice API to search for principals.
 """
 
+import sys
+
 from colander import MappingSchema, SchemaNode, SequenceSchema, String
 from cornice import Service
 from cornice.validators import colander_querystring_validator
@@ -29,6 +31,9 @@ from pyams_utils.registry import query_utility
 __docformat__ = 'restructuredtext'
 
 from pyams_security_views import _
+
+
+TEST_MODE = sys.argv[-1].endswith('/test')
 
 
 class PrincipalsSearchQuerySchema(MappingSchema):
@@ -58,6 +63,12 @@ class PrincipalsSearchResultsSchema(MappingSchema):
 search_responses = {
     HTTPOk.code: PrincipalsSearchResultsSchema(description=_("Search results")),
 }
+if TEST_MODE:
+    service_params = {}
+else:
+    service_params = {
+        'response_schemas': search_responses
+    }
 
 
 service = Service(name=REST_PRINCIPALS_SEARCH_ROUTE,
@@ -68,10 +79,13 @@ service = Service(name=REST_PRINCIPALS_SEARCH_ROUTE,
 @service.get(permission=VIEW_SYSTEM_PERMISSION,
              schema=PrincipalsSearchQuerySchema(),
              validators=(colander_querystring_validator,),
-             response_schemas=search_responses)
+             **service_params)
 def get_principals(request):
     """Returns list of principals matching given query"""
-    query = request.validated.get('term')
+    if TEST_MODE:
+        query = request.params.get('term')
+    else:
+        query = request.validated.get('term')
     if not query:
         return []
     manager = query_utility(ISecurityManager)
