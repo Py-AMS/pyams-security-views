@@ -254,16 +254,16 @@ class LocalUserAddForm(AdminModalAddForm):
     legend = _("Add local user")
 
     fields = Fields(ILocalUser).select('login', 'email', 'firstname', 'lastname',
-                                       'company_name', 'password', 'confirmed_password',
-                                       'password_manager', 'wait_confirmation')
+                                       'company_name', 'password_manager', 'password',
+                                       'confirmed_password', 'wait_confirmation')
     fields['wait_confirmation'].widget_factory = SingleCheckBoxFieldWidget
 
     content_factory = ILocalUser
 
     def update_content(self, obj, data):
         data = data.get(self, {})
-        for attr in ('login', 'email', 'firstname', 'lastname', 'company_name', 'password',
-                     'wait_confirmation'):
+        for attr in ('login', 'email', 'firstname', 'lastname', 'company_name',
+                     'password_manager', 'password', 'wait_confirmation'):
             setattr(obj, attr, data.get(attr))
         obj.self_registered = False
         if obj.wait_confirmation:
@@ -542,7 +542,8 @@ class LocalUserPasswordChangeForm(AdminModalEditForm):
 
     legend = _("Change user password")
 
-    fields = Fields(ILocalUser).select('password', 'confirmed_password', 'password_manager')
+    fields = Fields(ILocalUser).select('password_manager', 'password', 'confirmed_password')
+
 
 
 @subscriber(IDataExtractedEvent, form_selector=LocalUserPasswordChangeForm)
@@ -552,3 +553,5 @@ def extract_local_user_password_form_data(event):
     password = data.get('password')
     if password and (password != data.get('confirmed_password')):
         event.form.widgets.errors += (Invalid(_("User password was not confirmed correctly.")),)
+    else:
+        del data['confirmed_password']
