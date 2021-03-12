@@ -13,3 +13,6 @@
 """PyAMS security views.interfaces module
 
 """
+
+
+REST_PRINCIPALS_SEARCH_ROUTE = 'security.rest.principals'
