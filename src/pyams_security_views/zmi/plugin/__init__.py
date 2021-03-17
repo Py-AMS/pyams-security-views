@@ -57,6 +57,10 @@ class SecurityPluginAddForm(AdminModalAddForm):
     title = _("Security manager")
     content_factory = IPlugin
 
+    object_data = {
+        'ams-warn-on-change': False
+    }
+
     @property
     def fields(self):
         """Form fields getter"""
@@ -79,6 +83,21 @@ def extract_plugin_add_form_data(event):
     sm = get_utility(ISecurityManager)  # pylint: disable=invalid-name
     if data.get('prefix') in sm:
         event.form.widgets.errors += (Invalid(_("Specified prefix is already used!")),)
+
+
+@adapter_config(required=(ISecurityManager, IAdminLayer, SecurityPluginAddForm),
+                provides=IAJAXFormRenderer)
+class SecurityPluginAddFormRenderer(ContextRequestViewAdapter):
+    """Security plug-in add form AJAX renderer"""
+
+    def render(self, changes):
+        """AJAX form renderer"""
+        if changes is None:  # WARNING: creating an empty container will return a "false" value!
+            return None
+        return {
+            'status': 'redirect',
+            'location': self.view.next_url()
+        }
 
 
 @adapter_config(required=IPlugin,
