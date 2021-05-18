@@ -133,7 +133,7 @@ class SecurityManagerTableElementEditor(TableElementEditor):
     modal_target = False
 
     def __new__(cls, context, request, view):
-        if not request.has_permission(MANAGE_SECURITY_PERMISSION, context):
+        if not request.has_permission(MANAGE_SECURITY_PERMISSION, context=context):
             return None
         return TableElementEditor.__new__(cls)
 
