@@ -27,7 +27,7 @@ from pyams_pagelet.pagelet import pagelet_config
 from pyams_security.interfaces import IGroupsFolderPlugin, ILocalGroup, ISecurityManager, \
     IViewContextPermissionChecker
 from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
-from pyams_security_views.zmi import ISecurityManagerView
+from pyams_security_views.zmi import SecurityPluginsTable
 from pyams_security_views.zmi.plugin import SecurityPluginAddForm, SecurityPluginAddMenu, \
     SecurityPluginPropertiesEditForm
 from pyams_site.interfaces import ISiteRoot
@@ -52,7 +52,7 @@ from pyams_security_views import _  # pylint: disable=ungrouped-imports
 
 
 @viewlet_config(name='add-groups-folder-plugin.menu',
-                context=ISiteRoot, layer=IAdminLayer, view=ISecurityManagerView,
+                context=ISiteRoot, layer=IAdminLayer, view=SecurityPluginsTable,
                 manager=IContextAddingsViewletManager, weight=50,
                 permission=MANAGE_SECURITY_PERMISSION)
 class GroupsFolderPluginAddMenu(SecurityPluginAddMenu):
@@ -72,7 +72,8 @@ class GroupsFolderPluginAddForm(SecurityPluginAddForm):
     content_factory = IGroupsFolderPlugin
 
 
-@ajax_form_config(name='properties.html', context=IGroupsFolderPlugin, layer=IPyAMSLayer)
+@ajax_form_config(name='properties.html',
+                  context=IGroupsFolderPlugin, layer=IPyAMSLayer)
 class GroupsFolderPropertiesEditForm(SecurityPluginPropertiesEditForm):
     """Groups folder plug-in properties edit form"""
 
@@ -109,7 +110,8 @@ class GroupsFolderGroupsTrashColumn(TrashColumn):
     permission = MANAGE_SECURITY_PERMISSION
 
 
-@pagelet_config(name='search.html', context=IGroupsFolderPlugin, layer=IPyAMSLayer,
+@pagelet_config(name='search.html',
+                context=IGroupsFolderPlugin, layer=IPyAMSLayer,
                 permission=MANAGE_SECURITY_PERMISSION)
 class GroupsFolderGroupsView(TableAdminView):
     """Groups folders view"""
@@ -130,7 +132,8 @@ class GroupsFolderGroupsView(TableAdminView):
     table_label = _("List of folder groups")
 
 
-@view_config(name='delete-element.json', context=IGroupsFolderPlugin, request_type=IPyAMSLayer,
+@view_config(name='delete-element.json',
+             context=IGroupsFolderPlugin, request_type=IPyAMSLayer,
              permission=MANAGE_SECURITY_PERMISSION, renderer='json', xhr=True)
 def delete_group(request):
     """Delete local group"""
@@ -154,8 +157,9 @@ class LocalGroupPermissionChecker(ContextAdapter):
 # Local groups views
 #
 
-@viewlet_config(name='add-group.action', context=IGroupsFolderPlugin, layer=IAdminLayer,
-                view=GroupsFolderGroupsView, manager=IToolbarViewletManager, weight=10,
+@viewlet_config(name='add-group.action',
+                context=IGroupsFolderPlugin, layer=IAdminLayer,
+                view=GroupsFolderGroupsTable, manager=IToolbarViewletManager, weight=10,
                 permission=MANAGE_SECURITY_PERMISSION)
 class LocalGroupAddAction(ContextAction):
     """Local group add action"""
@@ -168,7 +172,8 @@ class LocalGroupAddAction(ContextAction):
     modal_target = True
 
 
-@ajax_form_config(name='add-group.html', context=IGroupsFolderPlugin, layer=IPyAMSLayer,
+@ajax_form_config(name='add-group.html',
+                  context=IGroupsFolderPlugin, layer=IPyAMSLayer,
                   permission=MANAGE_SECURITY_PERMISSION)
 class LocalGroupAddForm(AdminModalAddForm):
     """Local group add form"""
@@ -218,7 +223,8 @@ class LocalGroupAddFormRenderer(ContextRequestViewAdapter):
         }
 
 
-@ajax_form_config(name='properties.html', context=ILocalGroup, layer=IPyAMSLayer)
+@ajax_form_config(name='properties.html',
+                  context=ILocalGroup, layer=IPyAMSLayer)
 class LocalGroupEditForm(AdminModalEditForm):
     """Local group edit form"""
 

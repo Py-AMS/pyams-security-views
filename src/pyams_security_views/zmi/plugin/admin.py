@@ -19,7 +19,7 @@ from pyams_form.ajax import ajax_form_config
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_security.interfaces import IAdminAuthenticationPlugin, ISecurityManager
 from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
-from pyams_security_views.zmi import ISecurityManagerView
+from pyams_security_views.zmi import SecurityPluginsTable
 from pyams_security_views.zmi.plugin import SecurityPluginAddForm, SecurityPluginAddMenu, \
     SecurityPluginPropertiesEditForm
 from pyams_site.interfaces import ISiteRoot
@@ -36,7 +36,7 @@ from pyams_security_views import _  # pylint: disable=ungrouped-imports
 
 
 @viewlet_config(name='add-admin-authentication-plugin.menu',
-                context=ISiteRoot, layer=IAdminLayer, view=ISecurityManagerView,
+                context=ISiteRoot, layer=IAdminLayer, view=SecurityPluginsTable,
                 manager=IContextAddingsViewletManager, weight=10,
                 permission=MANAGE_SECURITY_PERMISSION)
 class AdminAuthenticationPluginAddMenu(SecurityPluginAddMenu):
