@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.3.2
+-----
+ - added missing "context" argument to permission check
+ - updated add menus registration for last PyAMS_zmi release
+
 1.3.1
 -----
  - updated security plug-ins base add form AJAX renderer
