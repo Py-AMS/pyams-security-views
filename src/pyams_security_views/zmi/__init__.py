@@ -64,7 +64,7 @@ class SecurityPluginsTable(Table):
 
     @property
     def data_attributes(self):
-        attributes = super(SecurityPluginsTable, self).data_attributes
+        attributes = super().data_attributes
         sm = get_utility(ISecurityManager)  # pylint: disable=invalid-name
         attributes['table'].update({
             'data-ams-location': absolute_url(sm, self.request),
@@ -101,7 +101,7 @@ class SecurityPluginSearchColumn(ActionColumn):
 
     def render_cell(self, item):
         if IDirectorySearchPlugin.providedBy(item):
-            return super(SecurityPluginSearchColumn, self).render_cell(item)
+            return super().render_cell(item)
         return ''
 
 
@@ -140,7 +140,7 @@ class SecurityPluginTrashColumn(TrashColumn):
     def has_permission(self, item):
         if item.__name__ in (ADMIN_USER_NAME, INTERNAL_USER_NAME):
             return False
-        return super(SecurityPluginTrashColumn, self).has_permission(item)
+        return super().has_permission(item)
 
 
 @adapter_config(required=(ISecurityManager, IAdminLayer, Interface),
@@ -151,7 +151,7 @@ class SecurityManagerTableElementEditor(TableElementEditor):
     view_name = 'admin#security-plugins.html'
     modal_target = False
 
-    def __new__(cls, context, request, view):
+    def __new__(cls, context, request, view):  # pylint: disable=unused-argument
         if not request.has_permission(MANAGE_SECURITY_PERMISSION, context=context):
             return None
         return TableElementEditor.__new__(cls)

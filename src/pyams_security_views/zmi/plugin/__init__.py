@@ -137,7 +137,7 @@ class SecurityPluginPropertiesEditForm(AdminModalEditForm):
         return fields
 
     def update_widgets(self, prefix=None):
-        super(SecurityPluginPropertiesEditForm, self).update_widgets(prefix)
+        super().update_widgets(prefix)
         if 'prefix' in self.widgets:
             self.widgets['prefix'].mode = DISPLAY_MODE
 

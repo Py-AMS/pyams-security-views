@@ -34,7 +34,7 @@ from pyams_utils.registry import get_utility
 from pyams_viewlet.manager import viewletmanager_config
 from pyams_viewlet.viewlet import viewlet_config
 from pyams_zmi.form import AdminEditForm
-from pyams_zmi.interfaces import IAdminLayer, IPageTitle
+from pyams_zmi.interfaces import IAdminLayer
 from pyams_zmi.interfaces.viewlet import ISiteManagementMenu
 from pyams_zmi.zmi.viewlet.menu import NavigationMenuItem
 
@@ -78,7 +78,7 @@ class ProtectedObjectRolesEditForm(AdminEditForm):
         return fields
 
     def update_widgets(self, prefix=None):
-        super(ProtectedObjectRolesEditForm, self).update_widgets(prefix)
+        super().update_widgets(prefix)
         if self.mode == DISPLAY_MODE:
             return
         principals = self.request.effective_principals

@@ -351,7 +351,7 @@ class LocalUserEditForm(AdminModalEditForm):
     ajax_form_target = None
 
     def update_actions(self):
-        super(LocalUserEditForm, self).update_actions()
+        super().update_actions()
         translate = self.request.localizer.translate
         if 'change_password' in self.actions:
             action = self.actions['change_password']
@@ -374,7 +374,7 @@ class LocalUserEditForm(AdminModalEditForm):
                                       "this account..."))
 
     def update_widgets(self, prefix=None):
-        super(LocalUserEditForm, self).update_widgets(prefix)
+        super().update_widgets(prefix)
         if ('wait_confirmation' in self.widgets) and self.context.activated:
             self.widgets['wait_confirmation'].mode = DISPLAY_MODE
         if 'activation_secret' in self.widgets:
@@ -388,7 +388,7 @@ class LocalUserEditForm(AdminModalEditForm):
 
     @handler(ILocalUserEditFormButtons['apply'])
     def handle_apply(self, action):
-        super(LocalUserEditForm, self).handle_apply(self, action)  # pylint: disable=too-many-function-args
+        super().handle_apply(self, action)  # pylint: disable=too-many-function-args
 
     @handler(ILocalUserEditFormButtons['refresh'])
     def handle_refresh(self, action):

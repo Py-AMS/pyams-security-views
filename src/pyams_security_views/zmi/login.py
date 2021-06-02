@@ -60,7 +60,7 @@ class LoginFormConfigurationForm(AdminEditForm):
         return ILoginConfiguration(self.context)
 
     def update_widgets(self, prefix=None):
-        super(LoginFormConfigurationForm, self).update_widgets(prefix)
+        super().update_widgets(prefix)
         if 'header' in self.widgets:
             self.widgets['header'].set_widgets_attr('rows', 5)
             self.widgets['header'].add_widgets_class('monospace')

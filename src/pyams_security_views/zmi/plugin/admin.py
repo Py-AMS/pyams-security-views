@@ -65,7 +65,7 @@ class AdminAuthenticationPluginPropertiesEditForm(SecurityPluginPropertiesEditFo
     plugin_interface = IAdminAuthenticationPlugin
 
     def update_widgets(self, prefix=None):
-        super(AdminAuthenticationPluginPropertiesEditForm, self).update_widgets(prefix)
+        super().update_widgets(prefix)
         if 'password' in self.widgets:
             alert = AdminAuthenticationPluginPasswordAlert(self.context, self.request, self, None)
             self.widgets['password'].suffix = alert

@@ -30,7 +30,7 @@ from pyams_utils.registry import query_utility
 
 __docformat__ = 'restructuredtext'
 
-from pyams_security_views import _
+from pyams_security_views import _  # pylint: disable=ungrouped-imports
 
 
 TEST_MODE = sys.argv[-1].endswith('/test')
@@ -51,7 +51,7 @@ class PrincipalResultSchema(MappingSchema):
 
 
 class PrincipalsSearchResults(SequenceSchema):
-    """"""
+    """Principals search results interface"""
     result = PrincipalResultSchema()
 
 

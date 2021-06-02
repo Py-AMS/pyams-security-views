@@ -195,7 +195,7 @@ class LocalGroupAddForm(AdminModalAddForm):
 
     def update_content(self, obj, data):
         obj.group_id = data.get(self, {}).get('group_id')
-        return super(LocalGroupAddForm, self).update_content(obj, data)
+        return super().update_content(obj, data)
 
     def add(self, obj):
         self.context[obj.group_id] = obj

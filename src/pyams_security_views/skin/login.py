@@ -23,7 +23,7 @@ from pyramid.httpexceptions import HTTPForbidden, HTTPFound
 from pyramid.response import Response
 from pyramid.security import forget, remember
 from pyramid.view import forbidden_view_config, view_config
-from zope.interface import Interface, Invalid, alsoProvides, implementer
+from zope.interface import Interface, Invalid, implementer
 from zope.schema.fieldproperty import FieldProperty
 
 from pyams_form.ajax import ajax_form_config
@@ -223,7 +223,7 @@ class LoginViewlet(Viewlet):
                 renderer = self.renderer_getter(configuration)  # pylint: disable=no-value-for-parameter
                 if renderer == 'text':
                     self.text_value = value
-                    return super(LoginViewlet, self).render()
+                    return super().render()
                 return text_to_html(value, renderer=renderer)
         return ''
 
