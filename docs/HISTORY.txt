@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.3.3
+-----
+ - updated AJAX forms renderers
+
 1.3.2
 -----
  - added missing "context" argument to permission check
