@@ -34,8 +34,8 @@ from pyams_zmi.helper.container import delete_container_element
 from pyams_zmi.interfaces import IAdminLayer
 from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.interfaces.viewlet import IControlPanelMenu
-from pyams_zmi.table import ActionColumn, NameColumn, Table, TableAdminView, TableElementEditor, \
-    TrashColumn
+from pyams_zmi.table import ActionColumn, IconColumn, NameColumn, Table, TableAdminView, \
+    TableElementEditor, TrashColumn
 from pyams_zmi.zmi.viewlet.menu import NavigationMenuItem
 
 
@@ -59,6 +59,8 @@ class SecurityMenu(NavigationMenuItem):
 
 class SecurityPluginsTable(Table):
     """Security plug-ins table"""
+
+    display_if_empty = True
 
     @property
     def data_attributes(self):
@@ -108,6 +110,23 @@ class SecurityPluginSearchColumn(ActionColumn):
                 provides=IColumn)
 class SecurityPluginNameColumn(NameColumn):
     """Security plug-in name column"""
+
+
+@adapter_config(name='enabled',
+                required=(ISiteRoot, IAdminLayer, SecurityPluginsTable),
+                provides=IColumn)
+class SecurityPluginEnabledColumn(IconColumn):
+    """Local users search trash column"""
+
+    hint = _("Plug-in is disabled")
+    icon_class = 'fa fa-check'
+
+    weight = 90
+
+    @staticmethod
+    def checker(item):
+        """Enabled column checker"""
+        return item.enabled
 
 
 @adapter_config(name='trash',

@@ -30,7 +30,8 @@ from pyams_utils.adapter import ContextAdapter, ContextRequestViewAdapter, adapt
 from pyams_utils.registry import get_utility
 from pyams_utils.url import absolute_url
 from pyams_zmi.form import AdminModalAddForm, AdminModalEditForm
-from pyams_zmi.helper.event import get_json_table_row_refresh_callback
+from pyams_zmi.helper.event import get_json_table_row_add_callback, \
+    get_json_table_row_refresh_callback
 from pyams_zmi.interfaces import IAdminLayer
 from pyams_zmi.interfaces.table import ITableElementEditor, ITableElementName
 from pyams_zmi.table import TableElementEditor
@@ -95,8 +96,10 @@ class SecurityPluginAddFormRenderer(ContextRequestViewAdapter):
         if changes is None:  # WARNING: creating an empty container will return a "false" value!
             return None
         return {
-            'status': 'redirect',
-            'location': self.view.next_url()
+            'callbacks': [
+                get_json_table_row_add_callback(self.request.root, self.request,
+                                                SecurityPluginsTable, changes)
+            ]
         }
 
 

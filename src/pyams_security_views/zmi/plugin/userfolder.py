@@ -42,6 +42,7 @@ from pyams_table.column import GetAttrColumn
 from pyams_table.interfaces import IColumn, IValues
 from pyams_utils.adapter import ContextAdapter, ContextRequestViewAdapter, adapter_config
 from pyams_utils.timezone import tztime
+from pyams_utils.traversing import get_parent
 from pyams_utils.url import absolute_url
 from pyams_viewlet.viewlet import viewlet_config
 from pyams_zmi.form import AdminModalAddForm, AdminModalEditForm
@@ -431,11 +432,11 @@ class LocalUserEditFormApplyActionRenderer(ContextRequestViewAdapter):
         """AJAX form renderer"""
         if not changes:
             return None
-        user = self.view.context
+        folder = get_parent(self.context, IUsersFolderPlugin)
         return {
             'callbacks': [
-                get_json_table_row_refresh_callback(user.__parent__, self.request,
-                                                    LocalUsersSearchResultsTable, user)
+                get_json_table_row_refresh_callback(folder, self.request,
+                                                    LocalUsersSearchResultsTable, self.context)
             ]
         }
 
@@ -450,6 +451,7 @@ class LocalUserEditFormRefreshActionRenderer(ContextRequestViewAdapter):
         """AJAX form renderer"""
         if not changes:
             return None
+        folder = get_parent(self.context, IUsersFolderPlugin)
         return {
             'status': 'success',
             'message': self.request.localizer.translate(_("This profile has been deactivated!"
@@ -457,8 +459,8 @@ class LocalUserEditFormRefreshActionRenderer(ContextRequestViewAdapter):
                                                           "A new activation code has been "
                                                           "created and sent to this user!")),
             'callbacks': [
-                get_json_table_row_refresh_callback(changes.__parent__, self.request,
-                                                    LocalUsersSearchResultsTable, changes)
+                get_json_table_row_refresh_callback(folder, self.request,
+                                                    LocalUsersSearchResultsTable, self.context)
             ]
         }
 
@@ -474,6 +476,7 @@ class LocalUserEditFormEnableActionRenderer(ContextRequestViewAdapter):
         if not changes:
             return None
         translate = self.request.localizer.translate
+        folder = get_parent(self.context, IUsersFolderPlugin)
         return {
             'status': 'success',
             'messagebox': {
@@ -484,8 +487,8 @@ class LocalUserEditFormEnableActionRenderer(ContextRequestViewAdapter):
                 'message': translate(_("User has been enabled and can now log-in!"))
             },
             'callbacks': [
-                get_json_table_row_refresh_callback(changes.__parent__, self.request,
-                                                    LocalUsersSearchResultsTable, changes)
+                get_json_table_row_refresh_callback(folder, self.request,
+                                                    LocalUsersSearchResultsTable, self.context)
             ]
         }
 
@@ -501,6 +504,7 @@ class LocalUserEditFormDisableActionRenderer(ContextRequestViewAdapter):
         if not changes:
             return None
         translate = self.request.localizer.translate
+        folder = get_parent(self.context, IUsersFolderPlugin)
         return {
             'status': 'success',
             'messagebox': {
@@ -511,8 +515,8 @@ class LocalUserEditFormDisableActionRenderer(ContextRequestViewAdapter):
                 'message': translate(_("User has been disabled and can't log in anymore!"))
             },
             'callbacks': [
-                get_json_table_row_refresh_callback(changes.__parent__, self.request,
-                                                    LocalUsersSearchResultsTable, changes)
+                get_json_table_row_refresh_callback(folder, self.request,
+                                                    LocalUsersSearchResultsTable, self.context)
             ]
         }
 
@@ -543,7 +547,6 @@ class LocalUserPasswordChangeForm(AdminModalEditForm):
     legend = _("Change user password")
 
     fields = Fields(ILocalUser).select('password_manager', 'password', 'confirmed_password')
-
 
 
 @subscriber(IDataExtractedEvent, form_selector=LocalUserPasswordChangeForm)

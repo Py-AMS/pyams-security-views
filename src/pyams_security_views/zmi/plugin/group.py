@@ -35,10 +35,13 @@ from pyams_skin.viewlet.actions import ContextAction
 from pyams_table.column import GetAttrColumn
 from pyams_table.interfaces import IColumn
 from pyams_utils.adapter import ContextAdapter, ContextRequestViewAdapter, adapter_config
+from pyams_utils.traversing import get_parent
 from pyams_utils.url import absolute_url
 from pyams_viewlet.viewlet import viewlet_config
 from pyams_zmi.form import AdminModalAddForm, AdminModalEditForm
 from pyams_zmi.helper.container import delete_container_element
+from pyams_zmi.helper.event import get_json_table_row_add_callback, \
+    get_json_table_row_refresh_callback
 from pyams_zmi.interfaces import IAdminLayer
 from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.interfaces.viewlet import IContextAddingsViewletManager, IToolbarViewletManager
@@ -87,6 +90,8 @@ class GroupsFolderPropertiesEditForm(SecurityPluginPropertiesEditForm):
 
 class GroupsFolderGroupsTable(Table):
     """Groups folders table"""
+
+    display_if_empty = True
 
 
 @adapter_config(name='title',
@@ -218,8 +223,10 @@ class LocalGroupAddFormRenderer(ContextRequestViewAdapter):
         if not changes:
             return None
         return {
-            'status': 'reload',
-            'location': self.view.next_url()
+            'callbacks': [
+                get_json_table_row_add_callback(self.context, self.request,
+                                                GroupsFolderGroupsTable, changes)
+            ]
         }
 
 
@@ -236,3 +243,21 @@ class LocalGroupEditForm(AdminModalEditForm):
     legend = _("Group properties")
 
     fields = Fields(ILocalGroup).omit('__parent__', '__name__')
+
+
+@adapter_config(required=(ILocalGroup, IAdminLayer, LocalGroupEditForm),
+                provides=IAJAXFormRenderer)
+class LocalGroupEditFormRenderer(ContextRequestViewAdapter):
+    """Local group edit form AJAX renderer"""
+
+    def render(self, changes):
+        """AJAX form renderer"""
+        if not changes:
+            return None
+        folder = get_parent(self.context, IGroupsFolderPlugin)
+        return {
+            'callbacks': [
+                get_json_table_row_refresh_callback(folder, self.request,
+                                                    GroupsFolderGroupsTable, self.context)
+            ]
+        }
