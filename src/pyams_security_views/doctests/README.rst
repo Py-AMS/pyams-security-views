@@ -139,8 +139,10 @@ Protected object roles edit form
             class="form-control select2 select-widget principalssetfield-field"
             multiple="multiple"
             size="1"
+            data-placeholder="No selected principal"
             data-ajax--url="/api/security/principals"
             readonly="readonly">
+            <option></option>
     </select>
     <input name="form.widgets.managers-empty-marker" type="hidden" value="1"/>
 

@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.4.0
+-----
+ - added default site root permission checker
+ - handle single value in principal widget data converter
+ - use new IObjectLabel interface
+
 1.3.4
 -----
  - pylint cleanup
