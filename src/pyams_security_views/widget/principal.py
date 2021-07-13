@@ -33,6 +33,8 @@ from pyams_utils.registry import get_utility
 
 __docformat__ = 'restructuredtext'
 
+from pyams_security_views import _
+
 
 def principal_term_factory(value):
     """Principal term factory"""
@@ -55,13 +57,18 @@ class PrincipalDataConverter(SequenceDataConverter):
     def to_widget_value(self, value):
         """Value to widget converter"""
         if isinstance(value, set):
-            value = next(iter(value))
+            try:
+                value = next(iter(value))
+            except StopIteration:
+                value = None
         return super().to_widget_value(value)
 
 
 @implementer_only(IPrincipalWidget)
 class PrincipalWidget(SelectWidget):
     """Principal widget"""
+
+    placeholder = _("No selected principal")
 
     ajax_url = '/api/security/principals'
 
