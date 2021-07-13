@@ -32,8 +32,8 @@ from pyams_utils.url import absolute_url
 from pyams_zmi.form import AdminModalAddForm, AdminModalEditForm
 from pyams_zmi.helper.event import get_json_table_row_add_callback, \
     get_json_table_row_refresh_callback
-from pyams_zmi.interfaces import IAdminLayer
-from pyams_zmi.interfaces.table import ITableElementEditor, ITableElementName
+from pyams_zmi.interfaces import IAdminLayer, IObjectLabel
+from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.table import TableElementEditor
 
 
@@ -104,8 +104,8 @@ class SecurityPluginAddFormRenderer(ContextRequestViewAdapter):
 
 
 @adapter_config(required=IPlugin,
-                provides=ITableElementName)
-def security_plugin_name(context):
+                provides=IObjectLabel)
+def security_plugin_label(context):
     """Security plug-in name adapter"""
     return context.title
 
