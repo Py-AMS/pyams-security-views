@@ -34,7 +34,9 @@ from pyams_form.interfaces.form import IAJAXFormRenderer, IDataExtractedEvent
 from pyams_i18n.interfaces import II18n
 from pyams_layer.interfaces import IPyAMSLayer, IResources
 from pyams_security.credential import Credentials
-from pyams_security.interfaces import ISecurityManager, LOGIN_REFERER_KEY
+from pyams_security.interfaces import ISecurityManager, IViewContextPermissionChecker, \
+    LOGIN_REFERER_KEY
+from pyams_security.interfaces.base import PUBLIC_PERMISSION
 from pyams_security_views.interfaces.login import ILoginConfiguration, ILoginFormButtons, \
     ILoginFormFields, ILoginView, IModalLoginFormButtons
 from pyams_skin.interfaces.view import IModalFullPage, IModalPage
@@ -81,6 +83,8 @@ class LoginForm(AddForm):
 
     fields = Fields(ILoginFormFields)
     buttons = Buttons(ILoginFormButtons)
+
+    edit_permission = None
 
     object_data = {
         'ams-warn-on-change': False
