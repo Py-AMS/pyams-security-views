@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.4.1
+-----
+ - remove edit permission on login form
+
 1.4.0
 -----
  - added default site root permission checker
