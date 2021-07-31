@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.5.0
+-----
+ - added security manager label adapter
+ - updated plug-in add and edit forms title
+ - updated package include scan
+
 1.4.1
 -----
  - remove edit permission on login form
