@@ -118,7 +118,7 @@ class SecurityPluginNameColumn(NameColumn):
 class SecurityPluginEnabledColumn(IconColumn):
     """Local users search trash column"""
 
-    hint = _("Plug-in is disabled")
+    hint = _("Plug-in is enabled")
     icon_class = 'fa fa-check'
 
     weight = 90
