@@ -15,7 +15,7 @@
 This module provides views and content providers used to manage security manager properties.
 """
 
-from zope.interface import implementer
+from zope.interface import Interface, implementer
 
 from pyams_form.ajax import ajax_form_config
 from pyams_form.field import Fields
@@ -33,13 +33,20 @@ from pyams_utils.adapter import adapter_config
 from pyams_utils.registry import get_utility
 from pyams_viewlet.viewlet import viewlet_config
 from pyams_zmi.form import AdminEditForm, FormGroupChecker
-from pyams_zmi.interfaces import IAdminLayer
+from pyams_zmi.interfaces import IAdminLayer, IObjectLabel
 from pyams_zmi.zmi.viewlet.menu import NavigationMenuItem
 
 
 __docformat__ = 'restructuredtext'
 
 from pyams_security_views import _  # pylint: disable=ungrouped-imports
+
+
+@adapter_config(required=(ISecurityManager, IAdminLayer, Interface),
+                provides=IObjectLabel)
+def security_manager_label(context, request, view):
+    """Security manager label getter"""
+    return request.localizer.translate(_("Security manager"))
 
 
 @viewlet_config(name='security-properties.menu',
