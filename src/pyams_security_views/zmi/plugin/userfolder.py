@@ -30,11 +30,11 @@ from pyams_form.interfaces.form import IAJAXFormRenderer, IDataExtractedEvent
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_pagelet.pagelet import pagelet_config
 from pyams_security.interfaces import ILocalUser, ISecurityManager, IUsersFolderPlugin, \
-    IViewContextPermissionChecker
+    IViewContextPermissionChecker, USERS_FOLDER_PLUGIN_LABEL
 from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
 from pyams_security_views.zmi import SecurityPluginsTable
-from pyams_security_views.zmi.plugin import SecurityPluginAddForm, SecurityPluginAddMenu, \
-    SecurityPluginPropertiesEditForm
+from pyams_security_views.zmi.plugin import InnerSecurityPluginFormMixin, SecurityPluginAddForm, \
+    SecurityPluginAddMenu, SecurityPluginPropertiesEditForm
 from pyams_site.interfaces import ISiteRoot
 from pyams_skin.schema.button import ActionButton, SubmitButton
 from pyams_skin.viewlet.actions import ContextAction
@@ -78,15 +78,14 @@ class UsersFolderPluginAddMenu(SecurityPluginAddMenu):
 class UsersFolderPluginAddForm(SecurityPluginAddForm):
     """Users folder plug-in add form"""
 
-    legend = _("Add users folder plug-in")
     content_factory = IUsersFolderPlugin
+    content_label = USERS_FOLDER_PLUGIN_LABEL
 
 
 @ajax_form_config(name='properties.html', context=IUsersFolderPlugin, layer=IPyAMSLayer)
 class UsersFolderPropertiesEditForm(SecurityPluginPropertiesEditForm):
     """Users folder plug-in properties edit form"""
 
-    title = _("Users folder plug-in")
     plugin_interface = IUsersFolderPlugin
 
 
@@ -244,13 +243,8 @@ class LocalUserAddAction(ContextAction):
 
 @ajax_form_config(name='add-user.html', context=IUsersFolderPlugin, layer=IPyAMSLayer,
                   permission=MANAGE_SECURITY_PERMISSION)
-class LocalUserAddForm(AdminModalAddForm):
+class LocalUserAddForm(InnerSecurityPluginFormMixin, AdminModalAddForm):
     """Local user add form"""
-
-    @property
-    def title(self):
-        """Form title getter"""
-        return self.context.title
 
     legend = _("Add local user")
 
@@ -324,13 +318,16 @@ class ILocalUserEditFormButtons(IModalEditFormButtons):
 
 
 @ajax_form_config(name='properties.html', context=ILocalUser, layer=IPyAMSLayer)
-class LocalUserEditForm(AdminModalEditForm):
+class LocalUserEditForm(InnerSecurityPluginFormMixin, AdminModalEditForm):
     """Local user edit form"""
 
     @property
     def title(self):
         """Form title getter"""
-        return self.context.title
+        translate = self.request.localizer.translate
+        return '{}<br /><small>{}</small>'.format(
+            super().title,
+            translate(_("User: {}")).format(self.context.title))
 
     legend = _("User properties")
 
@@ -536,13 +533,16 @@ class LocalUserPermissionChecker(ContextAdapter):
 
 @ajax_form_config(name='change-password.html', context=ILocalUser, layer=IPyAMSLayer,
                   permission=MANAGE_SECURITY_PERMISSION)
-class LocalUserPasswordChangeForm(AdminModalEditForm):
+class LocalUserPasswordChangeForm(InnerSecurityPluginFormMixin, AdminModalEditForm):
     """Local user password change form"""
 
     @property
     def title(self):
         """Form title getter"""
-        return self.context.title
+        translate = self.request.localizer.translate
+        return '{}<br /><small>{}</small>'.format(
+            super().title,
+            translate(_("User: {}")).format(self.context.title))
 
     legend = _("Change user password")
 

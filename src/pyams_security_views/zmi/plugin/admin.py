@@ -17,7 +17,8 @@ Internal authentication plug-ins management views.
 
 from pyams_form.ajax import ajax_form_config
 from pyams_layer.interfaces import IPyAMSLayer
-from pyams_security.interfaces import IAdminAuthenticationPlugin, ISecurityManager
+from pyams_security.interfaces import ADMIN_AUTHENTICATION_PLUGIN_LABEL, \
+    IAdminAuthenticationPlugin, ISecurityManager
 from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
 from pyams_security_views.zmi import SecurityPluginsTable
 from pyams_security_views.zmi.plugin import SecurityPluginAddForm, SecurityPluginAddMenu, \
@@ -52,8 +53,8 @@ class AdminAuthenticationPluginAddMenu(SecurityPluginAddMenu):
 class AdminAuthenticationPluginAddForm(SecurityPluginAddForm):
     """Admin authentication plug-in add form"""
 
-    legend = _("Add admin authentication plug-in")
     content_factory = IAdminAuthenticationPlugin
+    content_label = ADMIN_AUTHENTICATION_PLUGIN_LABEL
 
 
 @ajax_form_config(name='properties.html',
@@ -61,7 +62,6 @@ class AdminAuthenticationPluginAddForm(SecurityPluginAddForm):
 class AdminAuthenticationPluginPropertiesEditForm(SecurityPluginPropertiesEditForm):
     """Admin authentication plug-in properties editor adapter"""
 
-    title = _("System authentication plug-in")
     plugin_interface = IAdminAuthenticationPlugin
 
     def update_widgets(self, prefix=None):

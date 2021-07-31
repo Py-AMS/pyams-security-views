@@ -28,6 +28,7 @@ from pyams_security_views.zmi import SecurityPluginsTable
 from pyams_skin.viewlet.menu import MenuItem
 from pyams_utils.adapter import ContextAdapter, ContextRequestViewAdapter, adapter_config
 from pyams_utils.registry import get_utility
+from pyams_utils.traversing import get_parent
 from pyams_utils.url import absolute_url
 from pyams_zmi.form import AdminModalAddForm, AdminModalEditForm
 from pyams_zmi.helper.event import get_json_table_row_add_callback, \
@@ -35,6 +36,7 @@ from pyams_zmi.helper.event import get_json_table_row_add_callback, \
 from pyams_zmi.interfaces import IAdminLayer, IObjectLabel
 from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.table import TableElementEditor
+from pyams_zmi.utils import get_object_label
 
 
 __docformat__ = 'restructuredtext'
@@ -55,8 +57,17 @@ class SecurityPluginAddMenu(MenuItem):
 class SecurityPluginAddForm(AdminModalAddForm):
     """Security plug-in add form"""
 
-    title = _("Security manager")
+    @property
+    def title(self):
+        """Add form title getter"""
+        translate = self.request.localizer.translate
+        return '<small>{}</small><br />{}'.format(
+            get_object_label(self.context, self.request, self),
+            translate(_("New plug-in: {}")).format(translate(self.content_label)))
+
+    legend = _("New plug-in properties")
     content_factory = IPlugin
+    content_label = '--'
 
     object_data = {
         'ams-warn-on-change': False
@@ -110,6 +121,20 @@ def security_plugin_label(context):
     return context.title
 
 
+class InnerSecurityPluginFormMixin:
+    """Inner security plug-in form mixin"""
+
+    @property
+    def title(self):
+        """Form title getter"""
+        translate = self.request.localizer.translate
+        manager = get_utility(ISecurityManager)
+        plugin = get_parent(self.context, IPlugin)
+        return '<small>{}</small><br />{}'.format(
+            get_object_label(manager, self.request, self),
+            translate(_("Plug-in: {}")).format(get_object_label(plugin, self.request, self)))
+
+
 @adapter_config(required=(IPlugin, IAdminLayer, Interface),
                 provides=ITableElementEditor)
 class SecurityPluginEditor(TableElementEditor):
@@ -126,8 +151,20 @@ class SecurityManagerPluginPermissionChecker(ContextAdapter):
 class SecurityPluginPropertiesEditForm(AdminModalEditForm):
     """Security plug-in properties editor adapter"""
 
-    legend = _("Properties")
+    @property
+    def title(self):
+        """Plug-in edit form title getter"""
+        translate = self.request.localizer.translate
+        manager = get_utility(ISecurityManager)
+        plugin = get_parent(self.context, IPlugin)
+        return '<small>{}</small><br />{}'.format(
+            get_object_label(manager, self.request, self),
+            translate(_("Plug-in: {}")).format(get_object_label(plugin, self.request, self)))
+
+    legend = _("Plug-in properties")
+
     plugin_interface = IPlugin
+    content_label = '--'
 
     @property
     def fields(self):

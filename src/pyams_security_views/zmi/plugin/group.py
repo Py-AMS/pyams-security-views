@@ -24,12 +24,12 @@ from pyams_form.field import Fields
 from pyams_form.interfaces.form import IAJAXFormRenderer, IDataExtractedEvent
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_pagelet.pagelet import pagelet_config
-from pyams_security.interfaces import IGroupsFolderPlugin, ILocalGroup, ISecurityManager, \
-    IViewContextPermissionChecker
+from pyams_security.interfaces import GROUPS_FOLDER_PLUGIN_LABEL, IGroupsFolderPlugin, \
+    ILocalGroup, ISecurityManager, IViewContextPermissionChecker
 from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
 from pyams_security_views.zmi import SecurityPluginsTable
-from pyams_security_views.zmi.plugin import SecurityPluginAddForm, SecurityPluginAddMenu, \
-    SecurityPluginPropertiesEditForm
+from pyams_security_views.zmi.plugin import InnerSecurityPluginFormMixin, SecurityPluginAddForm, \
+    SecurityPluginAddMenu, SecurityPluginPropertiesEditForm
 from pyams_site.interfaces import ISiteRoot
 from pyams_skin.viewlet.actions import ContextAction
 from pyams_table.column import GetAttrColumn
@@ -71,8 +71,8 @@ class GroupsFolderPluginAddMenu(SecurityPluginAddMenu):
 class GroupsFolderPluginAddForm(SecurityPluginAddForm):
     """Groups folder plug-in add form"""
 
-    legend = _("Add groups folder plug-in")
     content_factory = IGroupsFolderPlugin
+    content_label = GROUPS_FOLDER_PLUGIN_LABEL
 
 
 @ajax_form_config(name='properties.html',
@@ -80,7 +80,6 @@ class GroupsFolderPluginAddForm(SecurityPluginAddForm):
 class GroupsFolderPropertiesEditForm(SecurityPluginPropertiesEditForm):
     """Groups folder plug-in properties edit form"""
 
-    title = _("Groups folder plug-in")
     plugin_interface = IGroupsFolderPlugin
 
 
@@ -180,13 +179,8 @@ class LocalGroupAddAction(ContextAction):
 @ajax_form_config(name='add-group.html',
                   context=IGroupsFolderPlugin, layer=IPyAMSLayer,
                   permission=MANAGE_SECURITY_PERMISSION)
-class LocalGroupAddForm(AdminModalAddForm):
+class LocalGroupAddForm(InnerSecurityPluginFormMixin, AdminModalAddForm):
     """Local group add form"""
-
-    @property
-    def title(self):
-        """Form title getter"""
-        return self.context.title
 
     legend = _("Add local group")
 
@@ -232,13 +226,16 @@ class LocalGroupAddFormRenderer(ContextRequestViewAdapter):
 
 @ajax_form_config(name='properties.html',
                   context=ILocalGroup, layer=IPyAMSLayer)
-class LocalGroupEditForm(AdminModalEditForm):
+class LocalGroupEditForm(InnerSecurityPluginFormMixin, AdminModalEditForm):
     """Local group edit form"""
 
     @property
     def title(self):
         """Form title getter"""
-        return self.context.title
+        translate = self.request.localizer.translate
+        return '{}<br /><small>{}</small>'.format(
+            super().title,
+            translate(_("Group: {}")).format(self.context.title))
 
     legend = _("Group properties")
 
