@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.6.1
+-----
+ - updated doctests
+
 1.6.0
 -----
  - updated security manager menus
