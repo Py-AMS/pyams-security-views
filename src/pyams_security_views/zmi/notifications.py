@@ -25,7 +25,6 @@ from pyams_security.interfaces import ISecurityManager
 from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
 from pyams_security.interfaces.notification import INotificationSettings
 from pyams_security_views.zmi import ISecurityMenu
-from pyams_site.interfaces import ISiteRoot
 from pyams_skin.interfaces.viewlet import IHeaderViewletManager
 from pyams_skin.viewlet.help import AlertMessage
 from pyams_utils.adapter import adapter_config
@@ -42,7 +41,7 @@ from pyams_security_views import _  # pylint: disable=ungrouped-imports
 
 
 @viewlet_config(name='security-notifications.menu',
-                context=ISiteRoot, layer=IAdminLayer,
+                context=ISecurityManager, layer=IAdminLayer,
                 manager=ISecurityMenu, weight=15,
                 permission=MANAGE_SECURITY_PERMISSION)
 class SecurityNotificationsMenu(NavigationMenuItem):
@@ -52,8 +51,9 @@ class SecurityNotificationsMenu(NavigationMenuItem):
     href = '#security-notifications.html'
 
 
-@ajax_form_config(name='security-notifications.html', context=ISiteRoot,
-                  layer=IPyAMSLayer, permission=MANAGE_SECURITY_PERMISSION)
+@ajax_form_config(name='security-notifications.html',
+                  context=ISecurityManager, layer=IPyAMSLayer,
+                  permission=MANAGE_SECURITY_PERMISSION)
 class SecurityNotificationsEditForm(AdminEditForm):
     """Security notifications edit form"""
 
@@ -66,7 +66,7 @@ class SecurityNotificationsEditForm(AdminEditForm):
 
 
 @adapter_config(name='security-notifications',
-                required=(ISiteRoot, IAdminLayer, SecurityNotificationsEditForm),
+                required=(ISecurityManager, IAdminLayer, SecurityNotificationsEditForm),
                 provides=IGroup)
 class SecurityNotificationsGroup(FormGroupChecker):
     """Security notifications settings group"""
@@ -75,7 +75,7 @@ class SecurityNotificationsGroup(FormGroupChecker):
 
 
 @viewlet_config(name='security-notifications.header',
-                context=ISiteRoot, layer=IAdminLayer, view=SecurityNotificationsGroup,
+                context=ISecurityManager, layer=IAdminLayer, view=SecurityNotificationsGroup,
                 manager=IHeaderViewletManager, weight=1)
 class SecurityNotificationsHeader(AlertMessage):
     """Security notifications header"""

@@ -30,11 +30,11 @@ from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
 from pyams_security_views.zmi import SecurityPluginsTable
 from pyams_security_views.zmi.plugin import InnerSecurityPluginFormMixin, SecurityPluginAddForm, \
     SecurityPluginAddMenu, SecurityPluginPropertiesEditForm
-from pyams_site.interfaces import ISiteRoot
 from pyams_skin.viewlet.actions import ContextAction
 from pyams_table.column import GetAttrColumn
 from pyams_table.interfaces import IColumn
 from pyams_utils.adapter import ContextAdapter, ContextRequestViewAdapter, adapter_config
+from pyams_utils.registry import get_utility
 from pyams_utils.traversing import get_parent
 from pyams_utils.url import absolute_url
 from pyams_viewlet.viewlet import viewlet_config
@@ -55,8 +55,8 @@ from pyams_security_views import _  # pylint: disable=ungrouped-imports
 
 
 @viewlet_config(name='add-groups-folder-plugin.menu',
-                context=ISiteRoot, layer=IAdminLayer, view=SecurityPluginsTable,
-                manager=IContextAddingsViewletManager, weight=50,
+                context=ISecurityManager, layer=IAdminLayer, view=SecurityPluginsTable,
+                manager=IContextAddingsViewletManager, weight=30,
                 permission=MANAGE_SECURITY_PERMISSION)
 class GroupsFolderPluginAddMenu(SecurityPluginAddMenu):
     """Groups folder plug-in add menu"""
@@ -130,7 +130,8 @@ class GroupsFolderGroupsView(TableAdminView):
     @property
     def back_url(self):
         """View back URL getter"""
-        return absolute_url(self.request.root, self.request, 'security-plugins.html')
+        manager = get_utility(ISecurityManager)
+        return absolute_url(manager, self.request, 'security-plugins.html')
 
     table_class = GroupsFolderGroupsTable
     table_label = _("List of folder groups")

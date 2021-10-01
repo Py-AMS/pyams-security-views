@@ -27,9 +27,10 @@ from pyams_security_views.zmi.interfaces import ISecurityManagerView, ISecurityM
 from pyams_site.interfaces import ISiteRoot
 from pyams_table.interfaces import IColumn, IValues
 from pyams_utils.adapter import ContextRequestViewAdapter, adapter_config
-from pyams_utils.registry import get_utility
+from pyams_utils.registry import get_utility, query_utility
 from pyams_utils.url import absolute_url
 from pyams_viewlet.manager import viewletmanager_config
+from pyams_viewlet.viewlet import viewlet_config
 from pyams_zmi.helper.container import delete_container_element
 from pyams_zmi.interfaces import IAdminLayer
 from pyams_zmi.interfaces.table import ITableElementEditor
@@ -44,16 +45,39 @@ __docformat__ = 'restructuredtext'
 from pyams_security_views import _  # pylint: disable=ungrouped-imports
 
 
-@viewletmanager_config(name='security.menu',
-                       context=ISiteRoot, layer=IAdminLayer,
-                       manager=IControlPanelMenu, weight=20,
-                       permission=MANAGE_SECURITY_PERMISSION,
-                       provides=ISecurityMenu)
+@viewlet_config(name='security.menu',
+                context=ISiteRoot, layer=IAdminLayer,
+                manager=IControlPanelMenu, weight=20,
+                permission=MANAGE_SECURITY_PERMISSION)
 class SecurityMenu(NavigationMenuItem):
     """Security menu"""
 
     label = _("Security")
     icon_class = 'fas fa-user-lock'
+
+    def __new__(cls, context, request, view, manager):  # pylint: disable=unused-arguments
+        manager = query_utility(ISecurityManager)
+        if (manager is None) or not manager.show_home_menu:
+            return None
+        return NavigationMenuItem.__new__(cls)
+
+    def get_href(self):
+        """Menu URL getter"""
+        manager = get_utility(ISecurityManager)
+        return absolute_url(manager, self.request, 'admin')
+
+
+@viewletmanager_config(name='security-plugins.menu',
+                       context=ISecurityManager, layer=IAdminLayer,
+                       manager=IControlPanelMenu, weight=10,
+                       permission=MANAGE_SECURITY_PERMISSION,
+                       provides=ISecurityMenu)
+class SecurityPluginsMenu(NavigationMenuItem):
+    """Security plug-ins menu"""
+
+    label = _("Security")
+    icon_class = 'fas fa-user-lock'
+
     href = '#security-plugins.html'
 
 
@@ -73,7 +97,7 @@ class SecurityPluginsTable(Table):
         return attributes
 
 
-@adapter_config(required=(ISiteRoot, IAdminLayer, SecurityPluginsTable),
+@adapter_config(required=(ISecurityManager, IAdminLayer, SecurityPluginsTable),
                 provides=IValues)
 class SecurityPluginsTableValues(ContextRequestViewAdapter):
     """Security plug-ins values adapter"""
@@ -81,12 +105,11 @@ class SecurityPluginsTableValues(ContextRequestViewAdapter):
     @property
     def values(self):
         """Security plugins table values getter"""
-        sm = get_utility(ISecurityManager)  # pylint: disable=invalid-name
-        yield from sm.values()
+        yield from self.context.values()
 
 
 @adapter_config(name='search',
-                required=(ISiteRoot, IAdminLayer, SecurityPluginsTable),
+                required=(ISecurityManager, IAdminLayer, SecurityPluginsTable),
                 provides=IColumn)
 class SecurityPluginSearchColumn(ActionColumn):
     """Security plug-in search column"""
@@ -106,14 +129,14 @@ class SecurityPluginSearchColumn(ActionColumn):
 
 
 @adapter_config(name='name',
-                required=(ISiteRoot, IAdminLayer, SecurityPluginsTable),
+                required=(ISecurityManager, IAdminLayer, SecurityPluginsTable),
                 provides=IColumn)
 class SecurityPluginNameColumn(NameColumn):
     """Security plug-in name column"""
 
 
 @adapter_config(name='enabled',
-                required=(ISiteRoot, IAdminLayer, SecurityPluginsTable),
+                required=(ISecurityManager, IAdminLayer, SecurityPluginsTable),
                 provides=IColumn)
 class SecurityPluginEnabledColumn(IconColumn):
     """Local users search trash column"""
@@ -130,7 +153,7 @@ class SecurityPluginEnabledColumn(IconColumn):
 
 
 @adapter_config(name='trash',
-                required=(ISiteRoot, IAdminLayer, SecurityPluginsTable),
+                required=(ISecurityManager, IAdminLayer, SecurityPluginsTable),
                 provides=IColumn)
 class SecurityPluginTrashColumn(TrashColumn):
     """Security plug-in trash column"""
@@ -156,12 +179,9 @@ class SecurityManagerTableElementEditor(TableElementEditor):
             return None
         return TableElementEditor.__new__(cls)
 
-    @property
-    def href(self):
-        return absolute_url(self.request.root, self.request, self.view_name)
 
-
-@pagelet_config(name='security-plugins.html', context=ISiteRoot, layer=IPyAMSLayer,
+@pagelet_config(name='security-plugins.html',
+                context=ISecurityManager, layer=IPyAMSLayer,
                 permission=MANAGE_SECURITY_PERMISSION)
 @implementer(ISecurityManagerView)
 class SecurityPluginsView(TableAdminView):
@@ -172,7 +192,8 @@ class SecurityPluginsView(TableAdminView):
     table_label = _("List of security plug-ins")
 
 
-@view_config(name='delete-element.json', context=ISecurityManager, request_type=IPyAMSLayer,
+@view_config(name='delete-element.json',
+             context=ISecurityManager, request_type=IPyAMSLayer,
              permission=MANAGE_SECURITY_PERMISSION, renderer='json', xhr=True)
 def delete_security_plugin(request):
     """Delete security plugin"""

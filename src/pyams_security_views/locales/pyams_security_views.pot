@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2021-07-24 22:19+0200\n"
+"POT-Creation-Date: 2021-09-30 16:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,7 +57,7 @@ msgid "Text renderer used for the footer"
 msgstr ""
 
 #: ./src/pyams_security_views/interfaces/login.py:66
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:139
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:141
 msgid "Login"
 msgstr ""
 
@@ -95,16 +95,16 @@ msgid "Results list"
 msgstr ""
 
 #: ./src/pyams_security_views/api/principal.py:64
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:215
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:217
 msgid "Search results"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/notifications.py:51
+#: ./src/pyams_security_views/zmi/notifications.py:50
 msgid "Notifications"
 msgstr ""
 
 #: ./src/pyams_security_views/zmi/notifications.py:60
-#: ./src/pyams_security_views/zmi/manager.py:49
+#: ./src/pyams_security_views/zmi/manager.py:48
 #: ./src/pyams_security_views/zmi/manager.py:69
 #: ./src/pyams_security_views/zmi/policy.py:130
 msgid "Security manager"
@@ -128,16 +128,20 @@ msgstr ""
 msgid "Form properties"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/manager.py:59
+#: ./src/pyams_security_views/zmi/manager.py:58
 #: ./src/pyams_security_views/zmi/manager.py:70
 msgid "Properties"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/manager.py:100
+#: ./src/pyams_security_views/zmi/manager.py:97
 msgid ""
 "Open registration can be used when you want external users to be able to freely register their user account.\n"
 "You then have to select the users folder into which their profile will be stored.\n"
 "THIS CAN BE DANGEROUS! You should enable this feature carefully..."
+msgstr ""
+
+#: ./src/pyams_security_views/zmi/manager.py:110
+msgid "Management interface"
 msgstr ""
 
 #: ./src/pyams_security_views/zmi/policy.py:58
@@ -162,22 +166,23 @@ msgid "Security policy management"
 msgstr ""
 
 #: ./src/pyams_security_views/zmi/__init__.py:55
+#: ./src/pyams_security_views/zmi/__init__.py:78
 msgid "Security"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/__init__.py:94
+#: ./src/pyams_security_views/zmi/__init__.py:117
 msgid "Search into folder"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/__init__.py:121
+#: ./src/pyams_security_views/zmi/__init__.py:144
 msgid "Plug-in is enabled"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/__init__.py:170
+#: ./src/pyams_security_views/zmi/__init__.py:190
 msgid "Security plug-ins"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/__init__.py:172
+#: ./src/pyams_security_views/zmi/__init__.py:192
 msgid "List of security plug-ins"
 msgstr ""
 
@@ -186,33 +191,33 @@ msgid "Add groups folder..."
 msgstr ""
 
 #: ./src/pyams_security_views/zmi/plugin/group.py:102
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:151
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:153
 msgid "Title"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/group.py:136
+#: ./src/pyams_security_views/zmi/plugin/group.py:137
 msgid "List of folder groups"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/group.py:171
+#: ./src/pyams_security_views/zmi/plugin/group.py:172
 msgid "Add group"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/group.py:185
+#: ./src/pyams_security_views/zmi/plugin/group.py:186
 msgid "Add local group"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/group.py:207
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:280
+#: ./src/pyams_security_views/zmi/plugin/group.py:208
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:282
 msgid "Specified login is already used."
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/group.py:238
+#: ./src/pyams_security_views/zmi/plugin/group.py:239
 #, python-format
 msgid "Group: {}"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/group.py:240
+#: ./src/pyams_security_views/zmi/plugin/group.py:241
 msgid "Group properties"
 msgstr ""
 
@@ -239,21 +244,21 @@ msgstr ""
 msgid "Plug-in properties"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/admin.py:46
+#: ./src/pyams_security_views/zmi/plugin/admin.py:45
 msgid "Add admin authentication..."
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/admin.py:83
+#: ./src/pyams_security_views/zmi/plugin/admin.py:82
 msgid "Warning!"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/admin.py:84
+#: ./src/pyams_security_views/zmi/plugin/admin.py:83
 msgid ""
 "Before disabling plug-in, you should verify that you have other "
 "administration access!"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/admin.py:93
+#: ./src/pyams_security_views/zmi/plugin/admin.py:92
 msgid ""
 "<strong>Be careful to redefine the password when using some browsers which "
 "are forcing autocompletion!!!</strong><br />Clearing the password will keep "
@@ -262,103 +267,104 @@ msgid ""
 msgstr ""
 
 #: ./src/pyams_security_views/zmi/plugin/userfolder.py:71
-msgid "Add users folder..."
+msgid "Add local users folder..."
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:99
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:112
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:100
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:114
 msgid "Users search form"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:163
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:165
 msgid "Mail address"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:175
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:177
 msgid "Account has password set"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:192
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:194
 msgid "Account is activated"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:236
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:238
 msgid "Add user"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:249
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:251
 msgid "Add local user"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:283
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:555
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:285
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:560
 msgid "User password was not confirmed correctly."
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:297
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:299
 msgid "New user was created successfully!"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:306
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:308
 msgid "Change password"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:309
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:311
 msgid "Refresh secret"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:312
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:314
 msgid "Enable"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:316
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:318
 msgid "Disable"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:330
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:332
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:547
 #, python-format
 msgid "User: {}"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:332
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:334
 msgid "User properties"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:361
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:363
 msgid "Refresh activation secret and send a new activation link to this user"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:366
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:368
 msgid "Re-enable user profile"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:370
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:372
 msgid "Disable user profile temporarily will forbid login with this account..."
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:454
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:456
 msgid ""
 "This profile has been deactivated!<br /> A new activation code has been "
 "created and sent to this user!"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:482
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:484
 msgid "Enabled user!"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:484
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:486
 msgid "User has been enabled and can now log-in!"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:510
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:512
 msgid "Disabled user!"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:512
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:514
 msgid "User has been disabled and can't log in anymore!"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:544
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:549
 msgid "Change user password"
 msgstr ""
 

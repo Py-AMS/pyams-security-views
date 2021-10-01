@@ -85,7 +85,7 @@ class SecurityPluginAddForm(AdminModalAddForm):
         sm[obj.prefix] = obj
 
     def next_url(self):
-        return absolute_url(self.request.root, self.request, 'admin#security-plugins.html')
+        return absolute_url(self.context, self.request, 'admin#security-plugins.html')
 
 
 @subscriber(IDataExtractedEvent, form_selector=SecurityPluginAddForm)
