@@ -64,7 +64,7 @@ Security manager properties edit form
     >>> alsoProvides(request, IAdminLayer)
 
     >>> from pyams_security_views.zmi.manager import SecurityPropertiesEditForm
-    >>> form = SecurityPropertiesEditForm(app, request)
+    >>> form = SecurityPropertiesEditForm(sm, request)
     >>> form.update()
     >>> form.widgets.keys()
     odict_keys(['credentials_plugins_names', 'authentication_plugins_names', 'directory_plugins_names'])
