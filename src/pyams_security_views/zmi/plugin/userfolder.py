@@ -36,7 +36,7 @@ from pyams_security_views.zmi import SecurityPluginsTable
 from pyams_security_views.zmi.plugin import InnerSecurityPluginFormMixin, SecurityPluginAddForm, \
     SecurityPluginAddMenu, SecurityPluginPropertiesEditForm
 from pyams_skin.schema.button import ActionButton, SubmitButton
-from pyams_skin.viewlet.actions import ContextAction
+from pyams_skin.viewlet.actions import ContextAddAction
 from pyams_table.column import GetAttrColumn
 from pyams_table.interfaces import IColumn, IValues
 from pyams_utils.adapter import ContextAdapter, ContextRequestViewAdapter, adapter_config
@@ -232,15 +232,11 @@ def delete_local_user(request):
 @viewlet_config(name='add-user.action', context=IUsersFolderPlugin, layer=IAdminLayer,
                 view=LocalUsersSearchForm, manager=IToolbarViewletManager, weight=10,
                 permission=MANAGE_SECURITY_PERMISSION)
-class LocalUserAddAction(ContextAction):
+class LocalUserAddAction(ContextAddAction):
     """Local user add action"""
 
     label = _("Add user")
-    status = 'success'
-    icon_class = 'fas fa-plus'
-
     href = 'add-user.html'
-    modal_target = True
 
 
 @ajax_form_config(name='add-user.html', context=IUsersFolderPlugin, layer=IPyAMSLayer,
