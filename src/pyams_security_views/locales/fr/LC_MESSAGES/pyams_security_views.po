@@ -157,7 +157,7 @@ msgstr ""
 
 #: src/pyams_security_views/zmi/manager.py:110
 msgid "Management interface"
-msgstr ""
+msgstr "Interface d'administration"
 
 #: src/pyams_security_views/zmi/policy.py:58
 #: src/pyams_security_views/zmi/policy.py:68
