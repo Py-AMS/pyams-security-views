@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.6.3
+-----
+ - renamed variable to remove Pylint/Sonar "bug"
+
 1.6.2
 -----
  - use new context add action
