@@ -56,15 +56,15 @@ class SecurityMenu(NavigationMenuItem):
     icon_class = 'fas fa-user-lock'
 
     def __new__(cls, context, request, view, manager):  # pylint: disable=unused-arguments
-        manager = query_utility(ISecurityManager)
-        if (manager is None) or not manager.show_home_menu:
+        sm = query_utility(ISecurityManager)  # pylint: disable=invalid-name
+        if (sm is None) or not sm.show_home_menu:
             return None
         return NavigationMenuItem.__new__(cls)
 
     def get_href(self):
         """Menu URL getter"""
-        manager = get_utility(ISecurityManager)
-        return absolute_url(manager, self.request, 'admin')
+        sm = get_utility(ISecurityManager)  # pylint: disable=invalid-name
+        return absolute_url(sm, self.request, 'admin')
 
 
 @viewletmanager_config(name='security-plugins.menu',
