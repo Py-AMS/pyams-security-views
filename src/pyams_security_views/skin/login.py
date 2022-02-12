@@ -30,6 +30,7 @@ from pyams_form.ajax import ajax_form_config
 from pyams_form.button import Buttons, handler
 from pyams_form.field import Fields
 from pyams_form.form import AddForm
+from pyams_form.interfaces import HIDDEN_MODE
 from pyams_form.interfaces.form import IAJAXFormRenderer, IDataExtractedEvent
 from pyams_i18n.interfaces import II18n
 from pyams_layer.interfaces import IPyAMSLayer, IResources
@@ -76,6 +77,7 @@ def ForbiddenAJAXView(request):  # pylint: disable=invalid-name
 class LoginForm(AddForm):
     """Login form"""
 
+    prefix = 'login_form.'
     title = _("You must authenticate")
     legend = _("Please enter valid credentials")
 
@@ -87,12 +89,20 @@ class LoginForm(AddForm):
     edit_permission = None
 
     object_data = {
-        'ams-warn-on-change': False
+        'ams-warn-on-change': False,
+        'ams-modules': 'callbacks helpers',
+        'ams-callback': 'MyAMS.helpers.setLoginHash'
     }
 
     def update(self):
         super().update()
         new_csrf_token(self.request)
+
+    def update_widgets(self, prefix=None):
+        super().update_widgets(prefix)
+        hash = self.widgets.get('hash')
+        if hash is not None:
+            hash.mode = HIDDEN_MODE
 
     @handler(buttons['login'])
     def login_handler(self, action):  # pylint: disable=unused-argument
@@ -110,11 +120,12 @@ class LoginForm(AddForm):
             if not self.request.is_xhr:
                 response.status_code = 302
                 session = request.session
+                hash = data.get('hash', '')
                 if LOGIN_REFERER_KEY in session:
-                    response.location = session[LOGIN_REFERER_KEY]
+                    response.location = f'{session[LOGIN_REFERER_KEY]}{hash}'
                     del session[LOGIN_REFERER_KEY]
                 else:
-                    response.location = '/'
+                    response.location = f'/{hash}'
             return response
         return None
 
@@ -155,12 +166,13 @@ class LoginFormAJAXRenderer(ContextRequestViewAdapter):
     def render(self, changes):  # pylint: disable=unused-argument
         """AJAX form renderer"""
         status = {'status': 'redirect'}
+        hash = self.request.params.get('login_form.widgets.hash', '')
         session = self.request.session
         if LOGIN_REFERER_KEY in session:
-            status['location'] = session[LOGIN_REFERER_KEY] or '/'
+            status['location'] = f"{session[LOGIN_REFERER_KEY] or '/'}{hash}"
             del session[LOGIN_REFERER_KEY]
         else:
-            status['location'] = '/'
+            status['location'] = f'/{hash}'
         return status
 
 

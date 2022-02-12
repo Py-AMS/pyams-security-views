@@ -63,6 +63,9 @@ class ILoginView(Interface):
 class ILoginFormFields(Interface):
     """Login form fields"""
 
+    hash = TextLine(title=_("Redirection hash"),
+                    required=False)
+
     login = TextLine(title=_("Login"))
 
     password = Password(title=_("Password"))

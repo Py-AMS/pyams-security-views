@@ -179,18 +179,86 @@ Login form
     >>> from pyams_layer.interfaces import IPyAMSLayer
     >>> from pyams_security_views.skin.login import LoginForm
     >>> request = DummyRequest(is_xhr=False, params={
-    ...     'form.widgets.login': 'admin',
-    ...     'form.widgets.password': 'admin',
-    ...     'form.buttons.login': 'Connect'
+    ...     'login_form.widgets.login': 'admin',
+    ...     'login_form.widgets.password': 'admin',
+    ...     'login_form.buttons.login': 'Connect'
     ... })
     >>> alsoProvides(request, IPyAMSLayer)
     >>> form = LoginForm(app, request)
     >>> form.update()
     >>> form.widgets.keys()
-    odict_keys(['login', 'password'])
+    odict_keys(['hash', 'login', 'password'])
 
     >>> output = form.render()
-
+    >>> print(output)
+    <section class="rounded-lg"
+             data-ams-modules="form plugins">
+        <h2 class="bg-secondary-modal d-flex flex-wrap pl-3 py-2-modal">
+            <span class="flex-grow-1">You must authenticate</span>
+        </h2>
+        <form class="ams-form "
+              id="login_form"
+              name="login_form"
+              action="http://example.com"
+              method="post"
+              data-async
+              data-ams-data='{"ams-warn-on-change": false, "ams-modules": "callbacks helpers", "ams-callback": "MyAMS.helpers.setLoginHash"}'>
+            <fieldset
+                class="border">
+                <legend>Please enter valid credentials</legend>
+                <input type="hidden"
+                       id="login_form-widgets-hash"
+                       name="login_form.widgets.hash"
+                       value=""
+                       class="hidden-widget" />
+                <div class="form-group widget-group row">
+                    <label for="login_form-widgets-login"
+                           class="col-form-label text-sm-right col-sm-3 col-md-4 required">
+                        Login
+                    </label>
+                    <div class="col-sm-9 col-md-8">
+                        <div class="form-widget ">
+                            <input type="text"
+                                   id="login_form-widgets-login"
+                                   name="login_form.widgets.login"
+                                   class="form-control text-widget required textline-field"
+                                   value="admin" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group widget-group row">
+                    <label for="login_form-widgets-password"
+                           class="col-form-label text-sm-right col-sm-3 col-md-4 required">
+                        Password
+                    </label>
+                    <div class="col-sm-9 col-md-8">
+                        <div class="form-widget ">
+                            <input type="password"
+                                   id="login_form-widgets-password"
+                                   name="login_form.widgets.password"
+                                   class="form-control password-widget required password-field"
+                                   value="*****"/>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <footer>
+                <button
+                    type="submit"
+                    id="login_form-buttons-login"
+                    name="login_form.buttons.login"
+                    class="btn btn-primary submit-widget submitbutton-field "
+                    value="Connect"
+                    data-loading-test="Connect...">Connect</button>
+                <button
+                    type="reset"
+                    id="login_form-buttons-reset"
+                    name="login_form.buttons.reset"
+                    class="btn btn-light submit-widget resetbutton-field"
+                    value="Reset">Reset</button>
+            </footer>
+        </form>
+    </section>
 
 Tests cleanup:
 
