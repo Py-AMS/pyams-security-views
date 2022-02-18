@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.7.0
+-----
+ - keep location hash when redirecting to log in form
+ - grant access to object roles view to all authenticated users
+
 1.6.3
 -----
  - renamed variable to remove Pylint/Sonar "bug"
