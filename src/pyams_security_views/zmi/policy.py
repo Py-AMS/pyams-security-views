@@ -25,8 +25,8 @@ from pyams_form.field import Fields
 from pyams_form.interfaces import DISPLAY_MODE, INPUT_MODE
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_security.interfaces import IDefaultProtectionPolicy, IProtectedObject, IRolesPolicy
-from pyams_security.interfaces.base import IRole, MANAGE_ROLES_PERMISSION, \
-    MANAGE_SECURITY_PERMISSION
+from pyams_security.interfaces.base import IRole, MANAGE_SECURITY_PERMISSION, \
+    VIEW_SYSTEM_PERMISSION
 from pyams_security_views.zmi.interfaces import IObjectSecurityMenu
 from pyams_skin.interfaces.viewlet import IHelpViewletManager
 from pyams_skin.viewlet.help import AlertMessage
@@ -50,7 +50,7 @@ from pyams_security_views import _  # pylint: disable=ungrouped-imports
 
 @viewletmanager_config(name='object-roles.menu', context=IDefaultProtectionPolicy,
                        layer=IAdminLayer, manager=ISiteManagementMenu, weight=900,
-                       permission=MANAGE_ROLES_PERMISSION,
+                       permission=VIEW_SYSTEM_PERMISSION,
                        provides=IObjectSecurityMenu)
 class ObjectSecurityMenu(NavigationMenuItem):
     """Object security menu"""
@@ -61,7 +61,7 @@ class ObjectSecurityMenu(NavigationMenuItem):
 
 
 @ajax_form_config(name='object-roles.html', context=IDefaultProtectionPolicy,
-                  layer=IPyAMSLayer, permission=MANAGE_ROLES_PERMISSION)
+                  layer=IPyAMSLayer, permission=VIEW_SYSTEM_PERMISSION)
 class ProtectedObjectRolesEditForm(AdminEditForm):
     """Protected object roles edit form"""
 
