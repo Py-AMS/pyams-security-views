@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.7.1
+-----
+ - updated principal widget separator to handle principals containing "," in their ID (like in
+   LDAP DNs)
+
 1.7.0
 -----
  - keep location hash when redirecting to log in form
