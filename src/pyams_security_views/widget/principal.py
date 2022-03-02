@@ -69,6 +69,7 @@ class PrincipalWidget(SelectWidget):
     """Principal widget"""
 
     placeholder = _("No selected principal")
+    separator = '|'
 
     ajax_url = '/api/security/principals'
 
