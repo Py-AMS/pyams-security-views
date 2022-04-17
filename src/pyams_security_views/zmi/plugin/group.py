@@ -24,9 +24,10 @@ from pyams_form.field import Fields
 from pyams_form.interfaces.form import IAJAXFormRenderer, IDataExtractedEvent
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_pagelet.pagelet import pagelet_config
-from pyams_security.interfaces import GROUPS_FOLDER_PLUGIN_LABEL, IGroupsFolderPlugin, \
-    ILocalGroup, ISecurityManager, IViewContextPermissionChecker
+from pyams_security.interfaces import ISecurityManager, IViewContextPermissionChecker
 from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
+from pyams_security.interfaces.plugin import GROUPS_FOLDER_PLUGIN_LABEL, IGroupsFolderPlugin, \
+    ILocalGroup
 from pyams_security_views.zmi import SecurityPluginsTable
 from pyams_security_views.zmi.plugin import InnerSecurityPluginFormMixin, SecurityPluginAddForm, \
     SecurityPluginAddMenu, SecurityPluginPropertiesEditForm

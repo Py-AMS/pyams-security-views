@@ -16,7 +16,6 @@ Local users management views.
 """
 
 from datetime import datetime
-
 from pyramid.events import subscriber
 from pyramid.view import view_config
 from zope.interface import Interface, Invalid
@@ -29,9 +28,10 @@ from pyams_form.interfaces import DISPLAY_MODE
 from pyams_form.interfaces.form import IAJAXFormRenderer, IDataExtractedEvent
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_pagelet.pagelet import pagelet_config
-from pyams_security.interfaces import ILocalUser, ISecurityManager, IUsersFolderPlugin, \
-    IViewContextPermissionChecker, USERS_FOLDER_PLUGIN_LABEL
+from pyams_security.interfaces import ISecurityManager, IViewContextPermissionChecker
 from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
+from pyams_security.interfaces.plugin import ILocalUser, IUsersFolderPlugin, \
+    USERS_FOLDER_PLUGIN_LABEL
 from pyams_security_views.zmi import SecurityPluginsTable
 from pyams_security_views.zmi.plugin import InnerSecurityPluginFormMixin, SecurityPluginAddForm, \
     SecurityPluginAddMenu, SecurityPluginPropertiesEditForm

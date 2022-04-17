@@ -17,9 +17,10 @@ Internal authentication plug-ins management views.
 
 from pyams_form.ajax import ajax_form_config
 from pyams_layer.interfaces import IPyAMSLayer
-from pyams_security.interfaces import ADMIN_AUTHENTICATION_PLUGIN_LABEL, \
-    IAdminAuthenticationPlugin, ISecurityManager
+from pyams_security.interfaces import ISecurityManager
 from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
+from pyams_security.interfaces.plugin import ADMIN_AUTHENTICATION_PLUGIN_LABEL, \
+    IAdminAuthenticationPlugin
 from pyams_security_views.zmi import SecurityPluginsTable
 from pyams_security_views.zmi.plugin import SecurityPluginAddForm, SecurityPluginAddMenu, \
     SecurityPluginPropertiesEditForm

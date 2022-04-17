@@ -20,9 +20,10 @@ from zope.interface import Interface, implementer
 
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_pagelet.pagelet import pagelet_config
-from pyams_security.interfaces import ADMIN_USER_NAME, IDirectorySearchPlugin, \
-    INTERNAL_USER_NAME, ISecurityManager
+from pyams_security.interfaces import ISecurityManager
 from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
+from pyams_security.interfaces.names import ADMIN_USER_NAME, INTERNAL_USER_NAME
+from pyams_security.interfaces.plugin import IDirectorySearchPlugin
 from pyams_security_views.zmi.interfaces import ISecurityManagerView, ISecurityMenu
 from pyams_site.interfaces import ISiteRoot
 from pyams_table.interfaces import IColumn, IValues
