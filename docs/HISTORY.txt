@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.7.2
+-----
+ - PyAMS_security interfaces refactoring
+ - added support for Python 3.10
+
 1.7.1
 -----
  - updated principal widget separator to handle principals containing "," in their ID (like in
