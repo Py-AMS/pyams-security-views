@@ -77,6 +77,13 @@ service = Service(name=REST_PRINCIPALS_SEARCH_ROUTE,
                   description="Principals management")
 
 
+@service.options(validators=(check_cors_origin, set_cors_headers),
+                 **service_params)
+def principals_options(request):  # pylint: disable=unused-argument
+    """Principals service options"""
+    return ''
+
+
 @service.get(permission=VIEW_SYSTEM_PERMISSION,
              schema=PrincipalsSearchQuerySchema(),
              validators=(check_cors_origin, colander_querystring_validator, set_cors_headers),
