@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.8.0
+-----
+ - added OPTIONS handler to REST services
+ - added CORS validators to principals REST service
+ - added CORS security configuration form
+
 1.7.2
 -----
  - PyAMS_security interfaces refactoring
