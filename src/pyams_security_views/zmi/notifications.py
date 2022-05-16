@@ -57,7 +57,7 @@ class SecurityNotificationsMenu(NavigationMenuItem):
 class SecurityNotificationsEditForm(AdminEditForm):
     """Security notifications edit form"""
 
-    title = _("Security manager")
+    title = _("Notifications settings")
 
     fields = Fields(Interface)
 
