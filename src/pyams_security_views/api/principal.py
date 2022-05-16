@@ -24,6 +24,7 @@ from pyramid.httpexceptions import HTTPOk
 
 from pyams_security.interfaces import ISecurityManager
 from pyams_security.interfaces.base import VIEW_SYSTEM_PERMISSION
+from pyams_security.rest import check_cors_origin, set_cors_headers
 from pyams_security_views.interfaces import REST_PRINCIPALS_SEARCH_ROUTE
 from pyams_utils.registry import query_utility
 
@@ -78,7 +79,7 @@ service = Service(name=REST_PRINCIPALS_SEARCH_ROUTE,
 
 @service.get(permission=VIEW_SYSTEM_PERMISSION,
              schema=PrincipalsSearchQuerySchema(),
-             validators=(colander_querystring_validator,),
+             validators=(check_cors_origin, colander_querystring_validator, set_cors_headers),
              **service_params)
 def get_principals(request):
     """Returns list of principals matching given query"""
