@@ -188,5 +188,6 @@ class SecurityPluginPropertiesAJAXRenderer(ContextRequestViewAdapter):
         """AJAX form renderer"""
         if not changes:
             return None
-        return get_json_table_row_refresh_callback(self.request.root, self.request,
+        sm = get_utility(ISecurityManager)  # pylint: disable=invalid-name
+        return get_json_table_row_refresh_callback(sm, self.request,
                                                    SecurityPluginsTable, self.context)
