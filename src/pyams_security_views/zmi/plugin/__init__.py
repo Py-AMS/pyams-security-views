@@ -106,9 +106,10 @@ class SecurityPluginAddFormRenderer(ContextRequestViewAdapter):
         """AJAX form renderer"""
         if changes is None:  # WARNING: creating an empty container will return a "false" value!
             return None
+        sm = get_utility(ISecurityManager)  # pylint: disable=invalid-name
         return {
             'callbacks': [
-                get_json_table_row_add_callback(self.request.root, self.request,
+                get_json_table_row_add_callback(sm, self.request,
                                                 SecurityPluginsTable, changes)
             ]
         }
