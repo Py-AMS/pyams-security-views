@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.8.1
+-----
+ - updated security plugin edit form AJAX renderer
+
 1.8.0
 -----
  - added OPTIONS handler to REST services
