@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.8.2
+-----
+ - updated security plugin add form AJAX renderer
+
 1.8.1
 -----
  - updated security plugin edit form AJAX renderer
