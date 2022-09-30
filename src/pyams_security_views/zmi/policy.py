@@ -33,9 +33,10 @@ from pyams_skin.viewlet.help import AlertMessage
 from pyams_utils.registry import get_utility
 from pyams_viewlet.manager import viewletmanager_config
 from pyams_viewlet.viewlet import viewlet_config
-from pyams_zmi.form import AdminEditForm
+from pyams_zmi.form import AdminEditForm, AdminModalEditForm
 from pyams_zmi.interfaces import IAdminLayer
 from pyams_zmi.interfaces.viewlet import ISiteManagementMenu
+from pyams_zmi.utils import get_object_label
 from pyams_zmi.zmi.viewlet.menu import NavigationMenuItem
 
 
@@ -56,16 +57,13 @@ class ObjectSecurityMenu(NavigationMenuItem):
     """Object security menu"""
 
     label = _("User roles")
-    icon_class = 'fas fa-users'
+    icon_class = 'fas fa-shield-alt'
     href = '#object-roles.html'
 
 
-@ajax_form_config(name='object-roles.html', context=IDefaultProtectionPolicy,
-                  layer=IPyAMSLayer, permission=VIEW_SYSTEM_PERMISSION)
-class ProtectedObjectRolesEditForm(AdminEditForm):
-    """Protected object roles edit form"""
+class ProtectedObjectRolesEditFormMixin:
+    """Protected object roles edit form mixin"""
 
-    title = _("User roles")
     legend = _("Granted object roles")
 
     @property
@@ -92,8 +90,31 @@ class ProtectedObjectRolesEditForm(AdminEditForm):
                         break
 
 
+@ajax_form_config(name='object-roles.html', context=IDefaultProtectionPolicy,
+                  layer=IPyAMSLayer, permission=VIEW_SYSTEM_PERMISSION)
+class ProtectedObjectRolesEditForm(ProtectedObjectRolesEditFormMixin, AdminEditForm):
+    """Protected object roles edit form"""
+
+    title = _("User roles")
+
+
+@ajax_form_config(name='modal-object-roles.html', context=IDefaultProtectionPolicy,
+                  layer=IPyAMSLayer, permission=VIEW_SYSTEM_PERMISSION)
+class ProtectedObjectRolesModalEditForm(ProtectedObjectRolesEditFormMixin, AdminModalEditForm):
+    """Protected object roles modal edit form"""
+
+    @property
+    def title(self):
+        """Form title getter"""
+        translate = self.request.localizer.translate
+        return '<small>{}</small><br />{}'.format(
+            get_object_label(self.context, self.request, self),
+            translate(_("User roles"))
+        )
+
+
 @viewlet_config(name='object-roles.alert', context=IDefaultProtectionPolicy,
-                layer=IAdminLayer, view=ProtectedObjectRolesEditForm,
+                layer=IAdminLayer, view=ProtectedObjectRolesEditFormMixin,
                 manager=IHelpViewletManager, weight=1)
 class ProtectedObjectRolesAlert(AlertMessage):
     """Protected object roles alert"""
