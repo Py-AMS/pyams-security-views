@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.8.3
+-----
+ - added mixin class to handle protected object roles edit form and add modal support
+
 1.8.2
 -----
  - updated security plugin add form AJAX renderer
