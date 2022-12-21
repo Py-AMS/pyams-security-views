@@ -29,25 +29,26 @@ from zope.schema.fieldproperty import FieldProperty
 from pyams_form.ajax import ajax_form_config
 from pyams_form.button import Buttons, handler
 from pyams_form.field import Fields
-from pyams_form.form import AddForm
 from pyams_form.interfaces import HIDDEN_MODE
 from pyams_form.interfaces.form import IAJAXFormRenderer, IDataExtractedEvent
 from pyams_i18n.interfaces import II18n
 from pyams_layer.interfaces import IPyAMSLayer, IResources
 from pyams_security.credential import Credentials
-from pyams_security.interfaces import ISecurityManager, IViewContextPermissionChecker, \
-    LOGIN_REFERER_KEY
-from pyams_security.interfaces.base import PUBLIC_PERMISSION
+from pyams_security.interfaces import ISecurityManager, LOGIN_REFERER_KEY
 from pyams_security_views.interfaces.login import ILoginConfiguration, ILoginFormButtons, \
     ILoginFormFields, ILoginView, IModalLoginFormButtons
 from pyams_skin.interfaces.view import IModalFullPage, IModalPage
 from pyams_skin.interfaces.viewlet import IFooterViewletManager, IHeaderViewletManager
 from pyams_template.template import template_config
-from pyams_utils.adapter import ContextRequestViewAdapter, adapter_config
+from pyams_utils.adapter import ContextRequestViewAdapter, NullAdapter, adapter_config
 from pyams_utils.interfaces.data import IObjectData
 from pyams_utils.registry import query_utility
 from pyams_utils.text import text_to_html
+from pyams_viewlet.manager import viewletmanager_config
 from pyams_viewlet.viewlet import Viewlet, viewlet_config
+from pyams_zmi.form import AdminAddForm
+from pyams_zmi.interfaces import IAdminLayer
+from pyams_zmi.zmi.viewlet.toolbar import ModalToolbarViewletManager
 
 
 __docformat__ = 'restructuredtext'
@@ -72,9 +73,10 @@ def ForbiddenAJAXView(request):  # pylint: disable=invalid-name
     }
 
 
-@ajax_form_config(name='login.html', layer=IPyAMSLayer)  # pylint: disable=abstract-method
+@ajax_form_config(name='login.html',
+                  layer=IPyAMSLayer)  # pylint: disable=abstract-method
 @implementer(IModalFullPage, ILoginView, IObjectData)
-class LoginForm(AddForm):
+class LoginForm(AdminAddForm):
     """Login form"""
 
     prefix = 'login_form.'
@@ -130,7 +132,8 @@ class LoginForm(AddForm):
         return None
 
 
-@ajax_form_config(name='login-dialog.html', layer=IPyAMSLayer)  # pylint: disable=abstract-method
+@ajax_form_config(name='login-dialog.html',
+                  layer=IPyAMSLayer)  # pylint: disable=abstract-method
 @implementer(IModalPage, ILoginView)
 class ModalLoginForm(LoginForm):
     """Modal login form"""
@@ -179,8 +182,7 @@ class LoginFormAJAXRenderer(ContextRequestViewAdapter):
 try:
     from pyams_zmi.interfaces.configuration import IZMIConfiguration, MYAMS_BUNDLES
 
-    @adapter_config(name='login',
-                    required=(Interface, IPyAMSLayer, ILoginView),
+    @adapter_config(required=(Interface, IPyAMSLayer, ILoginView),
                     provides=IResources)
     class LoginViewResourcesAdapter(ContextRequestViewAdapter):
         """Login view resources adapter"""
@@ -201,7 +203,8 @@ except ImportError:
     pass
 
 
-@viewlet_config(name='login.logo', layer=IPyAMSLayer, view=ILoginView,
+@viewlet_config(name='login.logo',
+                layer=IPyAMSLayer, view=ILoginView,
                 manager=IHeaderViewletManager, weight=1)
 @template_config(template='templates/login-logo.pt')
 class LoginLogoViewlet(Viewlet):
@@ -214,6 +217,19 @@ class LoginLogoViewlet(Viewlet):
         if configuration:
             return II18n(configuration).query_attribute('logo', request=self.request)
         return None
+
+
+@viewlet_config(name='pyams.content_header',
+                layer=IAdminLayer, view=ILoginView,
+                manager=IHeaderViewletManager, weight=10)
+class LoginViewHeaderViewlet(NullAdapter):
+    """Disabled login view header viewlet"""
+
+
+@viewletmanager_config(name='pyams.toolbar',
+                       layer=IAdminLayer, view=ILoginView)
+class LoginViewToolbarViewlet(ModalToolbarViewletManager):
+    """Disabled login view toolbar viewlet"""
 
 
 @template_config(template='templates/login-viewlet.pt')
@@ -244,7 +260,8 @@ class LoginViewlet(Viewlet):
         return ''
 
 
-@viewlet_config(name='login.header', layer=IPyAMSLayer, view=ILoginView,
+@viewlet_config(name='login.header',
+                layer=IPyAMSLayer, view=ILoginView,
                 manager=IHeaderViewletManager, weight=100)
 class LoginHeaderViewlet(LoginViewlet):
     """Login header viewlet"""
@@ -253,7 +270,8 @@ class LoginHeaderViewlet(LoginViewlet):
     renderer_getter = lambda x, config: config.header_renderer
 
 
-@viewlet_config(name='login.footer', layer=IPyAMSLayer, view=ILoginView,
+@viewlet_config(name='login.footer',
+                layer=IPyAMSLayer, view=ILoginView,
                 manager=IFooterViewletManager, weight=100)
 class LoginFooterViewlet(LoginViewlet):
     """Login footer viewlet"""
@@ -262,7 +280,8 @@ class LoginFooterViewlet(LoginViewlet):
     renderer_getter = lambda x, config: config.footer_renderer
 
 
-@view_config(name='logout', request_type=IPyAMSLayer)
+@view_config(name='logout',
+             request_type=IPyAMSLayer)
 def logout(request):
     """Logout view"""
     headers = forget(request)
