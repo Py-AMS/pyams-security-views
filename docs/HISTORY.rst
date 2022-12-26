@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.8.4
+-----
+ - updated login form templates
+ - added support for Python 3.11
+
 1.8.3
 -----
  - added mixin class to handle protected object roles edit form and add modal support
