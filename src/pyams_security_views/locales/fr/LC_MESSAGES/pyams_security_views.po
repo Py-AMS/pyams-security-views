@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2022-05-16 10:51+0200\n"
+"POT-Creation-Date: 2023-04-12 16:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,24 +19,25 @@ msgstr ""
 msgid "No selected principal"
 msgstr "Aucun mandataire sélectionné"
 
-#: src/pyams_security_views/zmi/rest.py:50
-#: src/pyams_security_views/zmi/rest.py:60
+#: src/pyams_security_views/zmi/rest.py:51
+#: src/pyams_security_views/zmi/rest.py:61
 msgid "CORS configuration"
 msgstr "Configuration CORS"
 
-#: src/pyams_security_views/zmi/rest.py:91
+#: src/pyams_security_views/zmi/rest.py:96
 msgid ""
 "If you disable CORS origins check, any CORS request will be accepted.\n"
 "Otherwise, only origins specified below will be allowed.\n"
 "Please note that you don't have to set main site URL(s) below, only "
 "\"external\" URLs have to be defined."
 msgstr ""
-"Si vous désactivez le contrôle sur l'origine des requêtes, toutes les requêtes "
-"CORS seront acceptées !\n"
-"Dans le cas contraire, seules les requêtes dont l'origine est indiquée ci-dessous "
-"seront acceptées.\n"
-"Veuillez noter que vous n'avez pas à indiquer l'URL d'accès au site, celle-ci "
-"sera toujours acceptée ; seules les origines \"externes\" doivent être précisées."
+"Si vous désactivez le contrôle sur l'origine des requêtes, toutes les "
+"requêtes CORS seront acceptées !\n"
+"Dans le cas contraire, seules les requêtes dont l'origine est indiquée ci-"
+"dessous seront acceptées.\n"
+"Veuillez noter que vous n'avez pas à indiquer l'URL d'accès au site, celle-"
+"ci sera toujours acceptée ; seules les origines \"externes\" doivent être "
+"précisées."
 
 #: src/pyams_security_views/zmi/notifications.py:50
 msgid "Notifications"
@@ -60,30 +61,31 @@ msgstr ""
 "Les applications peuvent également envoyer des messages dans le cadre de "
 "leur processus de fonctionnement normal."
 
-#: src/pyams_security_views/zmi/policy.py:58
-#: src/pyams_security_views/zmi/policy.py:68
+#: src/pyams_security_views/zmi/policy.py:59
+#: src/pyams_security_views/zmi/policy.py:98
+#: src/pyams_security_views/zmi/policy.py:112
 msgid "User roles"
 msgstr "Habilitations"
 
-#: src/pyams_security_views/zmi/policy.py:69
+#: src/pyams_security_views/zmi/policy.py:67
 msgid "Granted object roles"
 msgstr "Rôles accordés aux utilisateurs"
 
-#: src/pyams_security_views/zmi/policy.py:107
+#: src/pyams_security_views/zmi/policy.py:128
 msgid "Roles are not defined for this context!"
 msgstr "Aucun rôle n'est défini dans ce contexte !"
 
-#: src/pyams_security_views/zmi/policy.py:120
+#: src/pyams_security_views/zmi/policy.py:141
 msgid "Security policy"
 msgstr "Politique de sécurité"
 
-#: src/pyams_security_views/zmi/policy.py:130
+#: src/pyams_security_views/zmi/policy.py:151
 #: src/pyams_security_views/zmi/manager.py:48
 #: src/pyams_security_views/zmi/manager.py:69
 msgid "Security manager"
 msgstr "Gestionnaire de sécurité"
 
-#: src/pyams_security_views/zmi/policy.py:131
+#: src/pyams_security_views/zmi/policy.py:152
 msgid "Security policy management"
 msgstr "Paramètres de la politique de sécurité"
 
@@ -157,13 +159,13 @@ msgstr "Propriétés du nouveau module"
 msgid "Specified prefix is already used!"
 msgstr "Le préfixe indiqué est déjà utilisé !"
 
-#: src/pyams_security_views/zmi/plugin/__init__.py:135
-#: src/pyams_security_views/zmi/plugin/__init__.py:162
+#: src/pyams_security_views/zmi/plugin/__init__.py:136
+#: src/pyams_security_views/zmi/plugin/__init__.py:163
 #, python-format
 msgid "Plug-in: {}"
 msgstr "Module : {}"
 
-#: src/pyams_security_views/zmi/plugin/__init__.py:164
+#: src/pyams_security_views/zmi/plugin/__init__.py:165
 msgid "Plug-in properties"
 msgstr "Propriétés du module"
 
@@ -229,7 +231,6 @@ msgid "Account is activated"
 msgstr "Le profil est activé"
 
 #: src/pyams_security_views/zmi/plugin/userfolder.py:217
-#: src/pyams_security_views/api/principal.py:65
 msgid "Search results"
 msgstr "Résultats de la recherche"
 
@@ -351,38 +352,22 @@ msgstr ""
 "se connecter (il restera utilisable pour des tâches internes) ; en indiquant "
 "la valeur '*****', le mot de passe ne sera pas modifié..."
 
-#: src/pyams_security_views/api/principal.py:43
-msgid "Principals search string"
-msgstr "Requête de recherche des mandataires"
-
-#: src/pyams_security_views/api/principal.py:49
-msgid "Principal ID"
-msgstr "ID du mandataire"
-
-#: src/pyams_security_views/api/principal.py:51
-msgid "Principal title"
-msgstr "Libellé du mandataire"
-
-#: src/pyams_security_views/api/principal.py:61
-msgid "Results list"
-msgstr "Liste de résultats"
-
-#: src/pyams_security_views/skin/login.py:81
+#: src/pyams_security_views/skin/login.py:83
 msgid "You must authenticate"
 msgstr "Vous devez vous authentifier !"
 
-#: src/pyams_security_views/skin/login.py:82
+#: src/pyams_security_views/skin/login.py:84
 msgid "Please enter valid credentials"
 msgstr "Paramètres de connexion"
 
-#: src/pyams_security_views/skin/login.py:150
+#: src/pyams_security_views/skin/login.py:153
 msgid ""
 "Missing security manager utility. Please contact your system administrator!"
 msgstr ""
 "Aucun gestionnaire de sécurité n'est disponible. Veuillez contacter votre "
 "administrateur !"
 
-#: src/pyams_security_views/skin/login.py:156
+#: src/pyams_security_views/skin/login.py:159
 msgid "Invalid credentials!"
 msgstr "Vos paramètres de connexion sont incorrects !"
 
@@ -446,6 +431,18 @@ msgstr "Annuler"
 #: src/pyams_security_views/interfaces/login.py:91
 msgid "Cancel"
 msgstr "Annuler"
+
+#~ msgid "Principals search string"
+#~ msgstr "Requête de recherche des mandataires"
+
+#~ msgid "Principal ID"
+#~ msgstr "ID du mandataire"
+
+#~ msgid "Principal title"
+#~ msgstr "Libellé du mandataire"
+
+#~ msgid "Results list"
+#~ msgstr "Liste de résultats"
 
 #~ msgid "Groups folder plug-in"
 #~ msgstr "Groupes d'utilisateurs"

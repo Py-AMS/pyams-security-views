@@ -1,12 +1,12 @@
 #
 # SOME DESCRIPTIVE TITLE
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2022-05-16 10:51+0200\n"
+"POT-Creation-Date: 2023-04-12 16:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 msgid "No selected principal"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/rest.py:50
-#: ./src/pyams_security_views/zmi/rest.py:60
+#: ./src/pyams_security_views/zmi/rest.py:51
+#: ./src/pyams_security_views/zmi/rest.py:61
 msgid "CORS configuration"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/rest.py:91
+#: ./src/pyams_security_views/zmi/rest.py:96
 msgid ""
 "If you disable CORS origins check, any CORS request will be accepted.\n"
 "Otherwise, only origins specified below will be allowed.\n"
@@ -46,30 +46,31 @@ msgid ""
 "Applications can also send messages during their normal process."
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/policy.py:58
-#: ./src/pyams_security_views/zmi/policy.py:68
+#: ./src/pyams_security_views/zmi/policy.py:59
+#: ./src/pyams_security_views/zmi/policy.py:98
+#: ./src/pyams_security_views/zmi/policy.py:112
 msgid "User roles"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/policy.py:69
+#: ./src/pyams_security_views/zmi/policy.py:67
 msgid "Granted object roles"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/policy.py:107
+#: ./src/pyams_security_views/zmi/policy.py:128
 msgid "Roles are not defined for this context!"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/policy.py:120
+#: ./src/pyams_security_views/zmi/policy.py:141
 msgid "Security policy"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/policy.py:130
+#: ./src/pyams_security_views/zmi/policy.py:151
 #: ./src/pyams_security_views/zmi/manager.py:48
 #: ./src/pyams_security_views/zmi/manager.py:69
 msgid "Security manager"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/policy.py:131
+#: ./src/pyams_security_views/zmi/policy.py:152
 msgid "Security policy management"
 msgstr ""
 
@@ -135,13 +136,13 @@ msgstr ""
 msgid "Specified prefix is already used!"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/__init__.py:135
-#: ./src/pyams_security_views/zmi/plugin/__init__.py:162
+#: ./src/pyams_security_views/zmi/plugin/__init__.py:136
+#: ./src/pyams_security_views/zmi/plugin/__init__.py:163
 #, python-format
 msgid "Plug-in: {}"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/__init__.py:164
+#: ./src/pyams_security_views/zmi/plugin/__init__.py:165
 msgid "Plug-in properties"
 msgstr ""
 
@@ -207,7 +208,6 @@ msgid "Account is activated"
 msgstr ""
 
 #: ./src/pyams_security_views/zmi/plugin/userfolder.py:217
-#: ./src/pyams_security_views/api/principal.py:65
 msgid "Search results"
 msgstr ""
 
@@ -314,36 +314,20 @@ msgid ""
 "setting the password value to '*****' will leave the password as-is..."
 msgstr ""
 
-#: ./src/pyams_security_views/api/principal.py:43
-msgid "Principals search string"
-msgstr ""
-
-#: ./src/pyams_security_views/api/principal.py:49
-msgid "Principal ID"
-msgstr ""
-
-#: ./src/pyams_security_views/api/principal.py:51
-msgid "Principal title"
-msgstr ""
-
-#: ./src/pyams_security_views/api/principal.py:61
-msgid "Results list"
-msgstr ""
-
-#: ./src/pyams_security_views/skin/login.py:81
+#: ./src/pyams_security_views/skin/login.py:83
 msgid "You must authenticate"
 msgstr ""
 
-#: ./src/pyams_security_views/skin/login.py:82
+#: ./src/pyams_security_views/skin/login.py:84
 msgid "Please enter valid credentials"
 msgstr ""
 
-#: ./src/pyams_security_views/skin/login.py:150
+#: ./src/pyams_security_views/skin/login.py:153
 msgid ""
 "Missing security manager utility. Please contact your system administrator!"
 msgstr ""
 
-#: ./src/pyams_security_views/skin/login.py:156
+#: ./src/pyams_security_views/skin/login.py:159
 msgid "Invalid credentials!"
 msgstr ""
 

@@ -17,6 +17,8 @@ This package is composed of a set of utility functions, usable into any Pyramid 
     >>> include_zodbconn(config)
     >>> from cornice import includeme as include_cornice
     >>> include_cornice(config)
+    >>> from cornice_swagger import includeme as include_swagger
+    >>> include_swagger(config)
     >>> from pyams_utils import includeme as include_utils
     >>> include_utils(config)
     >>> from pyams_viewlet import includeme as include_viewlet
@@ -144,7 +146,7 @@ Protected object roles edit form
             readonly="readonly">
             <option></option>
     </select>
-    <input name="form.widgets.managers-empty-marker" type="hidden" value="1"/>
+    <input name="form.widgets.managers-empty-marker" type="hidden" value="1" />
 
     >>> output = form.render()
 
@@ -155,7 +157,8 @@ Principals searching API
     >>> from pyams_security_views.api.principal import get_principals
     >>> request = DummyRequest(params={'term': 'admin'})
     >>> pprint.pprint(get_principals(request))
-    {'results': [{'id': 'system:admin', 'text': 'System manager authentication'}]}
+    {'results': [{'id': 'system:admin', 'text': 'System manager authentication'}],
+     'status': 'success'}
 
 
 Login form configuration edit form
@@ -237,7 +240,7 @@ Login form
                                    id="login_form-widgets-password"
                                    name="login_form.widgets.password"
                                    class="form-control password-widget required password-field"
-                                   value="*****"/>
+                                   value="*****" />
                         </div>
                     </div>
                 </div>

@@ -17,9 +17,9 @@ This module only provides a small Cornice API to search for principals.
 
 import sys
 
-from colander import MappingSchema, SchemaNode, SequenceSchema, String
+from colander import MappingSchema, SchemaNode, SequenceSchema, String, drop
 from cornice import Service
-from cornice.validators import colander_querystring_validator
+from cornice.validators import colander_validator
 from pyramid.httpexceptions import HTTPOk
 
 from pyams_security.interfaces import ISecurityManager
@@ -27,77 +27,82 @@ from pyams_security.interfaces.base import VIEW_SYSTEM_PERMISSION
 from pyams_security.rest import check_cors_origin, set_cors_headers
 from pyams_security_views.interfaces import REST_PRINCIPALS_SEARCH_ROUTE
 from pyams_utils.registry import query_utility
+from pyams_utils.rest import BaseResponseSchema, STATUS, rest_responses
 
 
 __docformat__ = 'restructuredtext'
-
-from pyams_security_views import _  # pylint: disable=ungrouped-imports
 
 
 TEST_MODE = sys.argv[-1].endswith('/test')
 
 
-class PrincipalsSearchQuerySchema(MappingSchema):
-    """Principals search schema"""
+class PrincipalsSearchQuery(MappingSchema):
+    """Principals search query"""
     term = SchemaNode(String(),
-                      description=_("Principals search string"))
+                      description="Principals search string")
 
 
-class PrincipalResultSchema(MappingSchema):
+class Principal(MappingSchema):
     """Principal result schema"""
     id = SchemaNode(String(),
-                    description=_("Principal ID"))
+                    description="Principal ID")
     text = SchemaNode(String(),
-                      description=_("Principal title"))
+                      description="Principal title")
 
 
-class PrincipalsSearchResults(SequenceSchema):
+class PrincipalsList(SequenceSchema):
     """Principals search results interface"""
-    result = PrincipalResultSchema()
+    result = Principal()
 
 
-class PrincipalsSearchResultsSchema(MappingSchema):
+class PrincipalsSearchResults(BaseResponseSchema):
     """Principals search results schema"""
-    results = PrincipalsSearchResults(description=_("Results list"))
+    results = PrincipalsList(description="List of principals matching input term",
+                             missing=drop)
 
 
-search_responses = {
-    HTTPOk.code: PrincipalsSearchResultsSchema(description=_("Search results")),
-}
-if TEST_MODE:
-    service_params = {}
-else:
-    service_params = {
-        'response_schemas': search_responses
-    }
+principals_service = Service(name=REST_PRINCIPALS_SEARCH_ROUTE,
+                             pyramid_route=REST_PRINCIPALS_SEARCH_ROUTE,
+                             description="Principals management")
 
 
-service = Service(name=REST_PRINCIPALS_SEARCH_ROUTE,
-                  pyramid_route=REST_PRINCIPALS_SEARCH_ROUTE,
-                  description="Principals management")
-
-
-@service.options(validators=(check_cors_origin, set_cors_headers),
-                 **service_params)
+@principals_service.options(validators=(check_cors_origin, set_cors_headers))
 def principals_options(request):  # pylint: disable=unused-argument
     """Principals service options"""
     return ''
 
 
-@service.get(permission=VIEW_SYSTEM_PERMISSION,
-             schema=PrincipalsSearchQuerySchema(),
-             validators=(check_cors_origin, colander_querystring_validator, set_cors_headers),
-             **service_params)
+class PrincipalsSearchRequest(MappingSchema):
+    """Principals search request"""
+    querystring = PrincipalsSearchQuery()
+
+
+class PrincipalsGetterResponse(MappingSchema):
+    """Principals getter response"""
+    body = PrincipalsSearchResults()
+
+
+principals_get_responses = rest_responses.copy()
+principals_get_responses[HTTPOk.code] = PrincipalsGetterResponse(
+    description="Search results")
+
+
+@principals_service.get(permission=VIEW_SYSTEM_PERMISSION,
+                        schema=PrincipalsSearchRequest(),
+                        validators=(check_cors_origin, colander_validator, set_cors_headers),
+                        response_schemas=principals_get_responses)
 def get_principals(request):
     """Returns list of principals matching given query"""
-    if TEST_MODE:
-        query = request.params.get('term')
-    else:
-        query = request.validated.get('term')
+    params = request.params if TEST_MODE else request.validated.get('querystring', {})
+    query = params.get('term')
     if not query:
-        return []
+        return {
+            'status': STATUS.ERROR.value,
+            'message': "Missing arguments"
+        }
     manager = query_utility(ISecurityManager)
     return {
+        'status': STATUS.SUCCESS.value,
         'results': [{
             'id': principal.id,
             'text': principal.title
