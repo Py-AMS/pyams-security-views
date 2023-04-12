@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.8.5
+-----
+ - refactored Colander API schemas for better OpenAPI specifications
+
 1.8.4
 -----
  - updated login form templates

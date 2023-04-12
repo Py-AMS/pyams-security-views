@@ -23,10 +23,11 @@ DOCS = os.path.join(os.path.dirname(__file__),
 README = os.path.join(DOCS, 'README.rst')
 HISTORY = os.path.join(DOCS, 'HISTORY.rst')
 
-version = '1.8.4'
+version = '1.8.5'
 long_description = open(README).read() + '\n\n' + open(HISTORY).read()
 
 tests_require = [
+    'cornice_swagger',
     'pyams_i18n_views',
     'pyams_zmi',
     'pyramid_zcml',
@@ -63,6 +64,7 @@ setup(name='pyams_security_views',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'colander',
           'cornice',
           'persistent',
           'pyams_file',
