@@ -23,12 +23,11 @@ from cornice.validators import colander_validator
 from pyramid.httpexceptions import HTTPOk
 
 from pyams_security.interfaces import ISecurityManager
-from pyams_security.interfaces.base import VIEW_SYSTEM_PERMISSION
+from pyams_security.interfaces.base import USE_INTERNAL_API_PERMISSION
 from pyams_security.rest import check_cors_origin, set_cors_headers
 from pyams_security_views.interfaces import REST_PRINCIPALS_SEARCH_ROUTE
 from pyams_utils.registry import query_utility
 from pyams_utils.rest import BaseResponseSchema, STATUS, rest_responses
-
 
 __docformat__ = 'restructuredtext'
 
@@ -87,7 +86,7 @@ principals_get_responses[HTTPOk.code] = PrincipalsGetterResponse(
     description="Search results")
 
 
-@principals_service.get(permission=VIEW_SYSTEM_PERMISSION,
+@principals_service.get(permission=USE_INTERNAL_API_PERMISSION,
                         schema=PrincipalsSearchRequest(),
                         validators=(check_cors_origin, colander_validator, set_cors_headers),
                         response_schemas=principals_get_responses)
