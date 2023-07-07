@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.9.1
+-----
+ - updated doctests
+
 1.9.0
 -----
  - added support for user registration
