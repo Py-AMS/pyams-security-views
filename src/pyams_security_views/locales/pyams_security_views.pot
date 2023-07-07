@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2023-04-12 16:00+0200\n"
+"POT-Creation-Date: 2023-07-05 10:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,36 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Lingua 4.15.0\n"
-
-#: ./src/pyams_security_views/widget/principal.py:71
-msgid "No selected principal"
-msgstr ""
-
-#: ./src/pyams_security_views/zmi/rest.py:51
-#: ./src/pyams_security_views/zmi/rest.py:61
-msgid "CORS configuration"
-msgstr ""
-
-#: ./src/pyams_security_views/zmi/rest.py:96
-msgid ""
-"If you disable CORS origins check, any CORS request will be accepted.\n"
-"Otherwise, only origins specified below will be allowed.\n"
-"Please note that you don't have to set main site URL(s) below, only \"external\" URLs have to be defined."
-msgstr ""
-
-#: ./src/pyams_security_views/zmi/notifications.py:50
-msgid "Notifications"
-msgstr ""
-
-#: ./src/pyams_security_views/zmi/notifications.py:60
-msgid "Notifications settings"
-msgstr ""
-
-#: ./src/pyams_security_views/zmi/notifications.py:85
-msgid ""
-"Notifications are used to send messages to users during their registration process.\n"
-"Applications can also send messages during their normal process."
-msgstr ""
 
 #: ./src/pyams_security_views/zmi/policy.py:59
 #: ./src/pyams_security_views/zmi/policy.py:98
@@ -65,8 +35,8 @@ msgid "Security policy"
 msgstr ""
 
 #: ./src/pyams_security_views/zmi/policy.py:151
-#: ./src/pyams_security_views/zmi/manager.py:48
-#: ./src/pyams_security_views/zmi/manager.py:69
+#: ./src/pyams_security_views/zmi/manager.py:45
+#: ./src/pyams_security_views/zmi/manager.py:66
 msgid "Security manager"
 msgstr ""
 
@@ -74,16 +44,25 @@ msgstr ""
 msgid "Security policy management"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/login.py:45
-msgid "Login form"
+#: ./src/pyams_security_views/zmi/rest.py:51
+#: ./src/pyams_security_views/zmi/rest.py:61
+msgid "CORS configuration"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/login.py:54
-msgid "Login form configuration"
+#: ./src/pyams_security_views/zmi/rest.py:96
+msgid ""
+"If you disable CORS origins check, any CORS request will be accepted.\n"
+"Otherwise, only origins specified below will be allowed.\n"
+"Please note that you don't have to set main site URL(s) below, only \"external\" URLs have to be defined."
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/login.py:55
-msgid "Form properties"
+#: ./src/pyams_security_views/zmi/manager.py:55
+#: ./src/pyams_security_views/zmi/manager.py:67
+msgid "Properties"
+msgstr ""
+
+#: ./src/pyams_security_views/zmi/manager.py:83
+msgid "Management interface"
 msgstr ""
 
 #: ./src/pyams_security_views/zmi/__init__.py:56
@@ -107,43 +86,37 @@ msgstr ""
 msgid "List of security plug-ins"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/manager.py:58
-#: ./src/pyams_security_views/zmi/manager.py:70
-msgid "Properties"
+#: ./src/pyams_security_views/zmi/login.py:50
+msgid "Login form"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/manager.py:97
+#: ./src/pyams_security_views/zmi/login.py:60
+msgid "Login form configuration"
+msgstr ""
+
+#: ./src/pyams_security_views/zmi/login.py:61
+msgid "Form properties"
+msgstr ""
+
+#: ./src/pyams_security_views/zmi/login.py:96
 msgid ""
 "Open registration can be used when you want external users to be able to freely register their user account.\n"
 "You then have to select the users folder into which their profile will be stored.\n"
 "THIS CAN BE DANGEROUS! You should enable this feature carefully..."
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/manager.py:110
-msgid "Management interface"
+#: ./src/pyams_security_views/zmi/notifications.py:50
+msgid "Notifications"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/__init__.py:66
-#, python-format
-msgid "New plug-in: {}"
+#: ./src/pyams_security_views/zmi/notifications.py:60
+msgid "Notifications settings"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/__init__.py:68
-msgid "New plug-in properties"
-msgstr ""
-
-#: ./src/pyams_security_views/zmi/plugin/__init__.py:97
-msgid "Specified prefix is already used!"
-msgstr ""
-
-#: ./src/pyams_security_views/zmi/plugin/__init__.py:136
-#: ./src/pyams_security_views/zmi/plugin/__init__.py:163
-#, python-format
-msgid "Plug-in: {}"
-msgstr ""
-
-#: ./src/pyams_security_views/zmi/plugin/__init__.py:165
-msgid "Plug-in properties"
+#: ./src/pyams_security_views/zmi/notifications.py:85
+msgid ""
+"Notifications are used to send messages to users during their registration process.\n"
+"Applications can also send messages during their normal process."
 msgstr ""
 
 #: ./src/pyams_security_views/zmi/plugin/group.py:65
@@ -191,7 +164,7 @@ msgid "Users search form"
 msgstr ""
 
 #: ./src/pyams_security_views/zmi/plugin/userfolder.py:141
-#: ./src/pyams_security_views/interfaces/login.py:69
+#: ./src/pyams_security_views/interfaces/login.py:101
 msgid "Login"
 msgstr ""
 
@@ -220,7 +193,7 @@ msgid "Add local user"
 msgstr ""
 
 #: ./src/pyams_security_views/zmi/plugin/userfolder.py:281
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:556
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:560
 msgid "User password was not confirmed correctly."
 msgstr ""
 
@@ -245,7 +218,7 @@ msgid "Disable"
 msgstr ""
 
 #: ./src/pyams_security_views/zmi/plugin/userfolder.py:328
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:543
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:547
 #, python-format
 msgid "User: {}"
 msgstr ""
@@ -266,29 +239,29 @@ msgstr ""
 msgid "Disable user profile temporarily will forbid login with this account..."
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:452
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:456
 msgid ""
 "This profile has been deactivated!<br /> A new activation code has been "
 "created and sent to this user!"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:480
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:484
 msgid "Enabled user!"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:482
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:486
 msgid "User has been enabled and can now log-in!"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:508
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:512
 msgid "Disabled user!"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:510
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:514
 msgid "User has been disabled and can't log in anymore!"
 msgstr ""
 
-#: ./src/pyams_security_views/zmi/plugin/userfolder.py:545
+#: ./src/pyams_security_views/zmi/plugin/userfolder.py:549
 msgid "Change user password"
 msgstr ""
 
@@ -314,80 +287,153 @@ msgid ""
 "setting the password value to '*****' will leave the password as-is..."
 msgstr ""
 
-#: ./src/pyams_security_views/skin/login.py:83
-msgid "You must authenticate"
+#: ./src/pyams_security_views/zmi/plugin/__init__.py:66
+#, python-format
+msgid "New plug-in: {}"
 msgstr ""
 
-#: ./src/pyams_security_views/skin/login.py:84
+#: ./src/pyams_security_views/zmi/plugin/__init__.py:68
+msgid "New plug-in properties"
+msgstr ""
+
+#: ./src/pyams_security_views/zmi/plugin/__init__.py:97
+msgid "Specified prefix is already used!"
+msgstr ""
+
+#: ./src/pyams_security_views/zmi/plugin/__init__.py:136
+#: ./src/pyams_security_views/zmi/plugin/__init__.py:163
+#, python-format
+msgid "Plug-in: {}"
+msgstr ""
+
+#: ./src/pyams_security_views/zmi/plugin/__init__.py:165
+msgid "Plug-in properties"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:37
+msgid "Login skin"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:38
+msgid "This is the skin applied to the login screen"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:43
+msgid "Login logo"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:44
+msgid "Image used in login form"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:47
+msgid "Login header"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:48
+msgid "This text will be displayed in login page header"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:51
+msgid "Header renderer"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:52
+msgid "Text renderer used for the header"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:57
+msgid "Login footer"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:58
+msgid "This text will be displayed in login page footer"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:61
+msgid "Footer renderer"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:62
+msgid "Text renderer used for the footer"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:67
+msgid "Enable free registration?"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:68
+msgid "If 'Yes', any use will be able to create a new user account"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:73
+msgid "Users folder"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:74
+msgid "Name of users folder used to store registered principals"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:82
+msgid "You can't activate open registration without selecting a users folder"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:85
+msgid "Allow password reset"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:86
+msgid "If 'Yes', users will be able reset their password"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:98
+msgid "Redirection hash"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:103
+msgid "Password"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:110
+#: ./src/pyams_security_views/interfaces/login.py:126
+msgid "Register"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:113
+#: ./src/pyams_security_views/interfaces/login.py:129
+msgid "Reset password"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:116
+#: ./src/pyams_security_views/interfaces/login.py:132
+msgid "Connect"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:119
+msgid "Reset"
+msgstr ""
+
+#: ./src/pyams_security_views/interfaces/login.py:135
+msgid "Cancel"
+msgstr ""
+
+#: ./src/pyams_security_views/widget/principal.py:71
+msgid "No selected principal"
+msgstr ""
+
+#: ./src/pyams_security_views/skin/login.py:95
 msgid "Please enter valid credentials"
 msgstr ""
 
-#: ./src/pyams_security_views/skin/login.py:153
+#: ./src/pyams_security_views/skin/login.py:110
+msgid "You must authenticate"
+msgstr ""
+
+#: ./src/pyams_security_views/skin/login.py:219
 msgid ""
 "Missing security manager utility. Please contact your system administrator!"
 msgstr ""
 
-#: ./src/pyams_security_views/skin/login.py:159
+#: ./src/pyams_security_views/skin/login.py:225
 msgid "Invalid credentials!"
-msgstr ""
-
-#: ./src/pyams_security_views/interfaces/login.py:34
-msgid "Login logo"
-msgstr ""
-
-#: ./src/pyams_security_views/interfaces/login.py:35
-msgid "Image used in login form"
-msgstr ""
-
-#: ./src/pyams_security_views/interfaces/login.py:38
-msgid "Login header"
-msgstr ""
-
-#: ./src/pyams_security_views/interfaces/login.py:39
-msgid "This text will be displayed in login page header"
-msgstr ""
-
-#: ./src/pyams_security_views/interfaces/login.py:42
-msgid "Header renderer"
-msgstr ""
-
-#: ./src/pyams_security_views/interfaces/login.py:43
-msgid "Text renderer used for the header"
-msgstr ""
-
-#: ./src/pyams_security_views/interfaces/login.py:48
-msgid "Login footer"
-msgstr ""
-
-#: ./src/pyams_security_views/interfaces/login.py:49
-msgid "This text will be displayed in login page footer"
-msgstr ""
-
-#: ./src/pyams_security_views/interfaces/login.py:52
-msgid "Footer renderer"
-msgstr ""
-
-#: ./src/pyams_security_views/interfaces/login.py:53
-msgid "Text renderer used for the footer"
-msgstr ""
-
-#: ./src/pyams_security_views/interfaces/login.py:66
-msgid "Redirection hash"
-msgstr ""
-
-#: ./src/pyams_security_views/interfaces/login.py:71
-msgid "Password"
-msgstr ""
-
-#: ./src/pyams_security_views/interfaces/login.py:78
-#: ./src/pyams_security_views/interfaces/login.py:88
-msgid "Connect"
-msgstr ""
-
-#: ./src/pyams_security_views/interfaces/login.py:81
-msgid "Reset"
-msgstr ""
-
-#: ./src/pyams_security_views/interfaces/login.py:91
-msgid "Cancel"
 msgstr ""

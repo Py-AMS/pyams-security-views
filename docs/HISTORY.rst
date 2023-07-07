@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.9.0
+-----
+ - added support for user registration
+ - added support for local user password change
+
 1.8.5
 -----
  - refactored Colander API schemas for better OpenAPI specifications
