@@ -32,11 +32,15 @@ __docformat__ = 'restructuredtext'
 class LoginConfiguration(Persistent, Contained):
     """Site login configuration"""
 
+    skin = FieldProperty(ILoginConfiguration['skin'])
     logo = FileProperty(ILoginConfiguration['logo'])
     header = FieldProperty(ILoginConfiguration['header'])
     header_renderer = FieldProperty(ILoginConfiguration['header_renderer'])
     footer = FieldProperty(ILoginConfiguration['footer'])
     footer_renderer = FieldProperty(ILoginConfiguration['footer_renderer'])
+    open_registration = FieldProperty(ILoginConfiguration['open_registration'])
+    users_folder = FieldProperty(ILoginConfiguration['users_folder'])
+    allow_password_reset = FieldProperty(ILoginConfiguration['allow_password_reset'])
 
 
 LOGIN_CONFIGURATION_KEY = 'pyams_security.login.configuration'

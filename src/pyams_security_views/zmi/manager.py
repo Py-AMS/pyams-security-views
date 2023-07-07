@@ -19,7 +19,7 @@ from zope.interface import Interface, implementer
 
 from pyams_form.ajax import ajax_form_config
 from pyams_form.field import Fields
-from pyams_form.interfaces.form import IGroup, IInnerSubForm
+from pyams_form.interfaces.form import IInnerSubForm
 from pyams_form.subform import InnerEditForm
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_security.interfaces import ISecurityManager
@@ -27,14 +27,11 @@ from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
 from pyams_security_views.zmi import ISecurityMenu
 from pyams_security_views.zmi.interfaces import ISecurityPropertiesEditForm
 from pyams_security_views.zmi.widget import SecurityManagerPluginsFieldWidget
-from pyams_skin.interfaces.viewlet import IHeaderViewletManager
-from pyams_skin.viewlet.help import AlertMessage
 from pyams_utils.adapter import adapter_config
 from pyams_viewlet.viewlet import viewlet_config
-from pyams_zmi.form import AdminEditForm, FormGroupChecker
+from pyams_zmi.form import AdminEditForm
 from pyams_zmi.interfaces import IAdminLayer, IObjectLabel
 from pyams_zmi.zmi.viewlet.menu import NavigationMenuItem
-
 
 __docformat__ = 'restructuredtext'
 
@@ -75,30 +72,6 @@ class SecurityPropertiesEditForm(AdminEditForm):
     fields['credentials_plugins_names'].widget_factory = SecurityManagerPluginsFieldWidget
     fields['authentication_plugins_names'].widget_factory = SecurityManagerPluginsFieldWidget
     fields['directory_plugins_names'].widget_factory = SecurityManagerPluginsFieldWidget
-
-
-@adapter_config(name='security-registration',
-                required=(ISecurityManager, IAdminLayer, SecurityPropertiesEditForm),
-                provides=IGroup)
-class SecurityRegistrationGroup(FormGroupChecker):
-    """Security manager registration fields"""
-
-    fields = Fields(ISecurityManager).select('open_registration', 'users_folder')
-
-
-@viewlet_config(name='security-registration.header',
-                context=ISecurityManager, layer=IAdminLayer, view=SecurityRegistrationGroup,
-                manager=IHeaderViewletManager, weight=1)
-class SecurityRegistrationHeader(AlertMessage):
-    """Security registration header"""
-
-    status = 'info'
-
-    _message = _("Open registration can be used when you want external users to be able to "
-                 "freely register their user account.\n"
-                 "You then have to select the users folder into which their profile will be "
-                 "stored.\n"
-                 "THIS CAN BE DANGEROUS! You should enable this feature carefully...")
 
 
 @adapter_config(name='security-zmi',

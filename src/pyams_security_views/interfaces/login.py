@@ -14,13 +14,16 @@
 
 """
 
-from zope.interface import Interface
-from zope.schema import Choice, Password, TextLine
+from zope.interface import Interface, Invalid, invariant
+from zope.schema import Bool, Choice, Password, TextLine
 
 from pyams_file.schema import ImageField
 from pyams_i18n.schema import I18nTextField
-from pyams_skin.schema.button import CloseButton, ResetButton, SubmitButton
+from pyams_layer.interfaces import BASE_SKINS_VOCABULARY_NAME
+from pyams_security.interfaces import USERS_FOLDERS_VOCABULARY_NAME
+from pyams_skin.schema.button import ActionButton, CloseButton, ResetButton, SubmitButton
 from pyams_utils.text import PYAMS_HTML_RENDERERS_VOCABULARY
+from pyams_zmi.interfaces import PYAMS_ADMIN_SKIN_NAME
 
 
 __docformat__ = 'restructuredtext'
@@ -30,6 +33,12 @@ from pyams_security_views import _
 
 class ILoginConfiguration(Interface):
     """Login configuration interface"""
+
+    skin = Choice(title=_("Login skin"),
+                  description=_("This is the skin applied to the login screen"),
+                  vocabulary=BASE_SKINS_VOCABULARY_NAME,
+                  default=PYAMS_ADMIN_SKIN_NAME,
+                  required=True)
 
     logo = ImageField(title=_("Login logo"),
                       description=_("Image used in login form"),
@@ -55,6 +64,29 @@ class ILoginConfiguration(Interface):
                              vocabulary=PYAMS_HTML_RENDERERS_VOCABULARY,
                              default='text')
 
+    open_registration = Bool(title=_("Enable free registration?"),
+                             description=_("If 'Yes', any use will be able to create a new user "
+                                           "account"),
+                             required=True,
+                             default=False)
+
+    users_folder = Choice(title=_("Users folder"),
+                          description=_("Name of users folder used to store registered principals"),
+                          required=False,
+                          vocabulary=USERS_FOLDERS_VOCABULARY_NAME)
+
+    @invariant
+    def check_users_folder(self):
+        """Check for open registration"""
+        if self.open_registration and not self.users_folder:
+            raise Invalid(_("You can't activate open registration without selecting a users "
+                            "folder"))
+
+    allow_password_reset = Bool(title=_("Allow password reset"),
+                                description=_("If 'Yes', users will be able reset their password"),
+                                required=True,
+                                default=False)
+
 
 class ILoginView(Interface):
     """Login view marker interface"""
@@ -71,21 +103,36 @@ class ILoginFormFields(Interface):
     password = Password(title=_("Password"))
 
 
-class ILoginFormButtons(Interface):
-    """Login form buttons"""
+class IBaseLoginFormButtons(Interface):
+    """Base login form buttons interface"""
+
+    register = ActionButton(name='register',
+                            title=_("Register"))
+
+    reset_password = ActionButton(name='reset_password',
+                                  title=_("Reset password"))
 
     login = SubmitButton(name='login',
                          title=_("Connect"))
+
+
+class ILoginFormButtons(IBaseLoginFormButtons):
+    """Login form buttons"""
 
     reset = ResetButton(name='reset',
                         title=_("Reset"))
 
 
-class IModalLoginFormButtons(Interface):
+class IModalLoginFormButtons(IBaseLoginFormButtons):
     """Modal login form buttons"""
-
-    login = SubmitButton(name='login',
-                         title=_("Connect"))
 
     close = CloseButton(name='close',
                         title=_("Cancel"))
+
+
+class ILoginPageTarget(Interface):
+    """Login page target interface
+
+    This interface is used to get location URL of the view used after
+    a successful login.
+    """

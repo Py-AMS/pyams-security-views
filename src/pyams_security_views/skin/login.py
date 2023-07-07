@@ -12,7 +12,7 @@
 
 """PyAMS_security_views.skin.login module
 
-This modules defines login and modal login views.
+This module defines login and modal login views.
 These views are automatically associated with Pyramid forbidden views.
 """
 
@@ -29,14 +29,17 @@ from zope.schema.fieldproperty import FieldProperty
 from pyams_form.ajax import ajax_form_config
 from pyams_form.button import Buttons, handler
 from pyams_form.field import Fields
+from pyams_form.form import AddForm
 from pyams_form.interfaces import HIDDEN_MODE
 from pyams_form.interfaces.form import IAJAXFormRenderer, IDataExtractedEvent
 from pyams_i18n.interfaces import II18n
-from pyams_layer.interfaces import IPyAMSLayer, IResources
+from pyams_layer.interfaces import IPyAMSLayer
+from pyams_layer.skin import apply_skin
 from pyams_security.credential import Credentials
 from pyams_security.interfaces import ISecurityManager, LOGIN_REFERER_KEY
 from pyams_security_views.interfaces.login import ILoginConfiguration, ILoginFormButtons, \
-    ILoginFormFields, ILoginView, IModalLoginFormButtons
+    ILoginFormFields, ILoginPageTarget, ILoginView, IModalLoginFormButtons
+from pyams_security.interfaces.profile import IUserRegistrationViews
 from pyams_skin.interfaces.view import IModalFullPage, IModalPage
 from pyams_skin.interfaces.viewlet import IFooterViewletManager, IHeaderViewletManager
 from pyams_template.template import template_config
@@ -46,10 +49,8 @@ from pyams_utils.registry import query_utility
 from pyams_utils.text import text_to_html
 from pyams_viewlet.manager import viewletmanager_config
 from pyams_viewlet.viewlet import Viewlet, viewlet_config
-from pyams_zmi.form import AdminAddForm
 from pyams_zmi.interfaces import IAdminLayer
 from pyams_zmi.zmi.viewlet.toolbar import ModalToolbarViewletManager
-
 
 __docformat__ = 'restructuredtext'
 
@@ -60,7 +61,7 @@ from pyams_security_views import _  # pylint: disable=ungrouped-imports
 def ForbiddenView(request):  # pylint: disable=invalid-name
     """Default forbidden view"""
     request.session[LOGIN_REFERER_KEY] = request.url
-    return HTTPFound('login.html')
+    return HTTPFound('login.html?forbidden=true')
 
 
 @forbidden_view_config(request_type=IPyAMSLayer, renderer='json', xhr=True)
@@ -69,24 +70,54 @@ def ForbiddenAJAXView(request):  # pylint: disable=invalid-name
     request.response.status = HTTPForbidden.code
     return {
         'status': 'modal',
-        'location': 'login-dialog.html'
+        'location': 'login-dialog.html?forbidden=true'
     }
+
+
+def get_login_buttons(interface, request):
+    """Login buttons getter"""
+    buttons = Buttons(interface)
+    login_configuration = ILoginConfiguration(request.root)
+    if not login_configuration.open_registration:
+        buttons = buttons.omit('register')
+    if not login_configuration.allow_password_reset:
+        buttons = buttons.omit('reset_password')
+    return buttons
 
 
 @ajax_form_config(name='login.html',
                   layer=IPyAMSLayer)  # pylint: disable=abstract-method
 @implementer(IModalFullPage, ILoginView, IObjectData)
-class LoginForm(AdminAddForm):
+class LoginForm(AddForm):
     """Login form"""
 
     prefix = 'login_form.'
-    title = _("You must authenticate")
     legend = _("Please enter valid credentials")
 
     modal_class = FieldProperty(IModalFullPage['modal_class'])
 
     fields = Fields(ILoginFormFields)
-    buttons = Buttons(ILoginFormButtons)
+
+    def __init__(self, context, request):
+        super().__init__(context, request)
+        login_config = ILoginConfiguration(self.request.root)
+        apply_skin(self.request, login_config.skin)
+
+    @reify
+    def title(self):
+        """Form title getter"""
+        if 'forbidden' in self.request.params:
+            return _("You must authenticate")
+        return None
+
+    @property
+    def title_class(self):
+        return 'alert alert-info' if self.title else ''
+
+    @property
+    def buttons(self):
+        """Form buttons getter"""
+        return get_login_buttons(ILoginFormButtons, self.request)
 
     edit_permission = None
 
@@ -100,13 +131,34 @@ class LoginForm(AdminAddForm):
         super().update()
         new_csrf_token(self.request)
 
+    def update_actions(self):
+        super().update_actions()
+        registration_views = self.request.registry.queryMultiAdapter((self.context, self.request),
+                                                                     IUserRegistrationViews)
+        action = self.actions.get('register')
+        if action is not None:
+            if registration_views is None:
+                action.add_class('hidden')
+            else:
+                action.add_class('btn-info')
+                if 'reset_password' not in self.actions:
+                    action.add_class('mr-auto')
+                action.href = registration_views.register_view
+        action = self.actions.get('reset_password')
+        if action is not None:
+            if registration_views is None:
+                action.add_class('hidden')
+            else:
+                action.add_class('btn-secondary mr-auto')
+                action.href = registration_views.password_reset_view
+
     def update_widgets(self, prefix=None):
         super().update_widgets(prefix)
         hash = self.widgets.get('hash')
         if hash is not None:
             hash.mode = HIDDEN_MODE
 
-    @handler(buttons['login'])
+    @handler(ILoginFormButtons['login'])
     def login_handler(self, action):  # pylint: disable=unused-argument
         """Login button handler"""
         data, errors = self.extract_data()
@@ -123,11 +175,16 @@ class LoginForm(AdminAddForm):
                 response.status_code = 302
                 session = request.session
                 hash = data.get('hash', '')
-                if LOGIN_REFERER_KEY in session:
-                    response.location = f'{session[LOGIN_REFERER_KEY]}{hash}'
-                    del session[LOGIN_REFERER_KEY]
+                login_target = request.registry.queryMultiAdapter((self.context, self.request, self),
+                                                                  ILoginPageTarget)
+                if login_target is not None:
+                    response.location = login_target
                 else:
-                    response.location = f'/{hash}'
+                    if LOGIN_REFERER_KEY in session:
+                        response.location = f'{session[LOGIN_REFERER_KEY]}{hash}'
+                        del session[LOGIN_REFERER_KEY]
+                    else:
+                        response.location = f'/{hash}'
             return response
         return None
 
@@ -139,7 +196,16 @@ class ModalLoginForm(LoginForm):
     """Modal login form"""
 
     modal_class = 'modal-lg'
-    buttons = Buttons(IModalLoginFormButtons)
+
+    @property
+    def buttons(self):
+        """Form buttons getter"""
+        return get_login_buttons(IModalLoginFormButtons, self.request)
+
+    @handler(IModalLoginFormButtons['login'])
+    def login_handler(self, action):
+        """Login button handler"""
+        return super().login_handler(self, action)
 
 
 @subscriber(IDataExtractedEvent, form_selector=ILoginView)
@@ -177,30 +243,6 @@ class LoginFormAJAXRenderer(ContextRequestViewAdapter):
         else:
             status['location'] = f'/{hash}'
         return status
-
-
-try:
-    from pyams_zmi.interfaces.configuration import IZMIConfiguration, MYAMS_BUNDLES
-
-    @adapter_config(required=(Interface, IPyAMSLayer, ILoginView),
-                    provides=IResources)
-    class LoginViewResourcesAdapter(ContextRequestViewAdapter):
-        """Login view resources adapter"""
-
-        weight = 10
-
-        @property
-        def resources(self):
-            """Resources getter"""
-            request = self.request
-            configuration = IZMIConfiguration(request.root, None)
-            if configuration is not None:
-                # yield MyAMS bundle
-                bundle, _label = MYAMS_BUNDLES.get(configuration.myams_bundle)
-                yield bundle
-
-except ImportError:
-    pass
 
 
 @viewlet_config(name='login.logo',
