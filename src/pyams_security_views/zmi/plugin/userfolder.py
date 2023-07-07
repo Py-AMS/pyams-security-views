@@ -380,6 +380,10 @@ class LocalUserEditForm(InnerSecurityPluginFormMixin, AdminModalEditForm):
             self.widgets['activated'].mode = DISPLAY_MODE
         if 'activation_date' in self.widgets:
             self.widgets['activation_date'].mode = DISPLAY_MODE
+        if 'password_hash' in self.widgets:
+            self.widgets['password_hash'].mode = DISPLAY_MODE
+        if 'password_hash_validity' in self.widgets:
+            self.widgets['password_hash_validity'].mode = DISPLAY_MODE
 
     @handler(ILocalUserEditFormButtons['apply'])
     def handle_apply(self, action):
