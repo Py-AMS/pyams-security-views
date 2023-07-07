@@ -27,6 +27,8 @@ This package is composed of a set of utility functions, usable into any Pyramid 
     >>> include_site(config)
     >>> from pyams_security import includeme as include_security
     >>> include_security(config)
+    >>> from pyams_layer import includeme as include_layer
+    >>> include_layer(config)
     >>> from pyams_form import includeme as include_form
     >>> include_form(config)
     >>> from pyams_skin import includeme as include_skin
@@ -110,9 +112,6 @@ Security manager properties edit form
            name="form.widgets.authentication_plugins_names"
            value="__system__;__internal__" />
 
-    >>> form.groups[0].widgets.keys()
-    odict_keys(['open_registration', 'users_folder'])
-
     >>> output = form.render()
 
 
@@ -171,7 +170,7 @@ Login form configuration edit form
     >>> form = LoginFormConfigurationForm(app, request)
     >>> form.update()
     >>> form.widgets.keys()
-    odict_keys(['logo', 'header', 'header_renderer', 'footer', 'footer_renderer'])
+    odict_keys(['skin', 'logo', 'header', 'header_renderer', 'footer', 'footer_renderer'])
 
     >>> output = form.render()
 
@@ -181,7 +180,7 @@ Login form
 
     >>> from pyams_layer.interfaces import IPyAMSLayer
     >>> from pyams_security_views.skin.login import LoginForm
-    >>> request = DummyRequest(is_xhr=False, params={
+    >>> request = DummyRequest(root=app, is_xhr=False, params={
     ...     'login_form.widgets.login': 'admin',
     ...     'login_form.widgets.password': 'admin',
     ...     'login_form.buttons.login': 'Connect'
@@ -194,11 +193,8 @@ Login form
 
     >>> output = form.render()
     >>> print(output)
-    <section class="rounded-lg"
+    <section class="rounded-lg "
              data-ams-modules="form plugins">
-        <h2 class="bg-secondary-modal d-flex flex-wrap pl-3 py-2-modal">
-            <span class="flex-grow-1">You must authenticate</span>
-        </h2>
         <form class="ams-form "
               id="login_form"
               name="login_form"
