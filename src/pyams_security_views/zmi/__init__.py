@@ -15,6 +15,7 @@
 This module provides views and content providers used to display security manager plug-ins.
 """
 
+from pyramid.decorator import reify
 from pyramid.view import view_config
 from zope.interface import Interface, implementer
 
@@ -87,7 +88,7 @@ class SecurityPluginsTable(Table):
 
     display_if_empty = True
 
-    @property
+    @reify
     def data_attributes(self):
         attributes = super().data_attributes
         sm = get_utility(ISecurityManager)  # pylint: disable=invalid-name
