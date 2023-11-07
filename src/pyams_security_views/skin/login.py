@@ -26,6 +26,7 @@ from pyramid.view import forbidden_view_config, view_config
 from zope.interface import Interface, Invalid, implementer
 from zope.schema.fieldproperty import FieldProperty
 
+from pyams_chat.handler.login import handle_authenticated_principal
 from pyams_form.ajax import ajax_form_config
 from pyams_form.button import Buttons, handler
 from pyams_form.field import Fields
@@ -37,6 +38,7 @@ from pyams_layer.interfaces import IPyAMSLayer
 from pyams_layer.skin import apply_skin
 from pyams_security.credential import Credentials
 from pyams_security.interfaces import ISecurityManager, LOGIN_REFERER_KEY
+from pyams_security.interfaces.plugin import AuthenticatedPrincipalEvent
 from pyams_security_views.interfaces.login import ILoginConfiguration, ILoginFormButtons, \
     ILoginFormFields, ILoginPageTarget, ILoginView, IModalLoginFormButtons
 from pyams_security.interfaces.profile import IUserRegistrationViews
@@ -185,6 +187,10 @@ class LoginForm(AddForm):
                         del session[LOGIN_REFERER_KEY]
                     else:
                         response.location = f'/{hash}'
+            plugin_name = data.get('plugin_name')
+            if plugin_name:
+                request.registry.notify(
+                    AuthenticatedPrincipalEvent(plugin_name, principal_id))
             return response
         return None
 
@@ -220,11 +226,13 @@ def handle_login_form_data(event):
                                                 "Please contact your system administrator!")), )
     else:
         credentials = Credentials('form', id=data['login'], **data)
-        principal_id = sm.authenticate(credentials, event.form.request)
+        principal_id, plugin_name = sm.authenticate(credentials, event.form.request,
+                                                    get_plugin_name=True)
         if principal_id is None:
             event.form.widgets.errors += (Invalid(_("Invalid credentials!")),)
         else:
             data['principal_id'] = principal_id
+            data['plugin_name'] = plugin_name
 
 
 @adapter_config(required=(Interface, IPyAMSLayer, ILoginView),
