@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.0.1
+-----
+ - imports cleanup
+
 2.0.0
 -----
  - upgraded for Pyramid 2.0
