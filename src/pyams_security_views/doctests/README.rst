@@ -137,12 +137,14 @@ Protected object roles edit form
     odict_keys(['managers', 'viewers'])
     >>> print(form.widgets['managers'].render())
     <select id="form-widgets-managers"
+            name="form.widgets.managers"
             class="form-control select2 select-widget principalssetfield-field"
             multiple="multiple"
             size="1"
+            data-allow-clear="true"
             data-placeholder="No selected principal"
             data-ajax--url="/api/security/principals"
-            readonly="readonly">
+            data-minimum-input-length="2">
             <option></option>
     </select>
     <input name="form.widgets.managers-empty-marker" type="hidden" value="1" />
