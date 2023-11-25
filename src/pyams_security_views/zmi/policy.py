@@ -79,7 +79,10 @@ class ProtectedObjectRolesEditFormMixin:
         super().update_widgets(prefix)
         if self.mode == DISPLAY_MODE:
             return
-        principals = self.request.effective_principals
+        identity = self.request.identity
+        if identity is None:
+            return
+        principals = identity['principals']
         for widget in self.widgets.values():
             widget.mode = DISPLAY_MODE
             role = get_utility(IRole, name=widget.field.role_id)

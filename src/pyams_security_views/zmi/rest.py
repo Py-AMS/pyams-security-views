@@ -78,8 +78,8 @@ class CORSConfigurationGroup(FormGroupChecker):
     label_css_class = 'col-sm-2 col-md-3'
     input_css_class = 'col-sm-10 col-md-9'
 
-    def update_widgets(self, prefix=None):
-        super().update_widgets(prefix)
+    def update_widgets(self, prefix=None, use_form_mode=True):
+        super().update_widgets(prefix, use_form_mode)
         origins = self.widgets.get('allowed_origins')
         if origins is not None:
             origins.rows = 10

@@ -54,7 +54,7 @@ from pyams_security_views import _  # pylint: disable=ungrouped-imports
 class SecurityMenu(NavigationMenuItem):
     """Security menu"""
 
-    label = _("Security")
+    label = _("Security policy")
     icon_class = 'fas fa-user-lock'
 
     def __new__(cls, context, request, view, manager):  # pylint: disable=unused-arguments
@@ -192,6 +192,13 @@ class SecurityPluginsView(TableAdminView):
     title = _("Security plug-ins")
     table_class = SecurityPluginsTable
     table_label = _("List of security plug-ins")
+
+    @property
+    def back_url(self):
+        """Form back URL getter"""
+        return absolute_url(self.request.root, self.request, 'admin#utilities.html')  # pylint: disable=no-member
+
+    back_url_target = None
 
 
 @view_config(name='delete-element.json',
