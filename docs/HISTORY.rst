@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0.0
+-----
+ - upgraded for Pyramid 2.0
+ - notify user authentication only from a successful login from a login form
+
 1.9.1
 -----
  - updated doctests

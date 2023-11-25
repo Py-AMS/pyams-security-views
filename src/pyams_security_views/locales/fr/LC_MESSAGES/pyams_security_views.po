@@ -37,7 +37,7 @@ msgstr "Politique de sécurité"
 #: src/pyams_security_views/zmi/manager.py:45
 #: src/pyams_security_views/zmi/manager.py:66
 msgid "Security manager"
-msgstr "Gestionnaire de sécurité"
+msgstr "Politique de sécurité"
 
 #: src/pyams_security_views/zmi/policy.py:152
 msgid "Security policy management"
