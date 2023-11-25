@@ -26,7 +26,6 @@ from pyramid.view import forbidden_view_config, view_config
 from zope.interface import Interface, Invalid, implementer
 from zope.schema.fieldproperty import FieldProperty
 
-from pyams_chat.handler.login import handle_authenticated_principal
 from pyams_form.ajax import ajax_form_config
 from pyams_form.button import Buttons, handler
 from pyams_form.field import Fields
@@ -39,9 +38,9 @@ from pyams_layer.skin import apply_skin
 from pyams_security.credential import Credentials
 from pyams_security.interfaces import ISecurityManager, LOGIN_REFERER_KEY
 from pyams_security.interfaces.plugin import AuthenticatedPrincipalEvent
+from pyams_security.interfaces.profile import IUserRegistrationViews
 from pyams_security_views.interfaces.login import ILoginConfiguration, ILoginFormButtons, \
     ILoginFormFields, ILoginPageTarget, ILoginView, IModalLoginFormButtons
-from pyams_security.interfaces.profile import IUserRegistrationViews
 from pyams_skin.interfaces.view import IModalFullPage, IModalPage
 from pyams_skin.interfaces.viewlet import IFooterViewletManager, IHeaderViewletManager
 from pyams_template.template import template_config
