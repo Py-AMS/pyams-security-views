@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.0.2
+-----
+ - updated Buildout configuration
+
 2.0.1
 -----
  - imports cleanup
