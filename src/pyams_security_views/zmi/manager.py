@@ -63,7 +63,7 @@ class SecurityPropertiesMenu(NavigationMenuItem):
 class SecurityPropertiesEditForm(AdminEditForm):
     """Security manager properties edit form"""
 
-    title = _("Security manager")
+    title = _("Security modules")
     legend = _("Properties")
 
     fields = Fields(ISecurityManager).select('credentials_plugins_names',

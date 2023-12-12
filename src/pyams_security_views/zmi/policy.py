@@ -28,13 +28,17 @@ from pyams_security.interfaces import IDefaultProtectionPolicy, IProtectedObject
 from pyams_security.interfaces.base import IRole, MANAGE_SECURITY_PERMISSION, \
     VIEW_SYSTEM_PERMISSION
 from pyams_security_views.zmi.interfaces import IObjectSecurityMenu
+from pyams_skin.interfaces.view import IModalEditForm
 from pyams_skin.interfaces.viewlet import IHelpViewletManager
 from pyams_skin.viewlet.help import AlertMessage
+from pyams_utils.adapter import adapter_config
 from pyams_utils.registry import get_utility
+from pyams_utils.traversing import get_parent
 from pyams_viewlet.manager import viewletmanager_config
 from pyams_viewlet.viewlet import viewlet_config
 from pyams_zmi.form import AdminEditForm, AdminModalEditForm
-from pyams_zmi.interfaces import IAdminLayer
+from pyams_zmi.interfaces import IAdminLayer, TITLE_SPAN_BREAK
+from pyams_zmi.interfaces.form import IFormTitle
 from pyams_zmi.interfaces.viewlet import ISiteManagementMenu
 from pyams_zmi.utils import get_object_label
 from pyams_zmi.zmi.viewlet.menu import NavigationMenuItem
@@ -106,14 +110,17 @@ class ProtectedObjectRolesEditForm(ProtectedObjectRolesEditFormMixin, AdminEditF
 class ProtectedObjectRolesModalEditForm(ProtectedObjectRolesEditFormMixin, AdminModalEditForm):
     """Protected object roles modal edit form"""
 
-    @property
-    def title(self):
-        """Form title getter"""
-        translate = self.request.localizer.translate
-        return '<small>{}</small><br />{}'.format(
-            get_object_label(self.context, self.request, self),
-            translate(_("User roles"))
-        )
+    subtitle = _("User roles")
+
+
+@adapter_config(required=(IDefaultProtectionPolicy, IAdminLayer, ProtectedObjectRolesModalEditForm),
+                provides=IFormTitle)
+def protected_object_roles_edit_form_title(context, request, form):
+    """Protected object roles edit form title"""
+    parent = get_parent(context, IDefaultProtectionPolicy, allow_context=False)
+    return TITLE_SPAN_BREAK.format(
+        get_object_label(parent, request, form),
+        get_object_label(context, request, form))
 
 
 @viewlet_config(name='object-roles.alert', context=IDefaultProtectionPolicy,
@@ -151,7 +158,7 @@ class ProtectedObjectSecurityPolicyMenuItem(NavigationMenuItem):
 class ProtectedObjectSecurityPolicyEditForm(AdminEditForm):
     """Protected object security policy edit form"""
 
-    title = _("Security manager")
+    title = _("Security policy")
     legend = _("Security policy management")
 
     fields = Fields(IProtectedObject)

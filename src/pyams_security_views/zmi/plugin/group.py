@@ -29,8 +29,9 @@ from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
 from pyams_security.interfaces.plugin import GROUPS_FOLDER_PLUGIN_LABEL, IGroupsFolderPlugin, \
     ILocalGroup
 from pyams_security_views.zmi import SecurityPluginsTable
-from pyams_security_views.zmi.plugin import InnerSecurityPluginFormMixin, SecurityPluginAddForm, \
-    SecurityPluginAddMenu, SecurityPluginPropertiesEditForm
+from pyams_security_views.zmi.plugin import SecurityPluginAddForm, \
+    SecurityPluginAddMenu, SecurityPluginPropertiesEditForm, security_plugin_edit_form_title
+from pyams_skin.interfaces.view import IModalAddForm, IModalEditForm
 from pyams_skin.viewlet.actions import ContextAddAction
 from pyams_table.column import GetAttrColumn
 from pyams_table.interfaces import IColumn
@@ -44,11 +45,11 @@ from pyams_zmi.helper.container import delete_container_element
 from pyams_zmi.helper.event import get_json_table_row_add_callback, \
     get_json_table_row_refresh_callback
 from pyams_zmi.interfaces import IAdminLayer
+from pyams_zmi.interfaces.form import IFormTitle
 from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.interfaces.viewlet import IContextAddingsViewletManager, IToolbarViewletManager
 from pyams_zmi.table import I18nColumnMixin, Table, TableAdminView, TableElementEditor, \
     TrashColumn
-
 
 __docformat__ = 'restructuredtext'
 
@@ -177,10 +178,11 @@ class LocalGroupAddAction(ContextAddAction):
 @ajax_form_config(name='add-group.html',
                   context=IGroupsFolderPlugin, layer=IPyAMSLayer,
                   permission=MANAGE_SECURITY_PERMISSION)
-class LocalGroupAddForm(InnerSecurityPluginFormMixin, AdminModalAddForm):
+class LocalGroupAddForm(AdminModalAddForm):
     """Local group add form"""
 
-    legend = _("Add local group")
+    subtitle = _("New local group")
+    legend = _("New local group properties")
 
     fields = Fields(ILocalGroup).omit('__parent__', '__name__')
     content_factory = ILocalGroup
@@ -194,6 +196,13 @@ class LocalGroupAddForm(InnerSecurityPluginFormMixin, AdminModalAddForm):
 
     def next_url(self):
         return absolute_url(self.context, self.request, 'search.html')
+
+
+@adapter_config(required=(IGroupsFolderPlugin, IAdminLayer, IModalAddForm),
+                provides=IFormTitle)
+def local_group_add_form_title(context, request, form):
+    """Local group add form title"""
+    return security_plugin_edit_form_title(context, request, form)
 
 
 @subscriber(IDataExtractedEvent, form_selector=LocalGroupAddForm)
@@ -224,20 +233,24 @@ class LocalGroupAddFormRenderer(ContextRequestViewAdapter):
 
 @ajax_form_config(name='properties.html',
                   context=ILocalGroup, layer=IPyAMSLayer)
-class LocalGroupEditForm(InnerSecurityPluginFormMixin, AdminModalEditForm):
+class LocalGroupEditForm(AdminModalEditForm):
     """Local group edit form"""
 
     @property
-    def title(self):
-        """Form title getter"""
+    def subtitle(self):
         translate = self.request.localizer.translate
-        return '{}<br /><small>{}</small>'.format(
-            super().title,
-            translate(_("Group: {}")).format(self.context.title))
+        return translate(_("Group: {}")).format(self.context.title)
 
     legend = _("Group properties")
 
     fields = Fields(ILocalGroup).omit('__parent__', '__name__')
+
+
+@adapter_config(required=(ILocalGroup, IAdminLayer, IModalEditForm),
+                provides=IFormTitle)
+def local_group_edit_form_title(context, request, form):
+    """Local group edit form title"""
+    return security_plugin_edit_form_title(context, request, form)
 
 
 @adapter_config(required=(ILocalGroup, IAdminLayer, LocalGroupEditForm),

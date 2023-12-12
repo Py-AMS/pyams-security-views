@@ -25,6 +25,7 @@ from pyams_form.interfaces.form import IAJAXFormRenderer, IDataExtractedEvent
 from pyams_security.interfaces import IPlugin, ISecurityManager, IViewContextPermissionChecker
 from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
 from pyams_security_views.zmi import SecurityPluginsTable
+from pyams_skin.interfaces.view import IModalAddForm, IModalEditForm
 from pyams_skin.viewlet.menu import MenuItem
 from pyams_utils.adapter import ContextAdapter, ContextRequestViewAdapter, adapter_config
 from pyams_utils.registry import get_utility
@@ -33,11 +34,11 @@ from pyams_utils.url import absolute_url
 from pyams_zmi.form import AdminModalAddForm, AdminModalEditForm
 from pyams_zmi.helper.event import get_json_table_row_add_callback, \
     get_json_table_row_refresh_callback
-from pyams_zmi.interfaces import IAdminLayer, IObjectLabel
+from pyams_zmi.interfaces import IAdminLayer, IObjectLabel, TITLE_SPAN, TITLE_SPAN_BREAK
+from pyams_zmi.interfaces.form import IFormTitle
 from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.table import TableElementEditor
 from pyams_zmi.utils import get_object_label
-
 
 __docformat__ = 'restructuredtext'
 
@@ -58,12 +59,9 @@ class SecurityPluginAddForm(AdminModalAddForm):
     """Security plug-in add form"""
 
     @property
-    def title(self):
-        """Add form title getter"""
+    def subtitle(self):
         translate = self.request.localizer.translate
-        return '<small>{}</small><br />{}'.format(
-            get_object_label(self.context, self.request, self),
-            translate(_("New plug-in: {}")).format(translate(self.content_label)))
+        return translate(_("New plug-in: {}")).format(translate(self.content_label))
 
     legend = _("New plug-in properties")
     content_factory = IPlugin
@@ -86,6 +84,14 @@ class SecurityPluginAddForm(AdminModalAddForm):
 
     def next_url(self):
         return absolute_url(self.context, self.request, 'admin#security-plugins.html')
+
+
+@adapter_config(required=(ISecurityManager, IAdminLayer, IModalAddForm),
+                provides=IFormTitle)
+def security_manager_plugin_add_form_title(context, request, form):
+    """Add form title getter"""
+    sm = get_utility(ISecurityManager)
+    return TITLE_SPAN.format(get_object_label(sm, request, form))
 
 
 @subscriber(IDataExtractedEvent, form_selector=SecurityPluginAddForm)
@@ -122,20 +128,6 @@ def security_plugin_label(context):
     return context.title
 
 
-class InnerSecurityPluginFormMixin:
-    """Inner security plug-in form mixin"""
-
-    @property
-    def title(self):
-        """Form title getter"""
-        translate = self.request.localizer.translate
-        manager = get_utility(ISecurityManager)
-        plugin = get_parent(self.context, IPlugin)
-        return '<small>{}</small><br />{}'.format(
-            get_object_label(manager, self.request, self),
-            translate(_("Plug-in: {}")).format(get_object_label(plugin, self.request, self)))
-
-
 @adapter_config(required=(IPlugin, IAdminLayer, Interface),
                 provides=ITableElementEditor)
 class SecurityPluginEditor(TableElementEditor):
@@ -151,16 +143,6 @@ class SecurityManagerPluginPermissionChecker(ContextAdapter):
 
 class SecurityPluginPropertiesEditForm(AdminModalEditForm):
     """Security plug-in properties editor adapter"""
-
-    @property
-    def title(self):
-        """Plug-in edit form title getter"""
-        translate = self.request.localizer.translate
-        manager = get_utility(ISecurityManager)
-        plugin = get_parent(self.context, IPlugin)
-        return '<small>{}</small><br />{}'.format(
-            get_object_label(manager, self.request, self),
-            translate(_("Plug-in: {}")).format(get_object_label(plugin, self.request, self)))
 
     legend = _("Plug-in properties")
 
@@ -178,6 +160,18 @@ class SecurityPluginPropertiesEditForm(AdminModalEditForm):
         super().update_widgets(prefix)
         if 'prefix' in self.widgets:
             self.widgets['prefix'].mode = DISPLAY_MODE
+
+
+@adapter_config(required=(IPlugin, IAdminLayer, IModalEditForm),
+                provides=IFormTitle)
+def security_plugin_edit_form_title(context, request, form):
+    """Security plugin form title"""
+    translate = request.localizer.translate
+    sm = get_utility(ISecurityManager)
+    plugin = get_parent(context, IPlugin)
+    return TITLE_SPAN_BREAK.format(
+        get_object_label(sm, request, form),
+        translate(_("Plug-in: {}")).format(get_object_label(plugin, request, form)))
 
 
 @adapter_config(required=(IPlugin, IAdminLayer, SecurityPluginPropertiesEditForm),

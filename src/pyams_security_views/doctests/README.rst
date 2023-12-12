@@ -195,14 +195,14 @@ Login form
 
     >>> output = form.render()
     >>> print(output)
-    <section class="rounded-lg "
-             data-ams-modules="form plugins">
+    <section class="rounded-lg ">
         <form class="ams-form "
               id="login_form"
               name="login_form"
               action="http://example.com"
               method="post"
               data-async
+              data-ams-modules="form plugins"
               data-ams-data='{"ams-warn-on-change": false, "ams-modules": "callbacks helpers", "ams-callback": "MyAMS.helpers.setLoginHash"}'>
             <fieldset
                 class="border">

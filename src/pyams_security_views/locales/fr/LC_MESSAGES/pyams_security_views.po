@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2023-07-05 10:02+0200\n"
+"POT-Creation-Date: 2023-12-02 19:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,31 +15,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Lingua 3.10.dev0\n"
 
-#: src/pyams_security_views/zmi/policy.py:59
-#: src/pyams_security_views/zmi/policy.py:98
-#: src/pyams_security_views/zmi/policy.py:112
+#: src/pyams_security_views/zmi/policy.py:62
+#: src/pyams_security_views/zmi/policy.py:104
 msgid "User roles"
 msgstr "Habilitations"
 
-#: src/pyams_security_views/zmi/policy.py:67
+#: src/pyams_security_views/zmi/policy.py:70
 msgid "Granted object roles"
 msgstr "Rôles accordés aux utilisateurs"
 
-#: src/pyams_security_views/zmi/policy.py:128
+#: src/pyams_security_views/zmi/policy.py:135
 msgid "Roles are not defined for this context!"
 msgstr "Aucun rôle n'est défini dans ce contexte !"
 
-#: src/pyams_security_views/zmi/policy.py:141
+#: src/pyams_security_views/zmi/policy.py:148
+#: src/pyams_security_views/zmi/policy.py:158
 msgid "Security policy"
 msgstr "Politique de sécurité"
 
-#: src/pyams_security_views/zmi/policy.py:151
-#: src/pyams_security_views/zmi/manager.py:45
-#: src/pyams_security_views/zmi/manager.py:66
-msgid "Security manager"
-msgstr "Politique de sécurité"
-
-#: src/pyams_security_views/zmi/policy.py:152
+#: src/pyams_security_views/zmi/policy.py:159
 msgid "Security policy management"
 msgstr "Paramètres de la politique de sécurité"
 
@@ -63,33 +57,45 @@ msgstr ""
 "ci sera toujours acceptée ; seules les origines \"externes\" doivent être "
 "précisées."
 
+#: src/pyams_security_views/zmi/manager.py:45
+msgid "Security manager"
+msgstr "Gestionnaire de sécurité"
+
 #: src/pyams_security_views/zmi/manager.py:55
 #: src/pyams_security_views/zmi/manager.py:67
 msgid "Properties"
 msgstr "Propriétés"
 
+#: src/pyams_security_views/zmi/manager.py:66
+msgid "Security modules"
+msgstr "Modules de la politique de sécurité"
+
 #: src/pyams_security_views/zmi/manager.py:83
 msgid "Management interface"
 msgstr "Interface d'administration"
 
-#: src/pyams_security_views/zmi/__init__.py:56
-#: src/pyams_security_views/zmi/__init__.py:79
+#. Default: Security manager
+#: src/pyams_security_views/zmi/__init__.py:57
+msgid "security-manager-menu"
+msgstr "Sécurité"
+
+#: src/pyams_security_views/zmi/__init__.py:80
 msgid "Security"
 msgstr "Sécurité"
 
-#: src/pyams_security_views/zmi/__init__.py:118
+#: src/pyams_security_views/zmi/__init__.py:119
 msgid "Search into folder"
 msgstr "Rechercher dans le dossier"
 
-#: src/pyams_security_views/zmi/__init__.py:145
+#: src/pyams_security_views/zmi/__init__.py:146
 msgid "Plug-in is enabled"
 msgstr "Plug-in actif"
 
-#: src/pyams_security_views/zmi/__init__.py:191
+#: src/pyams_security_views/zmi/__init__.py:192
 msgid "Security plug-ins"
 msgstr "Modules de sécurité"
 
-#: src/pyams_security_views/zmi/__init__.py:193
+#: src/pyams_security_views/zmi/__init__.py:194
 msgid "List of security plug-ins"
 msgstr "Liste des modules de sécurité"
 
@@ -143,129 +149,137 @@ msgstr ""
 "Les applications peuvent également envoyer des messages dans le cadre de "
 "leur processus de fonctionnement normal."
 
-#: src/pyams_security_views/zmi/plugin/group.py:65
+#: src/pyams_security_views/zmi/plugin/group.py:66
 msgid "Add groups folder..."
 msgstr "Ajouter un dossier de groupes..."
 
-#: src/pyams_security_views/zmi/plugin/group.py:103
-#: src/pyams_security_views/zmi/plugin/userfolder.py:153
+#: src/pyams_security_views/zmi/plugin/group.py:104
+#: src/pyams_security_views/zmi/plugin/userfolder.py:155
 msgid "Title"
 msgstr "Nom"
 
-#: src/pyams_security_views/zmi/plugin/group.py:138
+#: src/pyams_security_views/zmi/plugin/group.py:139
 msgid "List of folder groups"
 msgstr "Groupes d'utilisateurs"
 
-#: src/pyams_security_views/zmi/plugin/group.py:173
+#: src/pyams_security_views/zmi/plugin/group.py:174
 msgid "Add group"
 msgstr "Ajouter un groupe"
 
-#: src/pyams_security_views/zmi/plugin/group.py:183
-msgid "Add local group"
-msgstr "Ajouter un groupe d'utilisateurs"
+#: src/pyams_security_views/zmi/plugin/group.py:184
+msgid "New local group"
+msgstr "Nouveau groupe d'utilisateurs"
 
-#: src/pyams_security_views/zmi/plugin/group.py:205
-#: src/pyams_security_views/zmi/plugin/userfolder.py:278
+#: src/pyams_security_views/zmi/plugin/group.py:185
+msgid "New local group properties"
+msgstr "Propriétés du nouveau groupe"
+
+#: src/pyams_security_views/zmi/plugin/group.py:214
+#: src/pyams_security_views/zmi/plugin/userfolder.py:293
 msgid "Specified login is already used."
 msgstr "Le login indiqué est déjà utilisé."
 
-#: src/pyams_security_views/zmi/plugin/group.py:236
+#: src/pyams_security_views/zmi/plugin/group.py:242
 #, python-format
 msgid "Group: {}"
 msgstr "Groupe : {}"
 
-#: src/pyams_security_views/zmi/plugin/group.py:238
+#: src/pyams_security_views/zmi/plugin/group.py:244
 msgid "Group properties"
 msgstr "Propriétés du groupe"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:71
+#: src/pyams_security_views/zmi/plugin/userfolder.py:72
 msgid "Add local users folder..."
 msgstr "Ajouter un dossier d'utilisateurs locaux..."
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:100
-#: src/pyams_security_views/zmi/plugin/userfolder.py:114
+#: src/pyams_security_views/zmi/plugin/userfolder.py:101
+#: src/pyams_security_views/zmi/plugin/userfolder.py:116
 msgid "Users search form"
 msgstr "Rechercher des utilisateurs"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:141
+#: src/pyams_security_views/zmi/plugin/userfolder.py:143
 #: src/pyams_security_views/interfaces/login.py:101
 msgid "Login"
 msgstr "Identifiant"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:165
+#: src/pyams_security_views/zmi/plugin/userfolder.py:167
 msgid "Mail address"
 msgstr "Adresse de messagerie"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:177
+#: src/pyams_security_views/zmi/plugin/userfolder.py:179
 msgid "Account has password set"
 msgstr "Le mot de passe est renseigné"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:194
+#: src/pyams_security_views/zmi/plugin/userfolder.py:196
 msgid "Account is activated"
 msgstr "Le profil est activé"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:217
+#: src/pyams_security_views/zmi/plugin/userfolder.py:220
 msgid "Search results"
 msgstr "Résultats de la recherche"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:238
+#: src/pyams_security_views/zmi/plugin/userfolder.py:244
 msgid "Add user"
 msgstr "Ajouter un utilisateur"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:247
-msgid "Add local user"
-msgstr "Ajouter un utilisateur"
+#: src/pyams_security_views/zmi/plugin/userfolder.py:254
+msgid "New local user"
+msgstr "Nouvel utilisateur"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:281
-#: src/pyams_security_views/zmi/plugin/userfolder.py:560
+#: src/pyams_security_views/zmi/plugin/userfolder.py:255
+msgid "New local user properties"
+msgstr "Propriétés du nouvel utilisateur"
+
+#: src/pyams_security_views/zmi/plugin/userfolder.py:296
+#: src/pyams_security_views/zmi/plugin/userfolder.py:578
 msgid "User password was not confirmed correctly."
 msgstr "Le mot de passe n'a pas été confirmé correctement."
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:295
+#: src/pyams_security_views/zmi/plugin/userfolder.py:310
 msgid "New user was created successfully!"
 msgstr "Le compte utilisateur a été créé avec succès !"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:304
+#: src/pyams_security_views/zmi/plugin/userfolder.py:319
 msgid "Change password"
 msgstr "Modifier le mot de passe"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:307
+#: src/pyams_security_views/zmi/plugin/userfolder.py:322
 msgid "Refresh secret"
 msgstr "Réinitialiser le secret"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:310
+#: src/pyams_security_views/zmi/plugin/userfolder.py:325
 msgid "Enable"
 msgstr "Activer"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:314
+#: src/pyams_security_views/zmi/plugin/userfolder.py:329
 msgid "Disable"
 msgstr "Désactiver"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:328
-#: src/pyams_security_views/zmi/plugin/userfolder.py:547
+#: src/pyams_security_views/zmi/plugin/userfolder.py:341
+#: src/pyams_security_views/zmi/plugin/userfolder.py:565
 #, python-format
 msgid "User: {}"
 msgstr "Utilisateur : {}"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:330
+#: src/pyams_security_views/zmi/plugin/userfolder.py:343
 msgid "User properties"
 msgstr "Propriétés de l'utilisateur"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:359
+#: src/pyams_security_views/zmi/plugin/userfolder.py:372
 msgid "Refresh activation secret and send a new activation link to this user"
 msgstr "Génère une nouvelle clé d'activation qui sera envoyée à l'utilisateur"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:364
+#: src/pyams_security_views/zmi/plugin/userfolder.py:377
 msgid "Re-enable user profile"
 msgstr "Ré-activer le compte"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:368
+#: src/pyams_security_views/zmi/plugin/userfolder.py:381
 msgid "Disable user profile temporarily will forbid login with this account..."
 msgstr ""
 "Désactiver ce compte utilisateur empêchera toute connexion jusqu'à sa "
 "réactivation..."
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:456
+#: src/pyams_security_views/zmi/plugin/userfolder.py:476
 msgid ""
 "This profile has been deactivated!<br /> A new activation code has been "
 "created and sent to this user!"
@@ -273,27 +287,27 @@ msgstr ""
 "Le compte a été désactivé !<br />Un nouveau lien d'activation a été créé et "
 "transmis à l'utilisateur..."
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:484
+#: src/pyams_security_views/zmi/plugin/userfolder.py:504
 msgid "Enabled user!"
 msgstr "Compte activé !"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:486
+#: src/pyams_security_views/zmi/plugin/userfolder.py:506
 msgid "User has been enabled and can now log-in!"
 msgstr ""
 "Le compte utilisateur a été activé et peut maintenant être utilisé pour se "
 "connecter !"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:512
+#: src/pyams_security_views/zmi/plugin/userfolder.py:532
 msgid "Disabled user!"
 msgstr "Compte désactivé !"
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:514
+#: src/pyams_security_views/zmi/plugin/userfolder.py:534
 msgid "User has been disabled and can't log in anymore!"
 msgstr ""
 "Le compte utilisateur a été désactivé et ne peut plus être utilisé pour se "
 "connecter..."
 
-#: src/pyams_security_views/zmi/plugin/userfolder.py:549
+#: src/pyams_security_views/zmi/plugin/userfolder.py:567
 msgid "Change user password"
 msgstr "Modifier le mot de passe"
 
@@ -326,28 +340,27 @@ msgstr ""
 "se connecter (il restera utilisable pour des tâches internes) ; en indiquant "
 "la valeur '*****', le mot de passe ne sera pas modifié..."
 
-#: src/pyams_security_views/zmi/plugin/__init__.py:66
+#: src/pyams_security_views/zmi/plugin/__init__.py:64
 #, python-format
 msgid "New plug-in: {}"
 msgstr "Nouveau module : {}"
 
-#: src/pyams_security_views/zmi/plugin/__init__.py:68
+#: src/pyams_security_views/zmi/plugin/__init__.py:66
 msgid "New plug-in properties"
 msgstr "Propriétés du nouveau module"
 
-#: src/pyams_security_views/zmi/plugin/__init__.py:97
+#: src/pyams_security_views/zmi/plugin/__init__.py:103
 msgid "Specified prefix is already used!"
 msgstr "Le préfixe indiqué est déjà utilisé !"
 
-#: src/pyams_security_views/zmi/plugin/__init__.py:136
-#: src/pyams_security_views/zmi/plugin/__init__.py:163
+#: src/pyams_security_views/zmi/plugin/__init__.py:147
+msgid "Plug-in properties"
+msgstr "Propriétés du module"
+
+#: src/pyams_security_views/zmi/plugin/__init__.py:174
 #, python-format
 msgid "Plug-in: {}"
 msgstr "Module : {}"
-
-#: src/pyams_security_views/zmi/plugin/__init__.py:165
-msgid "Plug-in properties"
-msgstr "Propriétés du module"
 
 #: src/pyams_security_views/interfaces/login.py:37
 msgid "Login skin"
@@ -445,25 +458,22 @@ msgid "Password"
 msgstr "Mot de passe"
 
 #: src/pyams_security_views/interfaces/login.py:110
-#: src/pyams_security_views/interfaces/login.py:126
 msgid "Register"
 msgstr "Inscription"
 
 #: src/pyams_security_views/interfaces/login.py:113
-#: src/pyams_security_views/interfaces/login.py:129
 msgid "Reset password"
 msgstr "Mot de passe oublié"
 
 #: src/pyams_security_views/interfaces/login.py:116
-#: src/pyams_security_views/interfaces/login.py:132
 msgid "Connect"
 msgstr "Connexion"
 
-#: src/pyams_security_views/interfaces/login.py:119
+#: src/pyams_security_views/interfaces/login.py:123
 msgid "Reset"
 msgstr "Annuler"
 
-#: src/pyams_security_views/interfaces/login.py:135
+#: src/pyams_security_views/interfaces/login.py:130
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -471,22 +481,22 @@ msgstr "Annuler"
 msgid "No selected principal"
 msgstr "Aucun mandataire sélectionné"
 
-#: src/pyams_security_views/skin/login.py:95
+#: src/pyams_security_views/skin/login.py:96
 msgid "Please enter valid credentials"
 msgstr "Paramètres de connexion"
 
-#: src/pyams_security_views/skin/login.py:110
+#: src/pyams_security_views/skin/login.py:111
 msgid "You must authenticate"
 msgstr "Vous devez vous authentifier !"
 
-#: src/pyams_security_views/skin/login.py:219
+#: src/pyams_security_views/skin/login.py:224
 msgid ""
 "Missing security manager utility. Please contact your system administrator!"
 msgstr ""
 "Aucun gestionnaire de sécurité n'est disponible. Veuillez contacter votre "
 "administrateur !"
 
-#: src/pyams_security_views/skin/login.py:225
+#: src/pyams_security_views/skin/login.py:231
 msgid "Invalid credentials!"
 msgstr "Vos paramètres de connexion sont incorrects !"
 

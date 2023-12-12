@@ -54,7 +54,7 @@ from pyams_security_views import _  # pylint: disable=ungrouped-imports
 class SecurityMenu(NavigationMenuItem):
     """Security menu"""
 
-    label = _("Security policy")
+    label = _("security-manager-menu", default="Security manager")
     icon_class = 'fas fa-user-lock'
 
     def __new__(cls, context, request, view, manager):  # pylint: disable=unused-arguments

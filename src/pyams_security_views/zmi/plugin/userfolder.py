@@ -16,6 +16,7 @@ Local users management views.
 """
 
 from datetime import datetime
+
 from pyramid.events import subscriber
 from pyramid.view import view_config
 from zope.interface import Interface, Invalid
@@ -33,8 +34,9 @@ from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
 from pyams_security.interfaces.plugin import ILocalUser, IUsersFolderPlugin, \
     USERS_FOLDER_PLUGIN_LABEL
 from pyams_security_views.zmi import SecurityPluginsTable
-from pyams_security_views.zmi.plugin import InnerSecurityPluginFormMixin, SecurityPluginAddForm, \
-    SecurityPluginAddMenu, SecurityPluginPropertiesEditForm
+from pyams_security_views.zmi.plugin import SecurityPluginAddForm, \
+    SecurityPluginAddMenu, SecurityPluginPropertiesEditForm, security_plugin_edit_form_title
+from pyams_skin.interfaces.view import IModalAddForm, IModalEditForm
 from pyams_skin.schema.button import ActionButton, SubmitButton
 from pyams_skin.viewlet.actions import ContextAddAction
 from pyams_table.column import GetAttrColumn
@@ -49,12 +51,11 @@ from pyams_zmi.form import AdminModalAddForm, AdminModalEditForm
 from pyams_zmi.helper.container import delete_container_element
 from pyams_zmi.helper.event import get_json_table_row_refresh_callback
 from pyams_zmi.interfaces import IAdminLayer
-from pyams_zmi.interfaces.form import IModalDisplayFormButtons, IModalEditFormButtons
+from pyams_zmi.interfaces.form import IFormTitle, IModalDisplayFormButtons, IModalEditFormButtons
 from pyams_zmi.interfaces.table import ITableElementEditor
 from pyams_zmi.interfaces.viewlet import IContextAddingsViewletManager, IToolbarViewletManager
 from pyams_zmi.search import SearchForm, SearchResultsView, SearchView
 from pyams_zmi.table import I18nColumnMixin, IconColumn, Table, TableElementEditor, TrashColumn
-
 
 __docformat__ = 'restructuredtext'
 
@@ -106,7 +107,8 @@ class LocalUsersSearchForm(SearchForm):  # pylint: disable=abstract-method
         return absolute_url(manager, self.request, 'security-plugins.html')
 
 
-@pagelet_config(name='search.html', context=IUsersFolderPlugin, layer=IPyAMSLayer,
+@pagelet_config(name='search.html',
+                context=IUsersFolderPlugin, layer=IPyAMSLayer,
                 permission=MANAGE_SECURITY_PERMISSION)
 class LocalUsersSearchView(SearchView):
     """Local users search view"""
@@ -209,7 +211,8 @@ class LocalUsersSearchTrashColumn(TrashColumn):
     """Local users search trash column"""
 
 
-@pagelet_config(name='search-results.html', context=IUsersFolderPlugin, layer=IPyAMSLayer,
+@pagelet_config(name='search-results.html',
+                context=IUsersFolderPlugin, layer=IPyAMSLayer,
                 permission=MANAGE_SECURITY_PERMISSION, xhr=True)
 class LocalUsersSearchResultsView(SearchResultsView):
     """Local users search results view"""
@@ -218,8 +221,10 @@ class LocalUsersSearchResultsView(SearchResultsView):
     table_class = LocalUsersSearchResultsTable
 
 
-@view_config(name='delete-element.json', context=IUsersFolderPlugin, request_type=IPyAMSLayer,
-             permission=MANAGE_SECURITY_PERMISSION, renderer='json', xhr=True)
+@view_config(name='delete-element.json',
+             context=IUsersFolderPlugin, request_type=IPyAMSLayer,
+             permission=MANAGE_SECURITY_PERMISSION,
+             renderer='json', xhr=True)
 def delete_local_user(request):
     """Local user delete view"""
     return delete_container_element(request)
@@ -229,8 +234,9 @@ def delete_local_user(request):
 # Local user views
 #
 
-@viewlet_config(name='add-user.action', context=IUsersFolderPlugin, layer=IAdminLayer,
-                view=LocalUsersSearchForm, manager=IToolbarViewletManager, weight=10,
+@viewlet_config(name='add-user.action',
+                context=IUsersFolderPlugin, layer=IAdminLayer, view=LocalUsersSearchForm,
+                manager=IToolbarViewletManager, weight=10,
                 permission=MANAGE_SECURITY_PERMISSION)
 class LocalUserAddAction(ContextAddAction):
     """Local user add action"""
@@ -239,12 +245,14 @@ class LocalUserAddAction(ContextAddAction):
     href = 'add-user.html'
 
 
-@ajax_form_config(name='add-user.html', context=IUsersFolderPlugin, layer=IPyAMSLayer,
+@ajax_form_config(name='add-user.html',
+                  context=IUsersFolderPlugin, layer=IPyAMSLayer,
                   permission=MANAGE_SECURITY_PERMISSION)
-class LocalUserAddForm(InnerSecurityPluginFormMixin, AdminModalAddForm):
+class LocalUserAddForm(AdminModalAddForm):
     """Local user add form"""
 
-    legend = _("Add local user")
+    subtitle = _("New local user")
+    legend = _("New local user properties")
 
     fields = Fields(ILocalUser).select('login', 'email', 'firstname', 'lastname',
                                        'company_name', 'password_manager', 'password',
@@ -267,6 +275,13 @@ class LocalUserAddForm(InnerSecurityPluginFormMixin, AdminModalAddForm):
 
     def add(self, obj):
         self.context[obj.login] = obj
+
+
+@adapter_config(required=(IUsersFolderPlugin, IAdminLayer, IModalAddForm),
+                provides=IFormTitle)
+def local_user_add_form_title(context, request, form):
+    """Local user add form title"""
+    return security_plugin_edit_form_title(context, request, form)
 
 
 @subscriber(IDataExtractedEvent, form_selector=LocalUserAddForm)
@@ -315,17 +330,15 @@ class ILocalUserEditFormButtons(IModalEditFormButtons):
                            condition=lambda form: form.context.activated)
 
 
-@ajax_form_config(name='properties.html', context=ILocalUser, layer=IPyAMSLayer)
-class LocalUserEditForm(InnerSecurityPluginFormMixin, AdminModalEditForm):
+@ajax_form_config(name='properties.html',
+                  context=ILocalUser, layer=IPyAMSLayer)
+class LocalUserEditForm(AdminModalEditForm):
     """Local user edit form"""
 
     @property
-    def title(self):
-        """Form title getter"""
+    def subtitle(self):
         translate = self.request.localizer.translate
-        return '{}<br /><small>{}</small>'.format(
-            super().title,
-            translate(_("User: {}")).format(self.context.title))
+        return translate(_("User: {}")).format(self.context.title)
 
     legend = _("User properties")
 
@@ -419,6 +432,13 @@ class LocalUserEditForm(InnerSecurityPluginFormMixin, AdminModalEditForm):
             'action': action,
             'changes': user
         })
+
+
+@adapter_config(required=(ILocalUser, IAdminLayer, IModalEditForm),
+                provides=IFormTitle)
+def local_user_edit_form_title(context, request, form):
+    """Local user edit form title"""
+    return security_plugin_edit_form_title(context, request, form)
 
 
 @adapter_config(name='apply',
@@ -533,18 +553,16 @@ class LocalUserPermissionChecker(ContextAdapter):
     edit_permission = MANAGE_SECURITY_PERMISSION
 
 
-@ajax_form_config(name='change-password.html', context=ILocalUser, layer=IPyAMSLayer,
+@ajax_form_config(name='change-password.html',
+                  context=ILocalUser, layer=IPyAMSLayer,
                   permission=MANAGE_SECURITY_PERMISSION)
-class LocalUserPasswordChangeForm(InnerSecurityPluginFormMixin, AdminModalEditForm):
+class LocalUserPasswordChangeForm(AdminModalEditForm):
     """Local user password change form"""
 
     @property
-    def title(self):
-        """Form title getter"""
+    def subtitle(self):
         translate = self.request.localizer.translate
-        return '{}<br /><small>{}</small>'.format(
-            super().title,
-            translate(_("User: {}")).format(self.context.title))
+        return translate(_("User: {}")).format(self.context.title)
 
     legend = _("Change user password")
 
