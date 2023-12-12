@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.0.3
+-----
+ - updated modal forms title
+
 2.0.2
 -----
  - updated Buildout configuration
