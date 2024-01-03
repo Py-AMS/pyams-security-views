@@ -190,6 +190,10 @@ class LoginForm(AddForm):
             if plugin_name:
                 request.registry.notify(
                     AuthenticatedPrincipalEvent(plugin_name, principal_id))
+            self.finished_state.update({
+                'action': action,
+                'changes': principal_id
+            })
             return response
         return None
 
