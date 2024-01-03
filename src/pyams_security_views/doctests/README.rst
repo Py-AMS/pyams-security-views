@@ -182,17 +182,11 @@ Login form
 
     >>> from pyams_layer.interfaces import IPyAMSLayer
     >>> from pyams_security_views.skin.login import LoginForm
-    >>> request = DummyRequest(root=app, is_xhr=False, params={
-    ...     'login_form.widgets.login': 'admin',
-    ...     'login_form.widgets.password': 'admin',
-    ...     'login_form.buttons.login': 'Connect'
-    ... })
+
+    >>> request = DummyRequest(root=app, is_xhr=False)
     >>> alsoProvides(request, IPyAMSLayer)
     >>> form = LoginForm(app, request)
     >>> form.update()
-    >>> form.widgets.keys()
-    odict_keys(['hash', 'login', 'password'])
-
     >>> output = form.render()
     >>> print(output)
     <section class="rounded-lg ">
@@ -223,7 +217,7 @@ Login form
                                    id="login_form-widgets-login"
                                    name="login_form.widgets.login"
                                    class="form-control text-widget required textline-field"
-                                   value="admin" />
+                                   value="" />
                         </div>
                     </div>
                 </div>
@@ -237,8 +231,7 @@ Login form
                             <input type="password"
                                    id="login_form-widgets-password"
                                    name="login_form.widgets.password"
-                                   class="form-control password-widget required password-field"
-                                   value="*****" />
+                                   class="form-control password-widget required password-field" />
                         </div>
                     </div>
                 </div>
@@ -260,6 +253,26 @@ Login form
             </footer>
         </form>
     </section>
+
+    >>> request = DummyRequest(root=app, is_xhr=False, params={
+    ...     'login_form.widgets.login': 'admin',
+    ...     'login_form.widgets.password': 'admin',
+    ...     'login_form.buttons.login': 'Connect'
+    ... })
+    >>> alsoProvides(request, IPyAMSLayer)
+    >>> form = LoginForm(app, request)
+    >>> form.update()
+    >>> form.widgets.keys()
+    odict_keys(['hash', 'login', 'password'])
+
+    >>> output = form.render()
+    >>> output
+    ''
+    >>> request.response.status_code
+    302
+    >>> request.response.location
+    'http://example.com'
+
 
 Tests cleanup:
 

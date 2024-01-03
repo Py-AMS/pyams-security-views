@@ -174,13 +174,13 @@ class LoginForm(AddForm):
             response.headerlist.extend(headers)
             if not self.request.is_xhr:
                 response.status_code = 302
-                session = request.session
-                hash = data.get('hash', '')
                 login_target = request.registry.queryMultiAdapter((self.context, self.request, self),
                                                                   ILoginPageTarget)
                 if login_target is not None:
                     response.location = login_target
                 else:
+                    session = request.session
+                    hash = data.get('hash') or ''
                     if LOGIN_REFERER_KEY in session:
                         response.location = f'{session[LOGIN_REFERER_KEY]}{hash}'
                         del session[LOGIN_REFERER_KEY]
