@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.1.1
+-----
+ - fixed doctests
+
 2.1.0
 -----
  - set finished state in login form handler; this can be used to handle redirect in form renderer
