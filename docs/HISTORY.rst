@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.1.0
+-----
+ - set finished state in login form handler; this can be used to handle redirect in form renderer
+   based on authenticated user
+
 2.0.3
 -----
  - updated modal forms title
