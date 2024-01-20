@@ -17,7 +17,7 @@ This module is used for Pyramid integration
 
 import re
 
-from pyams_security_views.interfaces import REST_PRINCIPALS_SEARCH_ROUTE
+from pyams_security_views.interfaces import REST_PRINCIPALS_SEARCH_PATH, REST_PRINCIPALS_SEARCH_ROUTE
 
 
 __docformat__ = 'restructuredtext'
@@ -31,8 +31,8 @@ def include_package(config):
 
     # register new REST API routes
     config.add_route(REST_PRINCIPALS_SEARCH_ROUTE,
-                     config.registry.settings.get('pyams.security.rest_principals_route',
-                                                  '/api/security/principals'))
+                     config.registry.settings.get(f'{REST_PRINCIPALS_SEARCH_ROUTE}_route.path',
+                                                  REST_PRINCIPALS_SEARCH_PATH))
 
     try:
         import pyams_zmi  # pylint: disable=import-outside-toplevel,unused-import

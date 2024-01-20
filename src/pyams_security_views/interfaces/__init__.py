@@ -10,9 +10,13 @@
 # FOR A PARTICULAR PURPOSE.
 #
 
-"""PyAMS security views.interfaces module
+"""PyAMS_security_views.interfaces module
 
 """
 
 
-REST_PRINCIPALS_SEARCH_ROUTE = 'security.rest.principals'
+REST_PRINCIPALS_SEARCH_ROUTE = 'pyams_security.rest.principals'
+'''REST principals search API route name'''
+
+REST_PRINCIPALS_SEARCH_PATH = '/api/security/principals'
+'''REST principals search API default path'''

@@ -26,6 +26,7 @@ from pyams_form.widget import FieldWidget
 from pyams_layer.interfaces import IFormLayer
 from pyams_security.interfaces import ISecurityManager
 from pyams_security.schema import IPrincipalField, IPrincipalsSetField
+from pyams_security_views.interfaces import REST_PRINCIPALS_SEARCH_PATH, REST_PRINCIPALS_SEARCH_ROUTE
 from pyams_security_views.widget.interfaces import IPrincipalWidget, IPrincipalsSetWidget
 from pyams_utils.adapter import adapter_config
 from pyams_utils.registry import get_utility
@@ -71,7 +72,10 @@ class PrincipalWidget(SelectWidget):
     placeholder = _("No selected principal")
     separator = '|'
 
-    ajax_url = '/api/security/principals'
+    @property
+    def ajax_url(self):
+        return self.request.registry.settings.get(f'{REST_PRINCIPALS_SEARCH_ROUTE}_route.path',
+                                                  REST_PRINCIPALS_SEARCH_PATH)
 
     @staticmethod
     def term_factory(value):
