@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.1.2
+-----
+ - updated REST API route name and path configuration setting name
+
 2.1.1
 -----
  - fixed doctests
