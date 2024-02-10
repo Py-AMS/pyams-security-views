@@ -186,10 +186,10 @@ class LoginForm(AddForm):
                         del session[LOGIN_REFERER_KEY]
                     else:
                         response.location = f'/{hash}'
-            plugin_name = data.get('plugin_name')
-            if plugin_name:
+            plugin = data.get('plugin')
+            if plugin:
                 request.registry.notify(
-                    AuthenticatedPrincipalEvent(plugin_name, principal_id))
+                    AuthenticatedPrincipalEvent(plugin, principal_id))
             self.finished_state.update({
                 'action': action,
                 'changes': principal_id
@@ -229,13 +229,13 @@ def handle_login_form_data(event):
                                                 "Please contact your system administrator!")), )
     else:
         credentials = Credentials('form', id=data['login'], **data)
-        principal_id, plugin_name = sm.authenticate(credentials, event.form.request,
-                                                    get_plugin_name=True)
+        principal_id, plugin = sm.authenticate(credentials, event.form.request,
+                                               get_plugin=True)
         if principal_id is None:
             event.form.widgets.errors += (Invalid(_("Invalid credentials!")),)
         else:
             data['principal_id'] = principal_id
-            data['plugin_name'] = plugin_name
+            data['plugin'] = plugin
 
 
 @adapter_config(required=(Interface, IPyAMSLayer, ILoginView),
