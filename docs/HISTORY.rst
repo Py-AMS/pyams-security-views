@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.2.0
+-----
+ - use plugin instance instead of plugin name in authenticated principal event
+
 2.1.2
 -----
  - updated REST API route name and path configuration setting name
