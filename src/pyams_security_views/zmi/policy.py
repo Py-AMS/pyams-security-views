@@ -25,7 +25,7 @@ from pyams_form.field import Fields
 from pyams_form.interfaces import DISPLAY_MODE, INPUT_MODE
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_security.interfaces import IDefaultProtectionPolicy, IProtectedObject, IRolesPolicy
-from pyams_security.interfaces.base import IRole, MANAGE_SECURITY_PERMISSION, \
+from pyams_security.interfaces.base import IRole, MANAGE_ROLES_PERMISSION, MANAGE_SECURITY_PERMISSION, \
     VIEW_SYSTEM_PERMISSION
 from pyams_security_views.zmi.interfaces import IObjectSecurityMenu
 from pyams_skin.interfaces.view import IModalEditForm
@@ -69,6 +69,7 @@ class ProtectedObjectRolesEditFormMixin:
     """Protected object roles edit form mixin"""
 
     legend = _("Granted object roles")
+    _edit_permission = MANAGE_ROLES_PERMISSION
 
     @property
     def fields(self):
