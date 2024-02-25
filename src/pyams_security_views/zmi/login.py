@@ -61,7 +61,7 @@ class LoginFormConfigurationForm(AdminEditForm):
     legend = _("Form properties")
 
     fields = Fields(ILoginConfiguration).omit('open_registration', 'users_folder',
-                                              'allow_password_reset')
+                                              'registration_expiration', 'allow_password_reset')
 
     def get_content(self):
         return ILoginConfiguration(self.context)
@@ -82,7 +82,8 @@ class LoginFormConfigurationForm(AdminEditForm):
 class OpenRegistrationGroup(FormGroupChecker):
     """Login form registration group"""
 
-    fields = Fields(ILoginConfiguration).select('open_registration', 'users_folder')
+    fields = Fields(ILoginConfiguration).select('open_registration', 'users_folder',
+                                                'activation_delay')
 
 
 @viewlet_config(name='security-registration.header',

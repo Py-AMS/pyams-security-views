@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2023-12-02 19:05+0100\n"
+"POT-Creation-Date: 2024-02-25 22:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,25 +15,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Lingua 3.10.dev0\n"
 
-#: src/pyams_security_views/zmi/policy.py:62
-#: src/pyams_security_views/zmi/policy.py:104
+#: src/pyams_security_views/zmi/policy.py:63
+#: src/pyams_security_views/zmi/policy.py:106
+#: src/pyams_security_views/zmi/policy.py:114
 msgid "User roles"
 msgstr "Habilitations"
 
-#: src/pyams_security_views/zmi/policy.py:70
+#: src/pyams_security_views/zmi/policy.py:71
 msgid "Granted object roles"
 msgstr "Rôles accordés aux utilisateurs"
 
-#: src/pyams_security_views/zmi/policy.py:135
+#: src/pyams_security_views/zmi/policy.py:139
 msgid "Roles are not defined for this context!"
 msgstr "Aucun rôle n'est défini dans ce contexte !"
 
-#: src/pyams_security_views/zmi/policy.py:148
-#: src/pyams_security_views/zmi/policy.py:158
+#: src/pyams_security_views/zmi/policy.py:152
+#: src/pyams_security_views/zmi/policy.py:162
 msgid "Security policy"
 msgstr "Politique de sécurité"
 
-#: src/pyams_security_views/zmi/policy.py:159
+#: src/pyams_security_views/zmi/policy.py:163
 msgid "Security policy management"
 msgstr "Paramètres de la politique de sécurité"
 
@@ -111,7 +112,7 @@ msgstr "Configuration de l'écran de connexion"
 msgid "Form properties"
 msgstr "Propriétés du formulaire"
 
-#: src/pyams_security_views/zmi/login.py:96
+#: src/pyams_security_views/zmi/login.py:97
 msgid ""
 "Open registration can be used when you want external users to be able to "
 "freely register their user account.\n"
@@ -198,7 +199,7 @@ msgid "Users search form"
 msgstr "Rechercher des utilisateurs"
 
 #: src/pyams_security_views/zmi/plugin/userfolder.py:143
-#: src/pyams_security_views/interfaces/login.py:101
+#: src/pyams_security_views/interfaces/login.py:108
 msgid "Login"
 msgstr "Identifiant"
 
@@ -433,51 +434,64 @@ msgstr ""
 "Nom du module utilisé pour identifier les utilisateurs qui se seront "
 "enregistrés"
 
-#: src/pyams_security_views/interfaces/login.py:82
+#: src/pyams_security_views/interfaces/login.py:78
+msgid "Activation delay"
+msgstr "Délai d'activation"
+
+#: src/pyams_security_views/interfaces/login.py:79
+msgid ""
+"This is the maximum delay, in days, until which unactivated user profiles "
+"are automatically deleted"
+msgstr ""
+"Cette durée indiquée en jours indique le délai maximum dont dispose un utilisateur "
+"entre l'inscription de son profil et son activation complète avant que ce dernier "
+"ne soit entièrement supprimé"
+
+#: src/pyams_security_views/interfaces/login.py:89
 msgid "You can't activate open registration without selecting a users folder"
 msgstr ""
 "Vous ne pouvez pas activer les fonctions d'inscription libre sans "
 "sélectionner un dossier de stockage des utilisateurs concernés"
 
-#: src/pyams_security_views/interfaces/login.py:85
+#: src/pyams_security_views/interfaces/login.py:92
 msgid "Allow password reset"
 msgstr "Permettre la réinitialisation du mot de passe"
 
-#: src/pyams_security_views/interfaces/login.py:86
+#: src/pyams_security_views/interfaces/login.py:93
 msgid "If 'Yes', users will be able reset their password"
 msgstr ""
 "Si 'oui', les utilisateurs auront la possibilité de réinitialiser leur mot "
 "de passe en cas d'oubli"
 
-#: src/pyams_security_views/interfaces/login.py:98
+#: src/pyams_security_views/interfaces/login.py:105
 msgid "Redirection hash"
 msgstr "Hash de redirection"
 
-#: src/pyams_security_views/interfaces/login.py:103
+#: src/pyams_security_views/interfaces/login.py:110
 msgid "Password"
 msgstr "Mot de passe"
 
-#: src/pyams_security_views/interfaces/login.py:110
+#: src/pyams_security_views/interfaces/login.py:117
 msgid "Register"
 msgstr "Inscription"
 
-#: src/pyams_security_views/interfaces/login.py:113
+#: src/pyams_security_views/interfaces/login.py:120
 msgid "Reset password"
 msgstr "Mot de passe oublié"
 
-#: src/pyams_security_views/interfaces/login.py:116
+#: src/pyams_security_views/interfaces/login.py:123
 msgid "Connect"
 msgstr "Connexion"
 
-#: src/pyams_security_views/interfaces/login.py:123
+#: src/pyams_security_views/interfaces/login.py:130
 msgid "Reset"
 msgstr "Annuler"
 
-#: src/pyams_security_views/interfaces/login.py:130
+#: src/pyams_security_views/interfaces/login.py:137
 msgid "Cancel"
 msgstr "Annuler"
 
-#: src/pyams_security_views/widget/principal.py:71
+#: src/pyams_security_views/widget/principal.py:72
 msgid "No selected principal"
 msgstr "Aucun mandataire sélectionné"
 
@@ -489,14 +503,14 @@ msgstr "Paramètres de connexion"
 msgid "You must authenticate"
 msgstr "Vous devez vous authentifier !"
 
-#: src/pyams_security_views/skin/login.py:224
+#: src/pyams_security_views/skin/login.py:228
 msgid ""
 "Missing security manager utility. Please contact your system administrator!"
 msgstr ""
 "Aucun gestionnaire de sécurité n'est disponible. Veuillez contacter votre "
 "administrateur !"
 
-#: src/pyams_security_views/skin/login.py:231
+#: src/pyams_security_views/skin/login.py:235
 msgid "Invalid credentials!"
 msgstr "Vos paramètres de connexion sont incorrects !"
 

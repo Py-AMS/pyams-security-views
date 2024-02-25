@@ -40,6 +40,7 @@ class LoginConfiguration(Persistent, Contained):
     footer_renderer = FieldProperty(ILoginConfiguration['footer_renderer'])
     open_registration = FieldProperty(ILoginConfiguration['open_registration'])
     users_folder = FieldProperty(ILoginConfiguration['users_folder'])
+    activation_delay = FieldProperty(ILoginConfiguration['activation_delay'])
     allow_password_reset = FieldProperty(ILoginConfiguration['allow_password_reset'])
 
 

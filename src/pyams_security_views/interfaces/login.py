@@ -15,7 +15,7 @@
 """
 
 from zope.interface import Interface, Invalid, invariant
-from zope.schema import Bool, Choice, Password, TextLine
+from zope.schema import Bool, Choice, Int, Password, TextLine
 
 from pyams_file.schema import ImageField
 from pyams_i18n.schema import I18nTextField
@@ -74,6 +74,13 @@ class ILoginConfiguration(Interface):
                           description=_("Name of users folder used to store registered principals"),
                           required=False,
                           vocabulary=USERS_FOLDERS_VOCABULARY_NAME)
+
+    activation_delay = Int(title=_("Activation delay"),
+                           description=_("This is the maximum delay, in days, until which "
+                                         "unactivated user profiles are automatically deleted"),
+                           required=False,
+                           min=0,
+                           default=10)
 
     @invariant
     def check_users_folder(self):
