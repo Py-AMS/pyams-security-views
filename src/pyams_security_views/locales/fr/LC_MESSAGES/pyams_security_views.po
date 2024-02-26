@@ -443,9 +443,9 @@ msgid ""
 "This is the maximum delay, in days, until which unactivated user profiles "
 "are automatically deleted"
 msgstr ""
-"Cette durée indiquée en jours indique le délai maximum dont dispose un utilisateur "
-"entre l'inscription de son profil et son activation complète avant que ce dernier "
-"ne soit entièrement supprimé"
+"Cette durée indiquée en jours indique le délai maximum dont dispose un "
+"utilisateur entre l'inscription de son profil et son activation complète "
+"avant que ce dernier ne soit entièrement supprimé"
 
 #: src/pyams_security_views/interfaces/login.py:89
 msgid "You can't activate open registration without selecting a users folder"
