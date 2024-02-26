@@ -165,14 +165,27 @@ Principals searching API
 Login form configuration edit form
 ----------------------------------
 
-    >>> request = DummyRequest(context=app)
+    >>> class MockNumberFormatter(object):
+    ...     def format(self, value):
+    ...         if value is None:
+    ...             # execution should never get here
+    ...             raise ValueError('Cannot format None')
+    ...         return str(value)
+
+    >>> class MockLocale:
+    ...     def getFormatter(self, category):
+    ...         return MockNumberFormatter()
+
+    >>> from babel.core import Locale
+    >>> request = DummyRequest(context=app, locale=Locale('en', 'US'))
+    >>> request.locale.numbers = MockLocale()
     >>> alsoProvides(request, IAdminLayer)
 
     >>> from pyams_security_views.zmi.login import LoginFormConfigurationForm
     >>> form = LoginFormConfigurationForm(app, request)
     >>> form.update()
     >>> form.widgets.keys()
-    odict_keys(['skin', 'logo', 'header', 'header_renderer', 'footer', 'footer_renderer'])
+    odict_keys(['skin', 'logo', 'header', 'header_renderer', 'footer', 'footer_renderer', 'activation_delay'])
 
     >>> output = form.render()
 
