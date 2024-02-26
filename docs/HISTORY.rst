@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.3.0
+-----
+ - added property in login configuration to set user registration activation delay
+ - updated roles edit form permission
+
 2.2.0
 -----
  - use plugin instance instead of plugin name in authenticated principal event
