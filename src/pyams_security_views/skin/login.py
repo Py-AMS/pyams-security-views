@@ -96,6 +96,7 @@ class LoginForm(AddForm):
     legend = _("Please enter valid credentials")
 
     modal_class = FieldProperty(IModalFullPage['modal_class'])
+    modal_content_class = FieldProperty(IModalFullPage['modal_content_class'])
 
     fields = Fields(ILoginFormFields)
 
