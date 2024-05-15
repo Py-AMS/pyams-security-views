@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.3.1
+-----
+ - added support for custom modal content CSS class
+
 2.3.0
 -----
  - added property in login configuration to set user registration activation delay
