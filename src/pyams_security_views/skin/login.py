@@ -342,5 +342,5 @@ def logout(request):
     response = Response()
     response.headerlist.extend(headers)
     response.status_code = 302
-    response.location = request.referer or '/'
+    response.location = '/'
     return response
