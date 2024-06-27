@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.3.2
+-----
+ - don't use referer in logout view
+
 2.3.1
 -----
  - added support for custom modal content CSS class
