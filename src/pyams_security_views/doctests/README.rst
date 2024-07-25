@@ -75,7 +75,10 @@ Security manager properties edit form
     >>> print(form.widgets['credentials_plugins_names'].render())
     <table class="table border border-top-0 table-xs width-100">
         <tbody>
-    <BLANKLINE>
+            <tr
+                id="form-widgets-credentials_plugins_names-0">
+                <td>Internal request authentication</td>
+            </tr>
         </tbody>
     </table>
     >>> print(form.widgets['authentication_plugins_names'].render())
@@ -222,7 +225,9 @@ Login form
                 <div class="form-group widget-group row">
                     <label for="login_form-widgets-login"
                            class="col-form-label text-sm-right col-sm-3 col-md-4 required">
-                        Login
+                        User ID
+                        <i class="fa fa-question-circle hint"
+                           data-original-title="Your user ID can be your email address or a custom login"></i>
                     </label>
                     <div class="col-sm-9 col-md-8">
                         <div class="form-widget ">
@@ -256,7 +261,9 @@ Login form
                     name="login_form.buttons.login"
                     class="btn btn-primary submit-widget submitbutton-field "
                     value="Connect"
-                    data-loading-test="Connect...">Connect</button>
+                    data-loading-test="Connect...">
+                    Connect
+                </button>
                 <button
                     type="reset"
                     id="login_form-buttons-reset"
