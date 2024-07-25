@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.3.3
+-----
+ - updated logo wrapper padding in login view
+ - updated translation
+
 2.3.2
 -----
  - don't use referer in logout view
