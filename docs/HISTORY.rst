@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.3.5
+-----
+ - updated doctests
+
 2.3.4
 -----
  - versioning error
