@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.3.4
+-----
+ - versioning error
+
 2.3.3
 -----
  - updated logo wrapper padding in login view
