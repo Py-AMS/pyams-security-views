@@ -105,7 +105,8 @@ class ILoginFormFields(Interface):
     hash = TextLine(title=_("Redirection hash"),
                     required=False)
 
-    login = TextLine(title=_("Login"))
+    login = TextLine(title=_("User ID"),
+                     description=_("Your user ID can be your email address or a custom login"))
 
     password = Password(title=_("Password"))
 
