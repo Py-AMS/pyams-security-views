@@ -144,14 +144,14 @@ class LoginForm(AddForm):
             else:
                 action.add_class('btn-info')
                 if 'reset_password' not in self.actions:
-                    action.add_class('mr-auto')
+                    action.add_class('mr-sm-auto')
                 action.href = registration_views.register_view
         action = self.actions.get('reset_password')
         if action is not None:
             if registration_views is None:
                 action.add_class('hidden')
             else:
-                action.add_class('btn-secondary mr-auto')
+                action.add_class('btn-secondary mr-sm-auto')
                 action.href = registration_views.password_reset_view
 
     def update_widgets(self, prefix=None):
