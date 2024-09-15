@@ -188,7 +188,7 @@ Login form configuration edit form
     >>> form = LoginFormConfigurationForm(app, request)
     >>> form.update()
     >>> form.widgets.keys()
-    odict_keys(['skin', 'logo', 'header', 'header_renderer', 'footer', 'footer_renderer', 'activation_delay'])
+    odict_keys(['skin', 'logo', 'header', 'header_renderer', 'footer', 'footer_renderer'])
 
     >>> output = form.render()
 
