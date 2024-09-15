@@ -61,7 +61,8 @@ class LoginFormConfigurationForm(AdminEditForm):
     legend = _("Form properties")
 
     fields = Fields(ILoginConfiguration).omit('open_registration', 'users_folder',
-                                              'registration_expiration', 'allow_password_reset')
+                                              'registration_expiration', 'allow_password_reset',
+                                              'activation_delay')
 
     def get_content(self):
         return ILoginConfiguration(self.context)
