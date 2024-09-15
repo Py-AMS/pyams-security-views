@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.3.6
+-----
+ - updated login form button classes on mobile devices
+ - hide activation delay from main login configuration form fields
+
 2.3.5
 -----
  - updated doctests
