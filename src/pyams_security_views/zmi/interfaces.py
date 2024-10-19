@@ -19,6 +19,7 @@ from zope.interface import Interface
 
 from pyams_form.interfaces.form import IEditForm
 from pyams_skin.interfaces.widget import IOrderedListWidget
+from pyams_table.interfaces import ITable
 from pyams_zmi.interfaces.viewlet import INavigationMenuItem
 
 
@@ -39,6 +40,10 @@ class ISecurityManagerView(Interface):
 
 class ISecurityPropertiesEditForm(IEditForm):
     """Security properties edit form marker interface"""
+
+
+class ISecurityPluginsTable(ITable):
+    """Security manager plugins table marker interface"""
 
 
 class ISecurityManagerPluginsWidget(IOrderedListWidget):

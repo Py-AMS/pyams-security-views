@@ -25,10 +25,11 @@ from pyams_security.interfaces import ISecurityManager
 from pyams_security.interfaces.base import MANAGE_SECURITY_PERMISSION
 from pyams_security.interfaces.names import ADMIN_USER_NAME, INTERNAL_USER_NAME
 from pyams_security.interfaces.plugin import IDirectorySearchPlugin
-from pyams_security_views.zmi.interfaces import ISecurityManagerView, ISecurityMenu
+from pyams_security_views.zmi.interfaces import ISecurityManagerView, ISecurityMenu, ISecurityPluginsTable
 from pyams_site.interfaces import ISiteRoot
 from pyams_table.interfaces import IColumn, IValues
 from pyams_utils.adapter import ContextRequestViewAdapter, adapter_config
+from pyams_utils.factory import factory_config
 from pyams_utils.registry import get_utility, query_utility
 from pyams_utils.url import absolute_url
 from pyams_viewlet.manager import viewletmanager_config
@@ -45,6 +46,20 @@ from pyams_zmi.zmi.viewlet.menu import NavigationMenuItem
 __docformat__ = 'restructuredtext'
 
 from pyams_security_views import _  # pylint: disable=ungrouped-imports
+
+
+@adapter_config(required=(ISecurityManager, IAdminLayer, Interface),
+                provides=ITableElementEditor)
+class SecurityManagerTableElementEditor(TableElementEditor):
+    """Security manager table element editor"""
+
+    view_name = 'admin#security-plugins.html'
+    modal_target = False
+
+    def __new__(cls, context, request, view):  # pylint: disable=unused-argument
+        if not request.has_permission(MANAGE_SECURITY_PERMISSION, context=context):
+            return None
+        return TableElementEditor.__new__(cls)
 
 
 @viewlet_config(name='security.menu',
@@ -83,6 +98,26 @@ class SecurityPluginsMenu(NavigationMenuItem):
     href = '#security-plugins.html'
 
 
+@pagelet_config(name='security-plugins.html',
+                context=ISecurityManager, layer=IPyAMSLayer,
+                permission=MANAGE_SECURITY_PERMISSION)
+@implementer(ISecurityManagerView)
+class SecurityPluginsView(TableAdminView):
+    """Security plug-ins view"""
+
+    title = _("Security plug-ins")
+    table_class = ISecurityPluginsTable
+    table_label = _("List of security plug-ins")
+
+    @property
+    def back_url(self):
+        """Form back URL getter"""
+        return absolute_url(self.request.root, self.request, 'admin#utilities.html')  # pylint: disable=no-member
+
+    back_url_target = None
+
+
+@factory_config(ISecurityPluginsTable)
 class SecurityPluginsTable(Table):
     """Security plug-ins table"""
 
@@ -99,7 +134,7 @@ class SecurityPluginsTable(Table):
         return attributes
 
 
-@adapter_config(required=(ISecurityManager, IAdminLayer, SecurityPluginsTable),
+@adapter_config(required=(ISecurityManager, IAdminLayer, ISecurityPluginsTable),
                 provides=IValues)
 class SecurityPluginsTableValues(ContextRequestViewAdapter):
     """Security plug-ins values adapter"""
@@ -111,7 +146,7 @@ class SecurityPluginsTableValues(ContextRequestViewAdapter):
 
 
 @adapter_config(name='search',
-                required=(ISecurityManager, IAdminLayer, SecurityPluginsTable),
+                required=(ISecurityManager, IAdminLayer, ISecurityPluginsTable),
                 provides=IColumn)
 class SecurityPluginSearchColumn(ActionColumn):
     """Security plug-in search column"""
@@ -131,14 +166,14 @@ class SecurityPluginSearchColumn(ActionColumn):
 
 
 @adapter_config(name='name',
-                required=(ISecurityManager, IAdminLayer, SecurityPluginsTable),
+                required=(ISecurityManager, IAdminLayer, ISecurityPluginsTable),
                 provides=IColumn)
 class SecurityPluginNameColumn(NameColumn):
     """Security plug-in name column"""
 
 
 @adapter_config(name='enabled',
-                required=(ISecurityManager, IAdminLayer, SecurityPluginsTable),
+                required=(ISecurityManager, IAdminLayer, ISecurityPluginsTable),
                 provides=IColumn)
 class SecurityPluginEnabledColumn(IconColumn):
     """Local users search trash column"""
@@ -155,7 +190,7 @@ class SecurityPluginEnabledColumn(IconColumn):
 
 
 @adapter_config(name='trash',
-                required=(ISecurityManager, IAdminLayer, SecurityPluginsTable),
+                required=(ISecurityManager, IAdminLayer, ISecurityPluginsTable),
                 provides=IColumn)
 class SecurityPluginTrashColumn(TrashColumn):
     """Security plug-in trash column"""
@@ -166,39 +201,6 @@ class SecurityPluginTrashColumn(TrashColumn):
         if item.__name__ in (ADMIN_USER_NAME, INTERNAL_USER_NAME):
             return False
         return super().has_permission(item)
-
-
-@adapter_config(required=(ISecurityManager, IAdminLayer, Interface),
-                provides=ITableElementEditor)
-class SecurityManagerTableElementEditor(TableElementEditor):
-    """Security manager table element editor"""
-
-    view_name = 'admin#security-plugins.html'
-    modal_target = False
-
-    def __new__(cls, context, request, view):  # pylint: disable=unused-argument
-        if not request.has_permission(MANAGE_SECURITY_PERMISSION, context=context):
-            return None
-        return TableElementEditor.__new__(cls)
-
-
-@pagelet_config(name='security-plugins.html',
-                context=ISecurityManager, layer=IPyAMSLayer,
-                permission=MANAGE_SECURITY_PERMISSION)
-@implementer(ISecurityManagerView)
-class SecurityPluginsView(TableAdminView):
-    """Security plug-ins view"""
-
-    title = _("Security plug-ins")
-    table_class = SecurityPluginsTable
-    table_label = _("List of security plug-ins")
-
-    @property
-    def back_url(self):
-        """Form back URL getter"""
-        return absolute_url(self.request.root, self.request, 'admin#utilities.html')  # pylint: disable=no-member
-
-    back_url_target = None
 
 
 @view_config(name='delete-element.json',
