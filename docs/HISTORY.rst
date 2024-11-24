@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.3.7
+-----
+ - added security plugins table marker interface
+ - added support for Python 3.12
+
 2.3.6
 -----
  - updated login form button classes on mobile devices
