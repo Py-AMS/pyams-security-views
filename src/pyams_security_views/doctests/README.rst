@@ -137,7 +137,7 @@ Protected object roles edit form
     >>> form = ProtectedObjectRolesEditForm(app, request)
     >>> form.update()
     >>> form.widgets.keys()
-    odict_keys(['managers', 'viewers'])
+    odict_keys(['internal_api', 'public_api', 'managers', 'viewers'])
     >>> print(form.widgets['managers'].render())
     <select id="form-widgets-managers"
             name="form.widgets.managers"
