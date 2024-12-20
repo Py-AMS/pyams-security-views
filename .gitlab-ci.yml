@@ -12,12 +12,6 @@ cache:
         - eggs/
         - parts/
 
-before_script:
-    - type apt && apt update
-    - type apt && apt install -y libgdal-dev
-    - type apt && apt install -y gdal-bin
-    - type gdalinfo && echo "GDAL=$(gdalinfo --version | cut -d ',' -f 1 | cut -d ' ' -f 2)" >> buildout.cfg
-
 bootstrap:
     stage: .pre
     script:

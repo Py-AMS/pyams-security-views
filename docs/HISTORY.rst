@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.3.8
+-----
+ - updated doctests to match last PyAMS_security package
+
 2.3.7
 -----
  - added security plugins table marker interface
