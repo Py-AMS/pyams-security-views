@@ -16,27 +16,35 @@ This module defines views and content providers which are used to manage roles a
 security policy
 """
 
+from pyramid.traversal import lineage
 from zope.component import getAdapters
-from zope.interface import Interface
+from zope.interface import Interface, implementer
+from zope.schema import getFieldNamesInOrder
 
 from pyams_form.ajax import ajax_form_config
 from pyams_form.browser.checkbox import SingleCheckBoxFieldWidget
 from pyams_form.field import Fields
 from pyams_form.interfaces import DISPLAY_MODE, INPUT_MODE
+from pyams_form.interfaces.form import IGroup, IInnerSubForm
+from pyams_form.subform import InnerDisplayForm
+from pyams_i18n.interfaces import II18n
 from pyams_layer.interfaces import IPyAMSLayer
 from pyams_security.interfaces import IDefaultProtectionPolicy, IProtectedObject, IRolesPolicy
 from pyams_security.interfaces.base import IRole, MANAGE_ROLES_PERMISSION, MANAGE_SECURITY_PERMISSION, \
     VIEW_SYSTEM_PERMISSION
-from pyams_security_views.zmi.interfaces import IObjectSecurityMenu
+from pyams_security_views.zmi.interfaces import IObjectSecurityMenu, IProtectedObjectRolesEditForm
 from pyams_skin.interfaces.view import IModalEditForm
 from pyams_skin.interfaces.viewlet import IHelpViewletManager
 from pyams_skin.viewlet.help import AlertMessage
+from pyams_template.template import template_config
 from pyams_utils.adapter import adapter_config
+from pyams_utils.interfaces import ICacheKeyValue
+from pyams_utils.list import boolean_iter
 from pyams_utils.registry import get_utility
 from pyams_utils.traversing import get_parent
 from pyams_viewlet.manager import viewletmanager_config
 from pyams_viewlet.viewlet import viewlet_config
-from pyams_zmi.form import AdminEditForm, AdminModalEditForm
+from pyams_zmi.form import AdminEditForm, AdminInnerDisplayForm, AdminModalEditForm, FormGroupSwitcher
 from pyams_zmi.interfaces import IAdminLayer, TITLE_SPAN_BREAK
 from pyams_zmi.interfaces.form import IFormTitle
 from pyams_zmi.interfaces.viewlet import ISiteManagementMenu
@@ -65,6 +73,7 @@ class ObjectSecurityMenu(NavigationMenuItem):
     href = '#object-roles.html'
 
 
+@implementer(IProtectedObjectRolesEditForm)
 class ProtectedObjectRolesEditFormMixin:
     """Protected object roles edit form mixin"""
 
@@ -138,6 +147,51 @@ class ProtectedObjectRolesAlert(AlertMessage):
     status = 'danger'
     _message = _("Roles are not defined for this context!")
 
+
+@adapter_config(name='parent-roles',
+                required=(IDefaultProtectionPolicy, IAdminLayer, IProtectedObjectRolesEditForm),
+                provides=IInnerSubForm)
+@template_config(template='templates/parent-roles.pt', layer=IAdminLayer)
+class ParentRolesInnerForm(InnerDisplayForm):
+    """Parent roles inner form"""
+    
+    def get_parents(self):
+        for parent in lineage(self.context.__parent__):
+            protection = IProtectedObject(parent, None)
+            if (protection is not None) and not protection.inherit_parent_roles:
+                return
+            has_adapters, _adapters = boolean_iter(getAdapters((parent,), IRolesPolicy))
+            if has_adapters:
+                yield parent
+        
+    @staticmethod
+    def get_fields(context):
+        fields = Fields(Interface)
+        for _name, policy in sorted(getAdapters((context,), IRolesPolicy),
+                                    key=lambda x: x[1].weight):
+            roles = policy.roles_interface(context)
+            fields += Fields(policy.roles_interface).select(*(
+                role_name
+                for role_name in getFieldNamesInOrder(policy.roles_interface)
+                if getattr(roles, role_name)
+            ))
+        return fields
+    
+    def get_subforms(self):
+        for parent in self.get_parents():
+            fields = self.get_fields(parent)
+            if not fields:
+                continue
+            switcher = FormGroupSwitcher(parent, self.request, self)
+            switcher.prefix = f'roles_form-{ICacheKeyValue(parent)}.'
+            switcher.form_content = parent
+            switcher.legend = get_object_label(parent, self.request, self)
+            switcher.mode = DISPLAY_MODE
+            switcher.switcher_mode = 'never'
+            switcher.fields = fields
+            switcher.update()
+            yield switcher
+        
 
 #
 # Security policy views

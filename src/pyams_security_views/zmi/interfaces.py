@@ -34,6 +34,10 @@ class IObjectSecurityMenu(INavigationMenuItem):
     """Object security menu"""
 
 
+class IProtectedObjectRolesEditForm(Interface):
+    """Protected object roles edit form marker interface"""
+    
+
 class ISecurityManagerView(Interface):
     """Security manager view"""
 

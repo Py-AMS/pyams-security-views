@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2024-07-25 09:48+0200\n"
+"POT-Creation-Date: 2025-01-19 10:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,118 +15,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Lingua 3.10.dev0\n"
 
-#: src/pyams_security_views/zmi/policy.py:63
-#: src/pyams_security_views/zmi/policy.py:106
-#: src/pyams_security_views/zmi/policy.py:114
-msgid "User roles"
-msgstr "Habilitations"
-
-#: src/pyams_security_views/zmi/policy.py:71
-msgid "Granted object roles"
-msgstr "Rôles accordés aux utilisateurs"
-
-#: src/pyams_security_views/zmi/policy.py:139
-msgid "Roles are not defined for this context!"
-msgstr "Aucun rôle n'est défini dans ce contexte !"
-
-#: src/pyams_security_views/zmi/policy.py:152
-#: src/pyams_security_views/zmi/policy.py:162
-msgid "Security policy"
-msgstr "Politique de sécurité"
-
-#: src/pyams_security_views/zmi/policy.py:163
-msgid "Security policy management"
-msgstr "Paramètres de la politique de sécurité"
-
-#: src/pyams_security_views/zmi/rest.py:51
-#: src/pyams_security_views/zmi/rest.py:61
-msgid "CORS configuration"
-msgstr "Configuration CORS"
-
-#: src/pyams_security_views/zmi/rest.py:96
-msgid ""
-"If you disable CORS origins check, any CORS request will be accepted.\n"
-"Otherwise, only origins specified below will be allowed.\n"
-"Please note that you don't have to set main site URL(s) below, only "
-"\"external\" URLs have to be defined."
-msgstr ""
-"Si vous désactivez le contrôle sur l'origine des requêtes, toutes les "
-"requêtes CORS seront acceptées !\n"
-"Dans le cas contraire, seules les requêtes dont l'origine est indiquée ci-"
-"dessous seront acceptées.\n"
-"Veuillez noter que vous n'avez pas à indiquer l'URL d'accès au site, celle-"
-"ci sera toujours acceptée ; seules les origines \"externes\" doivent être "
-"précisées."
-
-#: src/pyams_security_views/zmi/manager.py:45
-msgid "Security manager"
-msgstr "Gestionnaire de sécurité"
-
-#: src/pyams_security_views/zmi/manager.py:55
-#: src/pyams_security_views/zmi/manager.py:67
-msgid "Properties"
-msgstr "Propriétés"
-
-#: src/pyams_security_views/zmi/manager.py:66
-msgid "Security modules"
-msgstr "Modules de la politique de sécurité"
-
-#: src/pyams_security_views/zmi/manager.py:83
-msgid "Management interface"
-msgstr "Interface d'administration"
-
-#. Default: Security manager
-#: src/pyams_security_views/zmi/__init__.py:57
-msgid "security-manager-menu"
-msgstr "Sécurité"
-
-#: src/pyams_security_views/zmi/__init__.py:80
-msgid "Security"
-msgstr "Sécurité"
-
-#: src/pyams_security_views/zmi/__init__.py:119
-msgid "Search into folder"
-msgstr "Rechercher dans le dossier"
-
-#: src/pyams_security_views/zmi/__init__.py:146
-msgid "Plug-in is enabled"
-msgstr "Plug-in actif"
-
-#: src/pyams_security_views/zmi/__init__.py:192
-msgid "Security plug-ins"
-msgstr "Modules de sécurité"
-
-#: src/pyams_security_views/zmi/__init__.py:194
-msgid "List of security plug-ins"
-msgstr "Liste des modules de sécurité"
-
-#: src/pyams_security_views/zmi/login.py:50
-msgid "Login form"
-msgstr "Écran de connexion"
-
-#: src/pyams_security_views/zmi/login.py:60
-msgid "Login form configuration"
-msgstr "Configuration de l'écran de connexion"
-
-#: src/pyams_security_views/zmi/login.py:61
-msgid "Form properties"
-msgstr "Propriétés du formulaire"
-
-#: src/pyams_security_views/zmi/login.py:97
-msgid ""
-"Open registration can be used when you want external users to be able to "
-"freely register their user account.\n"
-"You then have to select the users folder into which their profile will be "
-"stored.\n"
-"THIS CAN BE DANGEROUS! You should enable this feature carefully..."
-msgstr ""
-"L'inscription libre peut être utilisée lorsque vous souhaitez que des "
-"utilisateurs externes à votre service puissent s'enregistrer librement.\n"
-"Vous devez dans ce cas sélectionner le dossier dédié dans lequel seront "
-"stockés leurs profils utilisateurs.\n"
-"ATTENTION : cette option peut être dangereuse et ne doit donc être activée "
-"qu'avec précaution ! Vous devez notamment vous assurer qu'aucune permission "
-"importante n'a été accordée aux utilisateurs authentifiés..."
+#: src/pyams_security_views/widget/principal.py:72
+msgid "No selected principal"
+msgstr "Aucun mandataire sélectionné"
 
 #: src/pyams_security_views/zmi/notifications.py:50
 msgid "Notifications"
@@ -149,6 +40,123 @@ msgstr ""
 "administrateur.\n"
 "Les applications peuvent également envoyer des messages dans le cadre de "
 "leur processus de fonctionnement normal."
+
+#: src/pyams_security_views/zmi/rest.py:51
+#: src/pyams_security_views/zmi/rest.py:61
+msgid "CORS configuration"
+msgstr "Configuration CORS"
+
+#: src/pyams_security_views/zmi/rest.py:96
+msgid ""
+"If you disable CORS origins check, any CORS request will be accepted.\n"
+"Otherwise, only origins specified below will be allowed.\n"
+"Please note that you don't have to set main site URL(s) below, only "
+"\"external\" URLs have to be defined."
+msgstr ""
+"Si vous désactivez le contrôle sur l'origine des requêtes, toutes les "
+"requêtes CORS seront acceptées !\n"
+"Dans le cas contraire, seules les requêtes dont l'origine est indiquée ci-"
+"dessous seront acceptées.\n"
+"Veuillez noter que vous n'avez pas à indiquer l'URL d'accès au site, celle-"
+"ci sera toujours acceptée ; seules les origines \"externes\" doivent être "
+"précisées."
+
+#: src/pyams_security_views/zmi/policy.py:71
+#: src/pyams_security_views/zmi/policy.py:115
+#: src/pyams_security_views/zmi/policy.py:123
+msgid "User roles"
+msgstr "Habilitations"
+
+#: src/pyams_security_views/zmi/policy.py:80
+msgid "Granted object roles"
+msgstr "Rôles accordés aux utilisateurs"
+
+#: src/pyams_security_views/zmi/policy.py:148
+msgid "Roles are not defined for this context!"
+msgstr "Aucun rôle n'est défini dans ce contexte !"
+
+#: src/pyams_security_views/zmi/policy.py:206
+#: src/pyams_security_views/zmi/policy.py:216
+msgid "Security policy"
+msgstr "Politique de sécurité"
+
+#: src/pyams_security_views/zmi/policy.py:217
+msgid "Security policy management"
+msgstr "Paramètres de la politique de sécurité"
+
+#. Default: Security manager
+#: src/pyams_security_views/zmi/__init__.py:72
+msgid "security-manager-menu"
+msgstr "Sécurité"
+
+#: src/pyams_security_views/zmi/__init__.py:95
+msgid "Security"
+msgstr "Sécurité"
+
+#: src/pyams_security_views/zmi/__init__.py:108
+msgid "Security plug-ins"
+msgstr "Modules de sécurité"
+
+#: src/pyams_security_views/zmi/__init__.py:110
+msgid "List of security plug-ins"
+msgstr "Liste des modules de sécurité"
+
+#: src/pyams_security_views/zmi/__init__.py:154
+msgid "Search into folder"
+msgstr "Rechercher dans le dossier"
+
+#: src/pyams_security_views/zmi/__init__.py:181
+msgid "Plug-in is enabled"
+msgstr "Plug-in actif"
+
+#: src/pyams_security_views/zmi/manager.py:45
+msgid "Security manager"
+msgstr "Gestionnaire de sécurité"
+
+#: src/pyams_security_views/zmi/manager.py:55
+#: src/pyams_security_views/zmi/manager.py:67
+msgid "Properties"
+msgstr "Propriétés"
+
+#: src/pyams_security_views/zmi/manager.py:66
+msgid "Security modules"
+msgstr "Modules de la politique de sécurité"
+
+#: src/pyams_security_views/zmi/manager.py:83
+msgid "Management interface"
+msgstr "Interface d'administration"
+
+#: src/pyams_security_views/zmi/login.py:50
+msgid "Login form"
+msgstr "Écran de connexion"
+
+#: src/pyams_security_views/zmi/login.py:60
+msgid "Login form configuration"
+msgstr "Configuration de l'écran de connexion"
+
+#: src/pyams_security_views/zmi/login.py:61
+msgid "Form properties"
+msgstr "Propriétés du formulaire"
+
+#: src/pyams_security_views/zmi/login.py:98
+msgid ""
+"Open registration can be used when you want external users to be able to "
+"freely register their user account.\n"
+"You then have to select the users folder into which their profile will be "
+"stored.\n"
+"THIS CAN BE DANGEROUS! You should enable this feature carefully..."
+msgstr ""
+"L'inscription libre peut être utilisée lorsque vous souhaitez que des "
+"utilisateurs externes à votre service puissent s'enregistrer librement.\n"
+"Vous devez dans ce cas sélectionner le dossier dédié dans lequel seront "
+"stockés leurs profils utilisateurs.\n"
+"ATTENTION : cette option peut être dangereuse et ne doit donc être activée "
+"qu'avec précaution ! Vous devez notamment vous assurer qu'aucune permission "
+"importante n'a été accordée aux utilisateurs authentifiés..."
+
+#: src/pyams_security_views/zmi/templates/parent-roles.pt:6
+msgid "Inherited roles"
+msgstr "Autres rôles hérités"
 
 #: src/pyams_security_views/zmi/plugin/group.py:66
 msgid "Add groups folder..."
@@ -188,6 +196,57 @@ msgstr "Groupe : {}"
 #: src/pyams_security_views/zmi/plugin/group.py:244
 msgid "Group properties"
 msgstr "Propriétés du groupe"
+
+#: src/pyams_security_views/zmi/plugin/__init__.py:64
+#, python-format
+msgid "New plug-in: {}"
+msgstr "Nouveau module : {}"
+
+#: src/pyams_security_views/zmi/plugin/__init__.py:66
+msgid "New plug-in properties"
+msgstr "Propriétés du nouveau module"
+
+#: src/pyams_security_views/zmi/plugin/__init__.py:103
+msgid "Specified prefix is already used!"
+msgstr "Le préfixe indiqué est déjà utilisé !"
+
+#: src/pyams_security_views/zmi/plugin/__init__.py:147
+msgid "Plug-in properties"
+msgstr "Propriétés du module"
+
+#: src/pyams_security_views/zmi/plugin/__init__.py:174
+#, python-format
+msgid "Plug-in: {}"
+msgstr "Module : {}"
+
+#: src/pyams_security_views/zmi/plugin/admin.py:46
+msgid "Add admin authentication..."
+msgstr "Ajouter un utilisateur système..."
+
+#: src/pyams_security_views/zmi/plugin/admin.py:83
+msgid "Warning!"
+msgstr "ATTENTION !"
+
+#: src/pyams_security_views/zmi/plugin/admin.py:84
+msgid ""
+"Before disabling plug-in, you should verify that you have other "
+"administration access!"
+msgstr ""
+"Avant de désactiver ce compte, vérifiez bien que vous disposez d'au moins un "
+"autre accès administrateur !"
+
+#: src/pyams_security_views/zmi/plugin/admin.py:93
+msgid ""
+"<strong>Be careful to redefine the password when using some browsers which "
+"are forcing autocompletion!!!</strong><br />Clearing the password will keep "
+"the plug-in active but without the option to log-in with this account; "
+"setting the password value to '*****' will leave the password as-is..."
+msgstr ""
+"<strong>Prenez soin de bien redéfinir le mot de passe lorsque vous utilisez "
+"certains navigateurs qui forcent l'auto-complétion !!!</strong><br />En "
+"effaçant le mot de passe, le compte restera actif mais sans possibilité de "
+"se connecter (il restera utilisable pour des tâches internes) ; en indiquant "
+"la valeur '*****', le mot de passe ne sera pas modifié..."
 
 #: src/pyams_security_views/zmi/plugin/userfolder.py:72
 msgid "Add local users folder..."
@@ -311,57 +370,6 @@ msgstr ""
 msgid "Change user password"
 msgstr "Modifier le mot de passe"
 
-#: src/pyams_security_views/zmi/plugin/admin.py:46
-msgid "Add admin authentication..."
-msgstr "Ajouter un utilisateur système..."
-
-#: src/pyams_security_views/zmi/plugin/admin.py:83
-msgid "Warning!"
-msgstr "ATTENTION !"
-
-#: src/pyams_security_views/zmi/plugin/admin.py:84
-msgid ""
-"Before disabling plug-in, you should verify that you have other "
-"administration access!"
-msgstr ""
-"Avant de désactiver ce compte, vérifiez bien que vous disposez d'au moins un "
-"autre accès administrateur !"
-
-#: src/pyams_security_views/zmi/plugin/admin.py:93
-msgid ""
-"<strong>Be careful to redefine the password when using some browsers which "
-"are forcing autocompletion!!!</strong><br />Clearing the password will keep "
-"the plug-in active but without the option to log-in with this account; "
-"setting the password value to '*****' will leave the password as-is..."
-msgstr ""
-"<strong>Prenez soin de bien redéfinir le mot de passe lorsque vous utilisez "
-"certains navigateurs qui forcent l'auto-complétion !!!</strong><br />En "
-"effaçant le mot de passe, le compte restera actif mais sans possibilité de "
-"se connecter (il restera utilisable pour des tâches internes) ; en indiquant "
-"la valeur '*****', le mot de passe ne sera pas modifié..."
-
-#: src/pyams_security_views/zmi/plugin/__init__.py:64
-#, python-format
-msgid "New plug-in: {}"
-msgstr "Nouveau module : {}"
-
-#: src/pyams_security_views/zmi/plugin/__init__.py:66
-msgid "New plug-in properties"
-msgstr "Propriétés du nouveau module"
-
-#: src/pyams_security_views/zmi/plugin/__init__.py:103
-msgid "Specified prefix is already used!"
-msgstr "Le préfixe indiqué est déjà utilisé !"
-
-#: src/pyams_security_views/zmi/plugin/__init__.py:147
-msgid "Plug-in properties"
-msgstr "Propriétés du module"
-
-#: src/pyams_security_views/zmi/plugin/__init__.py:174
-#, python-format
-msgid "Plug-in: {}"
-msgstr "Module : {}"
-
 #: src/pyams_security_views/interfaces/login.py:37
 msgid "Login skin"
 msgstr "Thème graphique"
@@ -472,7 +480,9 @@ msgstr "Identifiant"
 
 #: src/pyams_security_views/interfaces/login.py:109
 msgid "Your user ID can be your email address or a custom login"
-msgstr "Votre identifiant peut être votre adresse de messagerie ou un code utilisateur spécifique"
+msgstr ""
+"Votre identifiant peut être votre adresse de messagerie ou un code "
+"utilisateur spécifique"
 
 #: src/pyams_security_views/interfaces/login.py:111
 msgid "Password"
@@ -497,10 +507,6 @@ msgstr "Annuler"
 #: src/pyams_security_views/interfaces/login.py:138
 msgid "Cancel"
 msgstr "Annuler"
-
-#: src/pyams_security_views/widget/principal.py:72
-msgid "No selected principal"
-msgstr "Aucun mandataire sélectionné"
 
 #: src/pyams_security_views/skin/login.py:96
 msgid "Please enter valid credentials"
