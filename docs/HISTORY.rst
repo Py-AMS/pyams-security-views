@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.4.0
+-----
+ - display inherited roles in protected object roles edit forms
+
 2.3.8
 -----
  - updated doctests to match last PyAMS_security package
